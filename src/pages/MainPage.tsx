@@ -1,8 +1,15 @@
+import { Container as MapContainer } from "react-naver-maps";
+import MainBottomSheet from "@/components/BottomSheet/MainBottomSheet.tsx";
+import NaverMaps from "@/components/Map/NaverMap.tsx";
+
 const MainPage = () => {
   return (
-    <div>
-      <h1>Main Page</h1>
-    </div>
+    <>
+      <MapContainer style={{ width: "100%", height: "900px" }}>
+        <NaverMaps />
+      </MapContainer>
+      <MainBottomSheet />
+    </>
   );
 };
 
