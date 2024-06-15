@@ -1,21 +1,27 @@
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
 
-type TokenStore = {
+type AuthStore = {
   accessToken: string | null;
   refreshToken: string | null;
+  userId: string | null;
   setToken: (accessToken: string, refreshToken: string) => void;
+  setUserId: (userId: string) => void;
   removeToken: () => void;
+  removeUserId: () => void;
 };
 
-const tokenStore = create(
-  persist<TokenStore>(
+const authStore = create(
+  persist<AuthStore>(
     (set) => ({
       accessToken: null,
       refreshToken: null,
+      userId: null,
       setToken: (accessToken: string, refreshToken: string) =>
         set({ accessToken, refreshToken }),
-      removeToken: () => set({ accessToken: null, refreshToken: null })
+      setUserId: (userId: string) => set({ userId }),
+      removeToken: () => set({ accessToken: null, refreshToken: null }),
+      removeUserId: () => set({ userId: null })
     }),
     {
       name: "token-storage"
@@ -23,4 +29,4 @@ const tokenStore = create(
   )
 );
 
-export default tokenStore;
+export default authStore;
