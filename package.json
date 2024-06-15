@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "icons": "npx @svgr/cli --config-file ./svgr-config.json --out-dir src/components/icons -- public/assets/svgs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
@@ -41,6 +42,7 @@
     "@storybook/react": "^8.1.5",
     "@storybook/react-vite": "^8.1.5",
     "@storybook/test": "^8.1.5",
+    "@svgr/cli": "^8.1.0",
     "@types/node": "^20.13.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",

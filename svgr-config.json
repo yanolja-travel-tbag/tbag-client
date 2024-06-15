@@ -1,0 +1,16 @@
+{
+  "jsxRuntime": "automatic",
+  "dimensions": false,
+  "typescript": true,
+  "ref": true,
+  "memo": true,
+  "ignoreExisting": true,
+  "replaceAttrValues": {
+    "#FFF": "{props.color || `#FFFFFF`}",
+    "#000": "{props.color || `#000000`}"
+  },
+  "svgProps": {
+    "width": "{props.width || 24}",
+    "height": "{props.height || 24}"
+  }
+}
