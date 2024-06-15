@@ -31,7 +31,8 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^0.9.1"
+    "vaul": "^0.9.1",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
