@@ -2,11 +2,9 @@ import { Outlet } from "react-router-dom";
 
 const BasicLayout = () => {
   return (
-    <div className={"h-dvh w-[390px] mx-auto bg-white"}>
-      <main>
-        <Outlet />
-      </main>
-    </div>
+    <main className={"h-dvh w-[390px] mx-auto bg-white"}>
+      <Outlet />
+    </main>
   );
 };
 
