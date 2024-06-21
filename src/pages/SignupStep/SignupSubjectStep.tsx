@@ -19,24 +19,16 @@ const SignupSubjectStep = () => {
         <h2 className={"text-[12px] text-center"}>{STEP_INFO.description}</h2>
       </p>
       <div className={"flex flex-col gap-[6px] mb-[62px]"}>
-        <Button
-          className={
-            "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
-          }>
-          {"드라마"}
-        </Button>
-        <Button
-          className={
-            "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
-          }>
-          {"영화"}
-        </Button>
-        <Button
-          className={
-            "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
-          }>
-          {"아이돌"}
-        </Button>
+        {["드라마", "영화", "아이돌"].map((subject) => (
+          <Button
+            key={subject}
+            variant={"ghost"}
+            className={
+              "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
+            }>
+            {subject}
+          </Button>
+        ))}
       </div>
       <Button
         className={
