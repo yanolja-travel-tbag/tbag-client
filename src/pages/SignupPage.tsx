@@ -6,15 +6,7 @@ import SignupCompleteStep from "@/pages/SignupStep/SignupCompleteStep.tsx";
 const STEP_INFO = [
   {
     step: 1,
-    name: "주제",
-    title: "관심있는 주제를 모두 선택해주세요.",
-    description: (
-      <span>
-        내게 맞는 여행지 추천을 위해
-        <br /> 관심있는 주제를
-        <span className={"text-main-primary"}>1가지</span> 이상 선택해주세요!
-      </span>
-    )
+    name: "주제"
   },
   {
     step: 2,

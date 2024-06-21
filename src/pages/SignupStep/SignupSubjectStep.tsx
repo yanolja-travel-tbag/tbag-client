@@ -1,7 +1,49 @@
+import { Button } from "@/components/ui/button.tsx";
+
+const STEP_INFO = {
+  title: "관심있는 주제를 모두 선택해주세요.",
+  description: (
+    <span>
+      내게 맞는 여행지 추천을 위해
+      <br /> 관심있는 주제를
+      <span className={"text-main-primary"}>1가지</span> 이상 선택해주세요!
+    </span>
+  )
+};
+
 const SignupSubjectStep = () => {
   return (
-    <div>
-      <h1>SignupSubjectStep</h1>
+    <div className={"flex flex-col items-center"}>
+      <p className={"flex flex-col mt-32 gap-[14px] mb-[55px] items-center"}>
+        <h1 className={"text-[16px] font-semibold"}>{STEP_INFO.title}</h1>
+        <h2 className={"text-[12px] text-center"}>{STEP_INFO.description}</h2>
+      </p>
+      <div className={"flex flex-col gap-[6px] mb-[62px]"}>
+        <Button
+          className={
+            "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
+          }>
+          {"드라마"}
+        </Button>
+        <Button
+          className={
+            "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
+          }>
+          {"영화"}
+        </Button>
+        <Button
+          className={
+            "w-[308px] h-[50px] bg-white border border-main-primary drop-shadow rounded-[10px] text-black"
+          }>
+          {"아이돌"}
+        </Button>
+      </div>
+      <Button
+        className={
+          "w-[123px] h-[34px] rounded-[40px] bg-white border border-main-secondary drop-shadow text-black"
+        }>
+        {"계속하기"}
+      </Button>
     </div>
   );
 };
