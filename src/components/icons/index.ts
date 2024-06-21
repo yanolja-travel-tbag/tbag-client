@@ -1,3 +1,4 @@
+export { default as ArrowLeft } from "./ArrowLeft";
 export { default as GoogleStart } from "./GoogleStart";
 export { default as KakaoStart } from "./KakaoStart";
 export { default as Menus } from "./Menus";
