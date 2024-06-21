@@ -79,6 +79,7 @@ const SignupCategoryStep = () => {
         </div>
       </div>
       <Button
+        variant={"ghost"}
         className={
           "w-[123px] h-[34px] rounded-[40px] bg-white border border-main-secondary drop-shadow text-black p-2"
         }>
