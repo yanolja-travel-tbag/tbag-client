@@ -10,16 +10,7 @@ const STEP_INFO = [
   },
   {
     step: 2,
-    name: "카테고리",
-    title: "관심있는 카테고리를 모두 선택해주세요.",
-    description: (
-      <span>
-        내게 맞는 여행지 추천을 위해
-        <br /> 각 주제당 관심있는 주제를{" "}
-        <span className={"text-main-primary"}>1가지</span> 이상 <br />
-        선택해주세요!
-      </span>
-    )
+    name: "카테고리"
   }
 ];
 
