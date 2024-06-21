@@ -24,7 +24,9 @@ const SignupPage = () => {
           if (info.step === step) {
             if (info.step !== 1) {
               return (
-                <div className={"flex"}>
+                <div
+                  key={info.step}
+                  className={"flex"}>
                   <div
                     className={
                       "flex items-center border border-main-primary w-10 h-0.5 my-auto"
@@ -41,7 +43,9 @@ const SignupPage = () => {
               );
             }
             return (
-              <div className={"flex"}>
+              <div
+                key={info.step}
+                className={"flex"}>
                 <div
                   key={info.step}
                   className={
@@ -60,6 +64,7 @@ const SignupPage = () => {
           if (info.step !== step) {
             return (
               <div
+                key={info.step}
                 className={
                   "flex items-center justify-center w-[30px] h-[30px] rounded-full bg-main-primary cursor-pointer"
                 }
