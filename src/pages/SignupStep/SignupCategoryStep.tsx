@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import getGenres from "@/apis/getGenres.ts";
 import getArtists from "@/apis/getArtists.ts";
 import CategoryItem from "@/components/Item/CategoryItem.tsx";
+import { Dispatch, SetStateAction } from "react";
 
 const STEP_INFO = {
   title: "관심있는 카테고리를 모두 선택해주세요.",
@@ -16,7 +17,11 @@ const STEP_INFO = {
   )
 };
 
-const SignupCategoryStep = () => {
+interface SignupCategoryStepProps {
+  handleNextStep: Dispatch<SetStateAction<"number">>;
+}
+
+const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
   const { data: genreLists } = useQuery({
     queryKey: ["genres"],
     queryFn: getGenres
@@ -82,7 +87,8 @@ const SignupCategoryStep = () => {
         variant={"ghost"}
         className={
           "w-[123px] h-[34px] rounded-[40px] bg-white border border-main-secondary drop-shadow text-black p-2"
-        }>
+        }
+        onClick={() => handleNextStep}>
         {"계속하기"}
       </Button>
     </div>

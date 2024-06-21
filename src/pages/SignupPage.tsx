@@ -22,7 +22,27 @@ const SignupPage = () => {
       <div className={"flex"}>
         {STEP_INFO.map((info) => {
           if (info.step === step) {
-            if (info.step !== 1) {
+            if (info.step === 1) {
+              return (
+                <div
+                  key={info.step}
+                  className={"flex"}>
+                  <div
+                    key={info.step}
+                    className={
+                      "flex items-center justify-center w-[120px] h-[30px] rounded-[15px] bg-main-primary"
+                    }>
+                    {info.name}
+                  </div>
+                  <div
+                    className={
+                      "flex items-center border border-main-primary w-10 h-0.5 my-auto"
+                    }
+                  />
+                </div>
+              );
+            }
+            if (info.step === 2) {
               return (
                 <div
                   key={info.step}
@@ -42,26 +62,8 @@ const SignupPage = () => {
                 </div>
               );
             }
-            return (
-              <div
-                key={info.step}
-                className={"flex"}>
-                <div
-                  key={info.step}
-                  className={
-                    "flex items-center justify-center w-[120px] h-[30px] rounded-[15px] bg-main-primary"
-                  }>
-                  {info.name}
-                </div>
-                <div
-                  className={
-                    "flex items-center border border-main-primary w-10 h-0.5 my-auto"
-                  }
-                />
-              </div>
-            );
           }
-          if (info.step !== step) {
+          if (info.step !== step && step !== 3) {
             return (
               <div
                 key={info.step}
@@ -76,8 +78,8 @@ const SignupPage = () => {
         })}
       </div>
       {/* Signup Steps */}
-      {step === 1 && <SignupSubjectStep />}
-      {step === 2 && <SignupCategoryStep />}
+      {step === 1 && <SignupSubjectStep handleNextStep={() => setStep(2)} />}
+      {step === 2 && <SignupCategoryStep handleNextStep={() => setStep(3)} />}
       {step === 3 && <SignupCompleteStep />}
     </div>
   );

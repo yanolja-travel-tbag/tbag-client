@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button.tsx";
+import { Dispatch, SetStateAction } from "react";
 
 const STEP_INFO = {
   title: "관심있는 주제를 모두 선택해주세요.",
@@ -11,7 +12,11 @@ const STEP_INFO = {
   )
 };
 
-const SignupSubjectStep = () => {
+interface SignupSubjectStepProps {
+  handleNextStep: Dispatch<SetStateAction<"number">>;
+}
+
+const SignupSubjectStep = ({ handleNextStep }: SignupSubjectStepProps) => {
   return (
     <div className={"flex flex-col items-center"}>
       <div className={"flex flex-col mt-32 gap-[14px] mb-[55px] items-center"}>
@@ -34,7 +39,8 @@ const SignupSubjectStep = () => {
         variant={"ghost"}
         className={
           "w-[123px] h-[34px] rounded-[40px] bg-white border border-main-secondary drop-shadow text-black"
-        }>
+        }
+        onClick={() => handleNextStep}>
         {"계속하기"}
       </Button>
     </div>
