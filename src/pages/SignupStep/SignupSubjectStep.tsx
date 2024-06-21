@@ -14,10 +14,10 @@ const STEP_INFO = {
 const SignupSubjectStep = () => {
   return (
     <div className={"flex flex-col items-center"}>
-      <p className={"flex flex-col mt-32 gap-[14px] mb-[55px] items-center"}>
+      <div className={"flex flex-col mt-32 gap-[14px] mb-[55px] items-center"}>
         <h1 className={"text-[16px] font-semibold"}>{STEP_INFO.title}</h1>
         <h2 className={"text-[12px] text-center"}>{STEP_INFO.description}</h2>
-      </p>
+      </div>
       <div className={"flex flex-col gap-[6px] mb-[62px]"}>
         {["드라마", "영화", "아이돌"].map((subject) => (
           <Button

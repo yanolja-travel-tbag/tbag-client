@@ -27,11 +27,11 @@ const SignupCategoryStep = () => {
   });
   return (
     <div className={"flex flex-col items-center"}>
-      <p
+      <div
         className={"flex flex-col mt-[85px] gap-[14px] mb-[36px] items-center"}>
         <h1 className={"text-[16px] font-semibold"}>{STEP_INFO.title}</h1>
         <h2 className={"text-[12px] text-center"}>{STEP_INFO.description}</h2>
-      </p>
+      </div>
       <div className={"flex flex-col gap-[6px] mb-[62px]"}>
         <div className={"flex flex-col gap-[7px]"}>
           <span className={"text-[16px] font-semibold px-[14px]"}>
