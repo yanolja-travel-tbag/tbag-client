@@ -18,7 +18,7 @@ const STEP_INFO = {
 };
 
 interface SignupCategoryStepProps {
-  handleNextStep: Dispatch<SetStateAction<"number">>;
+  handleNextStep: Dispatch<SetStateAction<number>>;
 }
 
 const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
