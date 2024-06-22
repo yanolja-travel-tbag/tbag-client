@@ -16,6 +16,7 @@ const STEP_INFO = [
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
 
   return (
     <div className={"flex flex-col items-center h-dvh"}>
@@ -78,8 +79,14 @@ const SignupPage = () => {
         })}
       </div>
       {/* Signup Steps */}
-      {step === 1 && <SignupSubjectStep handleNextStep={() => setStep(2)} />}
-      {step === 2 && <SignupCategoryStep handleNextStep={() => setStep(3)} />}
+      {step === 1 && (
+        <SignupSubjectStep
+          selectedSubjects={selectedSubjects}
+          setSelectedSubjects={setSelectedSubjects}
+          handleNextStep={setStep}
+        />
+      )}
+      {step === 2 && <SignupCategoryStep handleNextStep={setStep} />}
       {step === 3 && <SignupCompleteStep />}
     </div>
   );
