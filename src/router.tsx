@@ -9,6 +9,7 @@ import SigninPendingPage from "@/pages/SigninPendingPage.tsx";
 import BasicBackLayout from "@/layouts/BasicBackLayout.tsx";
 import BasicBackHeaderLayout from "@/layouts/BasicBackHeaderLayout.tsx";
 import MenusPage from "@/pages/MenusPage.tsx";
+import SignoutPage from "@/pages/SignoutPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
     element: <BasicLayout />,
     children: [
       { path: ROUTER_PATH.SIGNIN, element: <SigninPage /> },
-      { path: ROUTER_PATH.SIGNIN_PENDING, element: <SigninPendingPage /> }
+      { path: ROUTER_PATH.SIGNIN_PENDING, element: <SigninPendingPage /> },
+      { path: ROUTER_PATH.SIGNOUT, element: <SignoutPage /> }
     ]
   },
   {

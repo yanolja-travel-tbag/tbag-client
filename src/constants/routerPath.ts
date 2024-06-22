@@ -3,5 +3,6 @@ export const ROUTER_PATH = {
   SIGNIN: "/signin",
   SIGNIN_PENDING: "/signin/pending/redirect",
   SIGNUP: "/signup",
+  SIGNOUT: "/signout",
   MENUS: "/menus"
 } as const;
