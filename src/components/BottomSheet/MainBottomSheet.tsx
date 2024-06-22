@@ -103,7 +103,7 @@ const MainBottomSheet = () => {
               opts={{
                 loop: true
               }}
-              plugins={[Autoplay({ delay: 2000, stopOnMouseEnter: true })]}>
+              plugins={[Autoplay({ delay: 2000 })]}>
               <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                   <CarouselItem key={index}>
