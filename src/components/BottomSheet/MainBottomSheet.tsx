@@ -4,6 +4,7 @@ import {
   DrawerPortal
 } from "@/components/ui/drawer.tsx";
 import { useState } from "react";
+import { Contents, History, Plane, User } from "@/components/icons";
 
 const MainBottomSheet = () => {
   const [snapPoint, setSnapPoint] = useState<number | string | null>("126px");
@@ -22,12 +23,56 @@ const MainBottomSheet = () => {
           }
           onInteractOutside={() => setSnapPoint("126px")}
           onOpenAutoFocus={(event) => event.preventDefault()}>
-          <div className={"w-full h-full bg-white"}>
-            <div className={"w-full h-[50px] flex items-center justify-center"}>
-              <h1 className={"text-lg font-bold"}>Bottom Sheet</h1>
-            </div>
-            <div className={"w-full h-[calc(100%-50px)]"}>
-              <p className={"text-center"}>Bottom Sheet Content</p>
+          <div className={"w-full h-full bg-white flex justify-center"}>
+            <div className={"flex gap-[22px] mt-[22px]"}>
+              <div
+                className={
+                  "h-16 flex flex-col  items-center pt-[2px] pb-[6px] "
+                }>
+                <Contents
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-4"}>
+                  {"콘텐츠"}
+                </span>
+              </div>
+              <div
+                className={
+                  "h-16 flex flex-col  items-center pt-[2px] pb-[6px] "
+                }>
+                <Plane
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-1"}>
+                  {"여행 일정"}
+                </span>
+              </div>
+              <div
+                className={
+                  "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] "
+                }>
+                <History
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-2"}>
+                  {"히스토리"}
+                </span>
+              </div>
+              <div
+                className={
+                  "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] "
+                }>
+                <User
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-5"}>
+                  {"마이"}
+                </span>
+              </div>
             </div>
           </div>
         </DrawerContent>
