@@ -5,6 +5,9 @@ import getArtists from "@/apis/getArtists.ts";
 import CategoryItem from "@/components/Item/CategoryItem.tsx";
 import { Dispatch, SetStateAction, useState } from "react";
 import { clsx } from "clsx";
+import authStore from "@/store/authStore.ts";
+import postUserSignup from "@/apis/postUserSignup.ts";
+import { toast } from "sonner";
 
 const STEP_INFO = {
   title: "관심있는 카테고리를 모두 선택해주세요.",
@@ -19,10 +22,14 @@ const STEP_INFO = {
 };
 
 interface SignupCategoryStepProps {
+  selectedSubjects: string[];
   handleNextStep: Dispatch<SetStateAction<number>>;
 }
 
-const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
+const SignupCategoryStep = ({
+  selectedSubjects,
+  handleNextStep
+}: SignupCategoryStepProps) => {
   const [selectedMovie, setSelectedMovie] = useState<number[]>([]);
   const [selectedDrama, setSelectedDrama] = useState<number[]>([]);
   const [selectedIdol, setSelectedIdol] = useState<number[]>([]);
@@ -35,6 +42,8 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
     queryKey: ["artists"],
     queryFn: getArtists
   });
+
+  const { userId } = authStore();
 
   const handleSelectCategory = (subject: string, id: number) => {
     switch (subject) {
@@ -65,10 +74,31 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
   };
 
   const handleClickNextStep = () => {
-    console.log("selectedMovie", selectedMovie);
-    console.log("selectedDrama", selectedDrama);
-    console.log("selectedIdol", selectedIdol);
-    // handleNextStep(3);
+    const signupData = {
+      preferredGenres: [
+        {
+          mediaType: "movie",
+          genreIds: selectedMovie
+        },
+        {
+          mediaType: "drama",
+          genreIds: selectedDrama
+        }
+      ],
+      preferredArtists: [
+        {
+          artistIds: selectedIdol
+        }
+      ]
+    };
+    if (userId) {
+      postUserSignup(userId, signupData)
+        .then(() => {
+          toast.success("회원가입 성공!");
+          handleNextStep(3);
+        })
+        .catch(() => toast.error("회원가입 실패!"));
+    }
   };
 
   return (
@@ -80,60 +110,72 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
       </div>
       <div className={"flex flex-col gap-[6px] mb-[62px]"}>
         <div className={"flex flex-col gap-[7px]"}>
-          <span className={"text-[16px] font-semibold px-[14px]"}>
-            {"드라마"}
-          </span>
-          <ul
-            className={
-              "flex flex-wrap gap-x-1 gap-y-[7px] bg-white border border-main-primary drop-shadow rounded-[10px] w-[344px] h-[233px] list-none p-2 overflow-y-scroll"
-            }>
-            {genreLists?.map((genre) => (
-              <CategoryItem
-                className={clsx(
-                  selectedDrama.includes(genre.id) && "bg-main-primary/25"
-                )}
-                onClick={() => handleSelectCategory("drama", genre.id)}
-                key={genre.id}
-                item={genre}
-              />
-            ))}
-          </ul>
-          <span className={"text-[16px] font-semibold px-[14px]"}>
-            {"영화"}
-          </span>
-          <ul
-            className={
-              "flex flex-wrap gap-x-1 gap-y-[7px] bg-white border border-main-primary drop-shadow rounded-[10px] w-[344px] h-[233px] list-none p-2 overflow-y-scroll"
-            }>
-            {genreLists?.map((genre) => (
-              <CategoryItem
-                className={clsx(
-                  selectedMovie.includes(genre.id) && "bg-main-primary/25"
-                )}
-                onClick={() => handleSelectCategory("movie", genre.id)}
-                key={genre.id}
-                item={genre}
-              />
-            ))}
-          </ul>
-          <span className={"text-[16px] font-semibold px-[14px]"}>
-            {"아이돌"}
-          </span>
-          <ul
-            className={
-              "flex flex-wrap gap-x-1 gap-y-[7px] bg-white border border-main-primary drop-shadow rounded-[10px] w-[344px] h-[233px] list-none p-2 overflow-y-scroll"
-            }>
-            {artistLists?.map((artist) => (
-              <CategoryItem
-                className={clsx(
-                  selectedIdol.includes(artist.id) && "bg-main-primary/25"
-                )}
-                onClick={() => handleSelectCategory("artist", artist.id)}
-                key={artist.id}
-                item={artist}
-              />
-            ))}
-          </ul>
+          {selectedSubjects.includes("drama") && (
+            <>
+              <span className={"text-[16px] font-semibold px-[14px]"}>
+                {"드라마"}
+              </span>
+              <ul
+                className={
+                  "flex flex-wrap gap-x-1 gap-y-[7px] bg-white border border-main-primary drop-shadow rounded-[10px] w-[344px] h-[233px] list-none p-2 overflow-y-scroll"
+                }>
+                {genreLists?.map((genre) => (
+                  <CategoryItem
+                    className={clsx(
+                      selectedDrama.includes(genre.id) && "bg-main-primary/25"
+                    )}
+                    onClick={() => handleSelectCategory("drama", genre.id)}
+                    key={genre.id}
+                    item={genre}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
+          {selectedSubjects.includes("movie") && (
+            <>
+              <span className={"text-[16px] font-semibold px-[14px]"}>
+                {"영화"}
+              </span>
+              <ul
+                className={
+                  "flex flex-wrap gap-x-1 gap-y-[7px] bg-white border border-main-primary drop-shadow rounded-[10px] w-[344px] h-[233px] list-none p-2 overflow-y-scroll"
+                }>
+                {genreLists?.map((genre) => (
+                  <CategoryItem
+                    className={clsx(
+                      selectedMovie.includes(genre.id) && "bg-main-primary/25"
+                    )}
+                    onClick={() => handleSelectCategory("movie", genre.id)}
+                    key={genre.id}
+                    item={genre}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
+          {selectedSubjects.includes("artist") && (
+            <>
+              <span className={"text-[16px] font-semibold px-[14px]"}>
+                {"아이돌"}
+              </span>
+              <ul
+                className={
+                  "flex flex-wrap gap-x-1 gap-y-[7px] bg-white border border-main-primary drop-shadow rounded-[10px] w-[344px] h-[233px] list-none p-2 overflow-y-scroll"
+                }>
+                {artistLists?.map((artist) => (
+                  <CategoryItem
+                    className={clsx(
+                      selectedIdol.includes(artist.id) && "bg-main-primary/25"
+                    )}
+                    onClick={() => handleSelectCategory("artist", artist.id)}
+                    key={artist.id}
+                    item={artist}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
       <Button

@@ -13,3 +13,13 @@ export type ArtistItem = {
     eng: string;
   };
 };
+
+export type UserSignupData = {
+  preferredGenres: {
+    mediaType: string;
+    genreIds: number[];
+  }[];
+  preferredArtists: {
+    artistIds: number[];
+  }[];
+};

@@ -86,7 +86,12 @@ const SignupPage = () => {
           handleNextStep={setStep}
         />
       )}
-      {step === 2 && <SignupCategoryStep handleNextStep={setStep} />}
+      {step === 2 && (
+        <SignupCategoryStep
+          selectedSubjects={selectedSubjects}
+          handleNextStep={setStep}
+        />
+      )}
       {step === 3 && <SignupCompleteStep />}
     </div>
   );
