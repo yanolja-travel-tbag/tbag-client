@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import getGenres from "@/apis/getGenres.ts";
 import getArtists from "@/apis/getArtists.ts";
 import CategoryItem from "@/components/Item/CategoryItem.tsx";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { clsx } from "clsx";
 
 const STEP_INFO = {
   title: "관심있는 카테고리를 모두 선택해주세요.",
@@ -22,6 +23,10 @@ interface SignupCategoryStepProps {
 }
 
 const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
+  const [selectedMovie, setSelectedMovie] = useState<number[]>([]);
+  const [selectedDrama, setSelectedDrama] = useState<number[]>([]);
+  const [selectedIdol, setSelectedIdol] = useState<number[]>([]);
+
   const { data: genreLists } = useQuery({
     queryKey: ["genres"],
     queryFn: getGenres
@@ -30,6 +35,42 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
     queryKey: ["artists"],
     queryFn: getArtists
   });
+
+  const handleSelectCategory = (subject: string, id: number) => {
+    switch (subject) {
+      case "drama":
+        if (selectedDrama.includes(id)) {
+          setSelectedDrama(selectedDrama.filter((item) => item !== id));
+        } else {
+          setSelectedDrama([...selectedDrama, id]);
+        }
+        break;
+      case "movie":
+        if (selectedMovie.includes(id)) {
+          setSelectedMovie(selectedMovie.filter((item) => item !== id));
+        } else {
+          setSelectedMovie([...selectedMovie, id]);
+        }
+        break;
+      case "artist":
+        if (selectedIdol.includes(id)) {
+          setSelectedIdol(selectedIdol.filter((item) => item !== id));
+        } else {
+          setSelectedIdol([...selectedIdol, id]);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleClickNextStep = () => {
+    console.log("selectedMovie", selectedMovie);
+    console.log("selectedDrama", selectedDrama);
+    console.log("selectedIdol", selectedIdol);
+    // handleNextStep(3);
+  };
+
   return (
     <div className={"flex flex-col items-center"}>
       <div
@@ -48,6 +89,10 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
             }>
             {genreLists?.map((genre) => (
               <CategoryItem
+                className={clsx(
+                  selectedDrama.includes(genre.id) && "bg-main-primary/25"
+                )}
+                onClick={() => handleSelectCategory("drama", genre.id)}
                 key={genre.id}
                 item={genre}
               />
@@ -62,6 +107,10 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
             }>
             {genreLists?.map((genre) => (
               <CategoryItem
+                className={clsx(
+                  selectedMovie.includes(genre.id) && "bg-main-primary/25"
+                )}
+                onClick={() => handleSelectCategory("movie", genre.id)}
                 key={genre.id}
                 item={genre}
               />
@@ -76,6 +125,10 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
             }>
             {artistLists?.map((artist) => (
               <CategoryItem
+                className={clsx(
+                  selectedIdol.includes(artist.id) && "bg-main-primary/25"
+                )}
+                onClick={() => handleSelectCategory("artist", artist.id)}
                 key={artist.id}
                 item={artist}
               />
@@ -88,7 +141,7 @@ const SignupCategoryStep = ({ handleNextStep }: SignupCategoryStepProps) => {
         className={
           "w-[123px] h-[34px] rounded-[40px] bg-white border border-main-secondary drop-shadow text-black p-2"
         }
-        onClick={() => handleNextStep}>
+        onClick={handleClickNextStep}>
         {"계속하기"}
       </Button>
     </div>
