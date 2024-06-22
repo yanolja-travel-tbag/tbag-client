@@ -1,4 +1,10 @@
 import { Contents, History, Plane, User } from "@/components/icons";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem
+} from "@/components/ui/carousel.tsx";
+import Autoplay from "embla-carousel-autoplay";
 
 const MenusPage = () => {
   return (
@@ -61,6 +67,29 @@ const MenusPage = () => {
             </span>
           </div>
         </div>
+      </div>
+      {/* 서비스 메뉴 하단 영역  */}
+      <div className={"flex flex-col p-[20px] mt-[110px]"}>
+        <span className={"text-font-info text-[14px]"}>
+          자주 묻는 질문 ｜ 고객센터
+        </span>
+        <div className={"h-0.5 border border-background-deep w-full my-5"} />
+        <Carousel
+          opts={{
+            loop: true
+          }}
+          plugins={[Autoplay({ delay: 2000, stopOnMouseEnter: true })]}>
+          <CarouselContent>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index}>
+                <div
+                  className={
+                    "w-full h-[90px] bg-background-deep rounded-[8px] text-black flex items-center justify-center"
+                  }>{`광고-${index}`}</div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </div>
   );
