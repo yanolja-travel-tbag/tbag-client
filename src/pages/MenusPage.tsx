@@ -5,12 +5,56 @@ import {
   CarouselItem
 } from "@/components/ui/carousel.tsx";
 import Autoplay from "embla-carousel-autoplay";
+import authStore from "@/store/authStore.ts";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import getUserSelfData from "@/apis/getUserSelfData.ts";
 
 const MenusPage = () => {
+  const { isRegistered } = authStore();
+  const navigate = useNavigate();
+  const { data } = useQuery({
+    queryKey: ["selfData"],
+    queryFn: getUserSelfData,
+    enabled: Boolean(isRegistered)
+  });
   return (
     <div className={"flex flex-col"}>
-      <div className={"w-full h-[144px] bg-main-primary text-white"}>
-        {"유저 정보 영역"}
+      {/* 유저 정보 영역 */}
+      <div
+        className={
+          "flex flex-col w-full h-[144px] bg-main-primary text-white p-5"
+        }>
+        {isRegistered && (
+          <div className={"flex flex-col gap-10"}>
+            <h1>{`환영합니다! ${data?.nickname} 님`}</h1>
+            <h2 className={"flex"}>
+              <a
+                className={"cursor-pointer"}
+                onClick={() => navigate("/signout")}>
+                {"로그아웃"}
+              </a>
+            </h2>
+          </div>
+        )}
+        {!isRegistered && (
+          <div className={"flex flex-col gap-10"}>
+            <h1>{"환영합니다! 로그인 후 시작하세요."}</h1>
+            <h2 className={"flex gap-2 text-center"}>
+              <a
+                className={"cursor-pointer"}
+                onClick={() => navigate("/signin")}>
+                로그인
+              </a>
+              <span>{" | "}</span>
+              <a
+                className={"cursor-pointer"}
+                onClick={() => navigate("/signup")}>
+                회원가입
+              </a>
+            </h2>
+          </div>
+        )}
       </div>
       {/* 서비스 바로가기 Nav 영역. 컴포넌트 분리 필요 */}
       <div className={"flex flex-col p-[20px]"}>

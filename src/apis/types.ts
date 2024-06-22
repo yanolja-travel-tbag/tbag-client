@@ -23,3 +23,41 @@ export type UserSignupData = {
     artistIds: number[];
   }[];
 };
+
+export type UserSelfData = {
+  userId: number;
+  nickname: string;
+  createdAt: string;
+  marketingAgree: boolean;
+  isActivated: boolean;
+  nickChange: null;
+  lastAccessed: string;
+  socialId: string;
+  socialType: string;
+  isRegistered: boolean;
+  preferredGenres: {
+    drama: {
+      mediaType: string;
+      genreId: number;
+      genreName: {
+        kor: string;
+        eng: string;
+      };
+    }[];
+    movie: {
+      mediaType: string;
+      genreId: number;
+      genreName: {
+        kor: string;
+        eng: string;
+      };
+    }[];
+  };
+  preferredArtists: {
+    artistId: number;
+    artistName: {
+      kor: string;
+      eng: string;
+    };
+  }[];
+};
