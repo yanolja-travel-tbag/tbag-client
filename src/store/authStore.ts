@@ -5,10 +5,12 @@ type AuthStore = {
   accessToken: string | null;
   refreshToken: string | null;
   userId: string | null;
+  isRegistered: boolean | null;
   setToken: (accessToken: string, refreshToken: string) => void;
   setUserId: (userId: string) => void;
+  setRegistered: (isRegistered: boolean) => void;
   removeToken: () => void;
-  removeUserId: () => void;
+  removeAllAuthInfo: () => void;
 };
 
 const authStore = create(
@@ -17,11 +19,19 @@ const authStore = create(
       accessToken: null,
       refreshToken: null,
       userId: null,
+      isRegistered: null,
       setToken: (accessToken: string, refreshToken: string) =>
         set({ accessToken, refreshToken }),
       setUserId: (userId: string) => set({ userId }),
+      setRegistered: (isRegistered: boolean) => set({ isRegistered }),
       removeToken: () => set({ accessToken: null, refreshToken: null }),
-      removeUserId: () => set({ userId: null })
+      removeAllAuthInfo: () =>
+        set({
+          accessToken: null,
+          refreshToken: null,
+          userId: null,
+          isRegistered: null
+        })
     }),
     {
       name: "token-storage"

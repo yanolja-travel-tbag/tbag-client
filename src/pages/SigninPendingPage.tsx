@@ -5,7 +5,7 @@ import authStore from "@/store/authStore.ts";
 const SigninPendingPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { setUserId, setToken } = authStore();
+  const { setUserId, setToken, setRegistered } = authStore();
   useEffect(() => {
     const isMember = searchParams.get("isRegistered") === "true";
     const acToken = searchParams.get("accessToken");
@@ -16,9 +16,11 @@ const SigninPendingPage = () => {
     acToken && rfToken && setToken(acToken, rfToken);
 
     if (isMember) {
+      setRegistered(true);
       navigate("/");
     }
     if (!isMember) {
+      setRegistered(false);
       navigate("/signup");
     }
   }, []);
