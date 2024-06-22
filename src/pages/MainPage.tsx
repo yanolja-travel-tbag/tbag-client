@@ -1,11 +1,63 @@
 import { Container as MapContainer } from "react-naver-maps";
 import MainBottomSheet from "@/components/BottomSheet/MainBottomSheet.tsx";
 import NaverMaps from "@/components/Map/NaverMap.tsx";
+import { clsx } from "clsx";
+import { useState } from "react";
+
+const MARKER_FILTER_LABEL = {
+  all: "전체",
+  drama: "드라마",
+  movie: "영화",
+  artist: "아이돌"
+};
 
 const MainPage = () => {
+  const [markerFilter, setMarkerFilter] =
+    useState<keyof typeof MARKER_FILTER_LABEL>("all");
+
   return (
     <>
-      <MapContainer style={{ width: "100%", height: "100%" }}>
+      <MapContainer
+        className={"relative"}
+        style={{ width: "100%", height: "100%" }}>
+        <div className={"absolute top-[22px] left-[20px] flex gap-2"}>
+          <div
+            className={clsx(
+              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
+              markerFilter === "all" && "bg-font-body text-white"
+            )}
+            onClick={() => setMarkerFilter("all")}>
+            <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.all}</span>
+          </div>
+          <div
+            className={clsx(
+              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
+              markerFilter === "drama" && "bg-font-body text-white"
+            )}
+            onClick={() => setMarkerFilter("drama")}>
+            <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.drama}</span>
+          </div>
+          <div
+            className={clsx(
+              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
+              markerFilter === "movie" && "bg-font-body text-white"
+            )}
+            onClick={() => setMarkerFilter("movie")}>
+            <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.movie}</span>
+          </div>
+          <div
+            className={clsx(
+              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
+              markerFilter === "artist" && "bg-font-body text-white"
+            )}
+            onClick={() => setMarkerFilter("artist")}>
+            <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.artist}</span>
+          </div>
+        </div>
         <NaverMaps />
       </MapContainer>
       <MainBottomSheet />
