@@ -7,6 +7,8 @@ import BasicHeaderLayout from "@/layouts/BasicHeaderLayout.tsx";
 import BasicLayout from "@/layouts/BasicLayout.tsx";
 import SigninPendingPage from "@/pages/SigninPendingPage.tsx";
 import BasicBackLayout from "@/layouts/BasicBackLayout.tsx";
+import BasicBackHeaderLayout from "@/layouts/BasicBackHeaderLayout.tsx";
+import MenusPage from "@/pages/MenusPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,11 @@ const router = createBrowserRouter([
     path: "/",
     element: <BasicBackLayout />,
     children: [{ path: ROUTER_PATH.SIGNUP, element: <SignupPage /> }]
+  },
+  {
+    path: "/",
+    element: <BasicBackHeaderLayout headerTitle={"서비스 메뉴"} />,
+    children: [{ path: ROUTER_PATH.MENUS, element: <MenusPage /> }]
   }
 ]);
 
