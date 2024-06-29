@@ -1,5 +1,6 @@
 import { ArrowLeft, Menus, Search } from "@/components/icons";
 import { useNavigate } from "react-router-dom";
+import SearchDialog from "@/components/Dialog/SearchDialog.tsx";
 
 interface BasicBackHeaderProps {
   headerTitle: string;
@@ -24,10 +25,14 @@ const BasicBackHeader = ({ headerTitle }: BasicBackHeaderProps) => {
         </span>
       </div>
       <div className={"flex items-center gap-x-3.5"}>
-        <Search
-          className={"cursor-pointer"}
-          width={32}
-          height={32}
+        <SearchDialog
+          trigger={
+            <Search
+              className={"cursor-pointer"}
+              width={32}
+              height={32}
+            />
+          }
         />
         <Menus
           width={32}

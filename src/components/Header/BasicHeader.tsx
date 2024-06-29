@@ -1,5 +1,6 @@
 import { Menus, Search, TbagHeaderLogo } from "@/components/icons";
 import { useNavigate } from "react-router-dom";
+import SearchDialog from "@/components/Dialog/SearchDialog.tsx";
 
 const BasicHeader = () => {
   const navigate = useNavigate();
@@ -12,10 +13,14 @@ const BasicHeader = () => {
         height={42}
       />
       <div className={"flex items-center gap-x-3.5"}>
-        <Search
-          className={"cursor-pointer"}
-          width={32}
-          height={32}
+        <SearchDialog
+          trigger={
+            <Search
+              className={"cursor-pointer"}
+              width={32}
+              height={32}
+            />
+          }
         />
         <Menus
           className={"cursor-pointer"}
