@@ -1,16 +1,12 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog.tsx";
 import { ReactNode, useState } from "react";
 import { clsx } from "clsx";
-import { cn } from "@/lib/utils.ts";
-import { SearchIcon } from "lucide-react";
 import { Search } from "@/components/icons";
 
 const SEARCH_FILTER_LABEL = {
