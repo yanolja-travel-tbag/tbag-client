@@ -9,8 +9,10 @@ const BasicHeader = () => {
     <header
       className={"w-full h-[82px] flex items-center px-6 justify-between"}>
       <TbagHeaderLogo
+        className={"cursor-pointer"}
         width={110}
         height={42}
+        onClick={() => navigate("/")}
       />
       <div className={"flex items-center gap-x-3.5"}>
         <SearchDialog

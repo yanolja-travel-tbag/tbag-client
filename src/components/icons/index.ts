@@ -10,4 +10,5 @@ export { default as Search } from "./Search";
 export { default as TbagHeaderLogo } from "./TbagHeaderLogo";
 export { default as TbagLogo } from "./TbagLogo";
 export { default as TbagTitle } from "./TbagTitle";
+export { default as TrashCan } from "./TrashCan";
 export { default as User } from "./User";

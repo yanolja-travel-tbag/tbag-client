@@ -10,12 +10,23 @@ import BasicBackLayout from "@/layouts/BasicBackLayout.tsx";
 import BasicBackHeaderLayout from "@/layouts/BasicBackHeaderLayout.tsx";
 import MenusPage from "@/pages/MenusPage.tsx";
 import SignoutPage from "@/pages/SignoutPage.tsx";
+import SearchResultPage from "@/pages/SearchResultPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <BasicHeaderLayout />,
     children: [{ path: ROUTER_PATH.ROOT, element: <MainPage /> }]
+  },
+  {
+    path: "/",
+    element: <BasicHeaderLayout withFooter />,
+    children: [
+      {
+        path: ROUTER_PATH.SEARCH_RESULT(":type"),
+        element: <SearchResultPage />
+      }
+    ]
   },
   {
     path: "/",
