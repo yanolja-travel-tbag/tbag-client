@@ -8,6 +8,8 @@ import {
 import { ReactNode, useState } from "react";
 import { clsx } from "clsx";
 import { Search } from "@/components/icons";
+import { useQuery } from "@tanstack/react-query";
+import getSearchedContent from "@/apis/getSearchedContent.ts";
 
 const SEARCH_FILTER_LABEL = {
   place: "장소",
@@ -22,6 +24,11 @@ interface SearchDialogProps {
 const SearchDialog = ({ trigger }: SearchDialogProps) => {
   const [searchFilter, setSearchFilter] =
     useState<keyof typeof SEARCH_FILTER_LABEL>("place");
+  const { data } = useQuery({
+    queryKey: ["search", "content"],
+    queryFn: () =>
+      getSearchedContent({ keyword: "해를 품은 달", page: 0, size: 10 })
+  });
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -61,7 +68,13 @@ const SearchDialog = ({ trigger }: SearchDialogProps) => {
           </div>
         </DialogHeader>
         <DialogFooter
-          className={"h-[250px] bg-background-deep w-full p-0"}></DialogFooter>
+          className={
+            "h-[250px] bg-background-deep w-full p-0 sm:justify-start sm:flex-col"
+          }>
+          {data?.content.map((content) => {
+            return <div key={content.contentId}>{content.title}</div>;
+          })}
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

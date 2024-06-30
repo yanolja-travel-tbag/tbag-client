@@ -61,3 +61,53 @@ export type UserSelfData = {
     };
   }[];
 };
+
+export type SearchedContentResponse = {
+  content: SearchedContent[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: Pageable;
+  size: number;
+  sort: Sort;
+  totalElements: number;
+  totalPages: number;
+};
+
+export type SearchedContent = {
+  contentId?: number;
+  contentImages?: string[];
+  genres?: string[];
+  members?: Member[];
+  title?: string;
+  viewCount?: number;
+};
+
+export type Member = {
+  name: string;
+  profilePath: string;
+  stageName: string;
+};
+
+export type Pageable = {
+  offset: number;
+  paged: boolean;
+  pageNumber: number;
+  pageSize: number;
+  sort: PageableSort;
+  unpaged: boolean;
+};
+
+export type PageableSort = {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+};
+
+export type Sort = {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+};
