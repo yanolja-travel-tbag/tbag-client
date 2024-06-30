@@ -23,36 +23,44 @@ const MainPage = () => {
         <div className={"absolute top-[22px] left-[20px] flex gap-2"}>
           <div
             className={clsx(
-              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
-              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
-              markerFilter === "all" && "bg-font-body text-white"
+              "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info",
+              markerFilter === "all"
+                ? "bg-font-body text-white"
+                : "bg-white text-font-info"
             )}
             onClick={() => setMarkerFilter("all")}>
             <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.all}</span>
           </div>
           <div
             className={clsx(
-              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
-              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
-              markerFilter === "drama" && "bg-font-body text-white"
+              "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info",
+              markerFilter === "drama"
+                ? "bg-font-body text-white"
+                : "bg-white text-font-info"
             )}
             onClick={() => setMarkerFilter("drama")}>
             <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.drama}</span>
           </div>
           <div
             className={clsx(
-              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
-              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
-              markerFilter === "movie" && "bg-font-body text-white"
+              "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info",
+              markerFilter === "movie"
+                ? "bg-font-body text-white"
+                : "bg-white text-font-info"
             )}
             onClick={() => setMarkerFilter("movie")}>
             <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.movie}</span>
           </div>
           <div
             className={clsx(
-              "w-fit h-8 bg-white z-10 rounded-[50px] cursor-pointer",
-              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info text-font-info",
-              markerFilter === "artist" && "bg-font-body text-white"
+              "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
+              "flex items-center justify-center text-[12px] drop-shadow-lg border border-font-info",
+              markerFilter === "artist"
+                ? "bg-font-body text-white"
+                : "bg-white text-font-info"
             )}
             onClick={() => setMarkerFilter("artist")}>
             <span className={"my-2 mx-4"}>{MARKER_FILTER_LABEL.artist}</span>
