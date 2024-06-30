@@ -6,31 +6,37 @@ const BasicHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <header
-      className={"w-full h-[82px] flex items-center px-6 justify-between"}>
-      <TbagHeaderLogo
-        className={"cursor-pointer"}
-        width={110}
-        height={42}
-        onClick={() => navigate("/")}
-      />
-      <div className={"flex items-center gap-x-3.5"}>
-        <SearchDialog
-          trigger={
-            <Search
-              className={"cursor-pointer"}
-              width={32}
-              height={32}
-            />
-          }
-        />
-        <Menus
+    <header className={"flex flex-col"}>
+      <div className={"w-full h-[82px] flex items-center px-6 justify-between"}>
+        <TbagHeaderLogo
           className={"cursor-pointer"}
-          width={32}
-          height={32}
-          onClick={() => navigate("/menus")}
+          width={110}
+          height={42}
+          onClick={() => navigate("/")}
         />
+        <div className={"flex items-center gap-x-3.5"}>
+          <SearchDialog
+            trigger={
+              <Search
+                className={"cursor-pointer"}
+                width={32}
+                height={32}
+              />
+            }
+          />
+          <Menus
+            className={"cursor-pointer"}
+            width={32}
+            height={32}
+            onClick={() => navigate("/menus")}
+          />
+        </div>
       </div>
+      <div
+        className={
+          "h-0.5 w-full border border-b-background-deep drop-shadow-sm"
+        }
+      />
     </header>
   );
 };

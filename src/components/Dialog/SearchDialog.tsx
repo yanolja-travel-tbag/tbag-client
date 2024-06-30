@@ -34,7 +34,6 @@ const SearchDialog = ({ trigger }: SearchDialogProps) => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    console.log(searchBarRef.current?.value);
     navigate({
       pathname: "/search/" + searchFilter,
       search: `?keyword=${searchBarRef.current?.value}`
