@@ -4,6 +4,7 @@ import getSearchedPlaces from "@/apis/getSearchedPlaces.ts";
 import getSearchedWorks from "@/apis/getSearchedWorks.ts";
 import getSearchedWorksByActor from "@/apis/getSearchedWorksByActor.ts";
 import getSearchedArtistsByMember from "@/apis/getSearchedArtistsByMember.ts";
+import ContentPreview from "@/components/Preview/ContentPreview.tsx";
 
 const SEARCH_TYPE_LABEL = {
   place: "장소",
@@ -87,9 +88,22 @@ const SearchResultPage = () => {
         className={
           "w-full h-[490px] flex flex-col px-[10px] overflow-y-scroll"
         }>
-        {/*{data?.content.map((content) => (*/}
-        {/*  <ContentPreview key={content.contentId} />*/}
-        {/*))}*/}
+        {getSearchType() === "work" &&
+          searchedWorks?.content.map((work) => (
+            <ContentPreview
+              key={work.contentId}
+              type={"work"}
+              data={work}
+            />
+          ))}
+        {getSearchType() === "place" &&
+          searchedPlaces?.content.map((place) => (
+            <ContentPreview
+              key={place.locationId}
+              type={"place"}
+              data={place}
+            />
+          ))}
       </div>
     </div>
   );
