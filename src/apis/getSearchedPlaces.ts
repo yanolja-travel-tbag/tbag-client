@@ -1,7 +1,7 @@
 import { baseInstance } from "@/apis/index.ts";
-import { SearchedContentResponse } from "@/apis/types.ts";
+import { SearchedPlacesResponse } from "@/apis/types.ts";
 
-const getSearchedContent = async ({
+const getSearchedPlaces = async ({
   keyword,
   page,
   size
@@ -11,8 +11,8 @@ const getSearchedContent = async ({
   size: number;
 }) => {
   try {
-    const response = await baseInstance.get<SearchedContentResponse>(
-      "/public/content/search?keyword=" +
+    const response = await baseInstance.get<SearchedPlacesResponse>(
+      "/public/content-location/search?keyword=" +
         keyword +
         "&page=" +
         page +
@@ -25,4 +25,4 @@ const getSearchedContent = async ({
   }
 };
 
-export default getSearchedContent;
+export default getSearchedPlaces;

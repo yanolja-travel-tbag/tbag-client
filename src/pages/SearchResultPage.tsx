@@ -1,10 +1,40 @@
 import { useLocation } from "react-router-dom";
-import ContentPreview from "@/components/Preview/ContentPreview.tsx";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import getSearchedPlaces from "@/apis/getSearchedPlaces.ts";
+import getSearchedWorks from "@/apis/getSearchedWorks.ts";
+import getSearchedWorksByActor from "@/apis/getSearchedWorksByActor.ts";
+import getSearchedArtistsByMember from "@/apis/getSearchedArtistsByMember.ts";
 
 const SEARCH_TYPE_LABEL = {
   place: "장소",
   work: "작품",
   star: "연예인"
+};
+
+const SearchQueryMap = {
+  place: (keyword: string) => {
+    return queryOptions({
+      queryKey: ["place", keyword],
+      queryFn: () => getSearchedPlaces({ keyword: keyword, page: 0, size: 10 })
+    });
+  },
+  work: (keyword: string) => {
+    return queryOptions({
+      queryKey: ["work", keyword],
+      queryFn: () => getSearchedWorks({ keyword: keyword, page: 0, size: 10 })
+    });
+  },
+  star: (keyword: string) => {
+    return queryOptions({
+      queryKey: ["star", keyword],
+      queryFn: () => {
+        return {
+          works: getSearchedWorksByActor(keyword),
+          artists: getSearchedArtistsByMember(keyword)
+        };
+      }
+    });
+  }
 };
 
 const SearchResultPage = () => {
@@ -21,6 +51,21 @@ const SearchResultPage = () => {
   const getSearchKeyword = () => {
     return decodeURI(location.search.split("=")[1]);
   };
+  const { data: searchedWorks } = useQuery({
+    ...SearchQueryMap.work(getSearchKeyword()),
+    enabled: getSearchType() === "work"
+  });
+
+  const { data: searchedPlaces } = useQuery({
+    ...SearchQueryMap.place(getSearchKeyword()),
+    enabled: getSearchType() === "place"
+  });
+
+  const { data: searchedStars } = useQuery({
+    ...SearchQueryMap.star(getSearchKeyword()),
+    enabled: getSearchType() === "star"
+  });
+
   return (
     <div
       className={"w-full h-fit flex flex-col gap-[20px] mt-[40px] mb-[20px]"}>
@@ -42,12 +87,9 @@ const SearchResultPage = () => {
         className={
           "w-full h-[490px] flex flex-col px-[10px] overflow-y-scroll"
         }>
-        <ContentPreview />
-        <ContentPreview />
-        <ContentPreview />
-        <ContentPreview />
-        <ContentPreview />
-        <ContentPreview />
+        {/*{data?.content.map((content) => (*/}
+        {/*  <ContentPreview key={content.contentId} />*/}
+        {/*))}*/}
       </div>
     </div>
   );
