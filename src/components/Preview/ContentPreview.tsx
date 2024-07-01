@@ -4,19 +4,21 @@ import { SEARCH_TYPE_LABEL } from "@/constants";
 
 interface ContentPreviewProps {
   type: "work" | "place" | "star";
-  data?: SearchedWork | SearchedPlace;
+  data: SearchedWork | SearchedPlace;
 }
 
 const ContentPreview = ({ type, data }: ContentPreviewProps) => {
+  const isSearchedPlace = (data: SearchedPlace): data is SearchedPlace => {
+    return "locationId" in data;
+  };
   const isSearchedWork = (data: SearchedWork): data is SearchedWork => {
     return "genres" in data;
   };
   return (
     <div className={"w-full flex justify-between items-center p-[10px]"}>
       {/* 작품 */}
-      {type === "work" && data && isSearchedWork(data) && (
+      {type === "work" && isSearchedWork(data) && (
         <div className={"flex gap-[14px]"}>
-          {/* TODO: 이미지 대체 */}
           <img
             src={data.contentImages?.[0]}
             alt={data.title}
@@ -58,13 +60,16 @@ const ContentPreview = ({ type, data }: ContentPreviewProps) => {
         </div>
       )}
       {/* 장소 */}
-      {type === "place" && (
+      {type === "place" && !isSearchedWork(data) && isSearchedPlace(data) && (
         <div className={"flex gap-[14px]"}>
-          {/* TODO: 이미지 대체 */}
-          <div className={"w-[80px] h-[100px] rounded-md bg-font-info"} />
+          <img
+            src={data.contentImages[0]}
+            alt={data.placeName}
+            className={"w-[80px] h-[100px] rounded-md"}
+          />
           <div className={"flex flex-col"}>
             <span className={"text-[16px] text-font-head font-semibold"}>
-              {"해를 품은 달 [작품명]"}
+              {`${data.placeName} [${SEARCH_TYPE_LABEL[type]}명]`}
             </span>
             <p
               className={
@@ -75,17 +80,20 @@ const ContentPreview = ({ type, data }: ContentPreviewProps) => {
                   width={12}
                   height={12}
                 />
-                <span>{"드라마"}</span>
+                <span>{data.placeType}</span>
               </span>
               <span className={"flex gap-1 items-center"}>
                 <Camera
                   width={12}
                   height={12}
                 />
-                <span>{"출연 “아티스트” 대표 3~4명"}</span>
+                <span>{`${data.contentGenres[0]} | ${data.contentTitle}`}</span>
               </span>
             </p>
-            <span className={"text-[10px] text-font-info"}>{"조회 999+"}</span>
+            <span
+              className={
+                "text-[10px] text-font-info"
+              }>{`조회 ${data.viewCount}`}</span>
           </div>
         </div>
       )}
