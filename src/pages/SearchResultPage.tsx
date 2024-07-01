@@ -5,12 +5,7 @@ import getSearchedWorks from "@/apis/getSearchedWorks.ts";
 import getSearchedWorksByActor from "@/apis/getSearchedWorksByActor.ts";
 import getSearchedArtistsByMember from "@/apis/getSearchedArtistsByMember.ts";
 import ContentPreview from "@/components/Preview/ContentPreview.tsx";
-
-const SEARCH_TYPE_LABEL = {
-  place: "장소",
-  work: "작품",
-  star: "연예인"
-};
+import { SEARCH_TYPE_LABEL } from "@/constants";
 
 const SearchQueryMap = {
   place: (keyword: string) => {
@@ -81,7 +76,7 @@ const SearchResultPage = () => {
         <h2 className={"text-[16px] text-font-info px-[10px]"}>
           <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
           &nbsp;
-          <span>{`(${1})`}</span>
+          <span>{`(${searchedWorks?.totalElements || searchedPlaces?.totalElements})`}</span>
         </h2>
       </div>
       <div

@@ -1,5 +1,6 @@
 import { Camera, Shortcut, Sort } from "@/components/icons";
 import { SearchedPlace, SearchedWork } from "@/apis/types.ts";
+import { SEARCH_TYPE_LABEL } from "@/constants";
 
 interface ContentPreviewProps {
   type: "work" | "place" | "star";
@@ -23,7 +24,7 @@ const ContentPreview = ({ type, data }: ContentPreviewProps) => {
           />
           <div className={"flex flex-col"}>
             <span className={"text-[16px] text-font-head font-semibold"}>
-              {`${data.title} [${type}명]`}
+              {`${data.title} [${SEARCH_TYPE_LABEL[type]}명]`}
             </span>
             <p
               className={
