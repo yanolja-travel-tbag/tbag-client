@@ -2,8 +2,7 @@ import { useLocation } from "react-router-dom";
 import {
   infiniteQueryOptions,
   queryOptions,
-  useInfiniteQuery,
-  useQuery
+  useInfiniteQuery
 } from "@tanstack/react-query";
 import getSearchedPlaces from "@/apis/getSearchedPlaces.ts";
 import getSearchedWorks from "@/apis/getSearchedWorks.ts";
@@ -25,10 +24,19 @@ const SearchQueryMap = {
     });
   },
   work: (keyword: string) => {
-    return queryOptions({
-      queryKey: ["work", keyword],
-      queryFn: () => getSearchedWorks({ keyword: keyword, page: 0, size: 10 })
-    });
+    // return queryOptions({
+    //   queryKey: ["work", keyword],
+    //   queryFn: () => getSearchedWorks({ keyword: keyword, page: 0, size: 10 })
+    // });
+    return {
+      ...infiniteQueryOptions({
+        queryKey: ["work", keyword],
+        queryFn: ({ pageParam }) =>
+          getSearchedWorks({ keyword: keyword, page: pageParam, size: 10 }),
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => lastPage!.pageable.pageNumber + 1
+      })
+    };
   },
   star: (keyword: string) => {
     return queryOptions({
@@ -61,10 +69,11 @@ const SearchResultPage = () => {
     threshold: 0.5
   });
 
-  const { data: searchedWorks } = useQuery({
-    ...SearchQueryMap.work(getSearchKeyword()),
-    enabled: getSearchType() === "work"
-  });
+  const { data: searchedWorks, fetchNextPage: fetchNextWorks } =
+    useInfiniteQuery({
+      ...SearchQueryMap.work(getSearchKeyword()),
+      enabled: getSearchType() === "work"
+    });
 
   // const { data: searchedPlaces } = useQuery({
   //   ...SearchQueryMap.place(getSearchKeyword()),
@@ -84,6 +93,7 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     isIntersecting && fetchNextPlaces();
+    isIntersecting && fetchNextWorks();
   }, [isIntersecting]);
 
   return (
@@ -100,7 +110,7 @@ const SearchResultPage = () => {
         <h2 className={"text-[16px] text-font-info px-[10px]"}>
           <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
           &nbsp;
-          <span>{`(${searchedWorks?.totalElements || searchedPlaces?.pages[0]?.totalElements || "..."})`}</span>
+          <span>{`(${searchedWorks?.pages[0]?.totalElements || searchedPlaces?.pages[0]?.totalElements || "..."})`}</span>
         </h2>
       </div>
       <div
@@ -108,12 +118,17 @@ const SearchResultPage = () => {
           "w-full h-[490px] flex flex-col px-[10px] overflow-y-scroll"
         }>
         {getSearchType() === "work" &&
-          searchedWorks?.content.map((work) => (
-            <ContentPreview
-              key={work.contentId}
-              type={"work"}
-              data={work}
-            />
+          searchedWorks?.pages.map((workResult, index) => (
+            <Fragment key={index}>
+              {workResult?.content.map((work) => (
+                <ContentPreview
+                  key={work.contentId}
+                  type={"work"}
+                  data={work}
+                />
+              ))}
+              <div ref={bottomRef} />
+            </Fragment>
           ))}
         {getSearchType() === "place" &&
           searchedPlaces?.pages.map((placeResult, index) => (
