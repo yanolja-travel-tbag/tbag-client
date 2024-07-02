@@ -1,17 +1,27 @@
 import { useLocation } from "react-router-dom";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import {
+  infiniteQueryOptions,
+  queryOptions,
+  useInfiniteQuery,
+  useQuery
+} from "@tanstack/react-query";
 import getSearchedPlaces from "@/apis/getSearchedPlaces.ts";
 import getSearchedWorks from "@/apis/getSearchedWorks.ts";
 import getSearchedWorksByActor from "@/apis/getSearchedWorksByActor.ts";
 import getSearchedArtistsByMember from "@/apis/getSearchedArtistsByMember.ts";
 import ContentPreview from "@/components/Preview/ContentPreview.tsx";
 import { SEARCH_TYPE_LABEL } from "@/constants";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver.ts";
+import { Fragment, useEffect } from "react";
 
 const SearchQueryMap = {
   place: (keyword: string) => {
-    return queryOptions({
+    return infiniteQueryOptions({
       queryKey: ["place", keyword],
-      queryFn: () => getSearchedPlaces({ keyword: keyword, page: 0, size: 10 })
+      queryFn: ({ pageParam }) =>
+        getSearchedPlaces({ keyword: keyword, page: pageParam, size: 10 }),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage!.pageable.pageNumber + 1
     });
   },
   work: (keyword: string) => {
@@ -47,20 +57,34 @@ const SearchResultPage = () => {
   const getSearchKeyword = () => {
     return decodeURI(location.search.split("=")[1]);
   };
+  const { ref: bottomRef, isIntersecting } = useIntersectionObserver({
+    threshold: 0.5
+  });
+
   const { data: searchedWorks } = useQuery({
     ...SearchQueryMap.work(getSearchKeyword()),
     enabled: getSearchType() === "work"
   });
 
-  const { data: searchedPlaces } = useQuery({
-    ...SearchQueryMap.place(getSearchKeyword()),
-    enabled: getSearchType() === "place"
-  });
+  // const { data: searchedPlaces } = useQuery({
+  //   ...SearchQueryMap.place(getSearchKeyword()),
+  //   enabled: getSearchType() === "place"
+  // });
 
-  const { data: searchedStars } = useQuery({
-    ...SearchQueryMap.star(getSearchKeyword()),
-    enabled: getSearchType() === "star"
-  });
+  const { data: searchedPlaces, fetchNextPage: fetchNextPlaces } =
+    useInfiniteQuery({
+      ...SearchQueryMap.place(getSearchKeyword()),
+      enabled: getSearchType() === "place"
+    });
+
+  // const { data: searchedStars } = useQuery({
+  //   ...SearchQueryMap.star(getSearchKeyword()),
+  //   enabled: getSearchType() === "star"
+  // });
+
+  useEffect(() => {
+    isIntersecting && fetchNextPlaces();
+  }, [isIntersecting]);
 
   return (
     <div
@@ -76,7 +100,7 @@ const SearchResultPage = () => {
         <h2 className={"text-[16px] text-font-info px-[10px]"}>
           <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
           &nbsp;
-          <span>{`(${searchedWorks?.totalElements || searchedPlaces?.totalElements})`}</span>
+          <span>{`(${searchedWorks?.totalElements || searchedPlaces?.pages[0]?.totalElements || "..."})`}</span>
         </h2>
       </div>
       <div
@@ -92,12 +116,17 @@ const SearchResultPage = () => {
             />
           ))}
         {getSearchType() === "place" &&
-          searchedPlaces?.content.map((place) => (
-            <ContentPreview
-              key={place.locationId}
-              type={"place"}
-              data={place}
-            />
+          searchedPlaces?.pages.map((placeResult, index) => (
+            <Fragment key={index}>
+              {placeResult?.content.map((place) => (
+                <ContentPreview
+                  key={place.locationId}
+                  type={"place"}
+                  data={place}
+                />
+              ))}
+              <div ref={bottomRef} />
+            </Fragment>
           ))}
       </div>
     </div>
