@@ -1,10 +1,5 @@
 import { useLocation } from "react-router-dom";
-import {
-  infiniteQueryOptions,
-  queryOptions,
-  useInfiniteQuery,
-  useQuery
-} from "@tanstack/react-query";
+import { infiniteQueryOptions, useInfiniteQuery } from "@tanstack/react-query";
 import getSearchedPlaces from "@/apis/getSearchedPlaces.ts";
 import getSearchedWorks from "@/apis/getSearchedWorks.ts";
 import getSearchedWorksByActor from "@/apis/getSearchedWorksByActor.ts";
@@ -37,13 +32,27 @@ const SearchQueryMap = {
     };
   },
   star: (keyword: string) => ({
-    works: queryOptions({
+    works: infiniteQueryOptions({
       queryKey: ["star", keyword, "works"],
-      queryFn: () => getSearchedWorksByActor(keyword)
+      queryFn: ({ pageParam }) =>
+        getSearchedWorksByActor({
+          keyword: keyword,
+          page: pageParam,
+          size: 10
+        }),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage!.pageable.pageNumber + 1
     }),
-    artists: queryOptions({
+    artists: infiniteQueryOptions({
       queryKey: ["star", keyword, "artists"],
-      queryFn: () => getSearchedArtistsByMember(keyword)
+      queryFn: ({ pageParam }) =>
+        getSearchedArtistsByMember({
+          keyword: keyword,
+          page: pageParam,
+          size: 10
+        }),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage!.pageable.pageNumber + 1
     })
   })
 };
@@ -78,15 +87,17 @@ const SearchResultPage = () => {
       enabled: getSearchType() === "place"
     });
 
-  const { data: searchedWorksByActor } = useQuery({
-    ...SearchQueryMap.star(getSearchKeyword()).works,
-    enabled: getSearchType() === "star"
-  });
+  const { data: searchedWorksByActor, fetchNextPage: fetchNextWorksByActor } =
+    useInfiniteQuery({
+      ...SearchQueryMap.star(getSearchKeyword()).works,
+      enabled: getSearchType() === "star"
+    });
 
-  const { data: searchedArtists } = useQuery({
-    ...SearchQueryMap.star(getSearchKeyword()).artists,
-    enabled: getSearchType() === "star"
-  });
+  const { data: searchedArtists, fetchNextPage: fetchNextArtists } =
+    useInfiniteQuery({
+      ...SearchQueryMap.star(getSearchKeyword()).artists,
+      enabled: getSearchType() === "star"
+    });
 
   useEffect(() => {
     isIntersecting && fetchNextPlaces();
@@ -121,7 +132,7 @@ const SearchResultPage = () => {
               )}>
               <span onClick={() => setViewType("works")}>{"필모그래피"}</span>
               &nbsp;
-              <span>{`(${searchedWorksByActor?.totalElements})`}</span>
+              <span>{`(${searchedWorksByActor?.pages[0]?.totalElements || "..."})`}</span>
             </h2>
             <h2
               className={clsx(
@@ -130,7 +141,7 @@ const SearchResultPage = () => {
               )}>
               <span onClick={() => setViewType("artists")}>{"아이돌"}</span>
               &nbsp;
-              <span>{`(${searchedArtists?.totalElements})`}</span>
+              <span>{`(${searchedArtists?.pages[0]?.totalElements || "..."})`}</span>
             </h2>
           </div>
         )}
@@ -168,20 +179,30 @@ const SearchResultPage = () => {
         {getSearchType() === "star" && (
           <Fragment>
             {viewType === "works" &&
-              searchedWorksByActor?.content.map((work) => (
-                <ContentPreview
-                  key={work.contentId}
-                  type={"work"}
-                  data={work}
-                />
+              searchedWorksByActor?.pages.map((work, index) => (
+                <Fragment key={index}>
+                  {work?.content.map((work) => (
+                    <ContentPreview
+                      key={work.contentId}
+                      type={"work"}
+                      data={work}
+                    />
+                  ))}
+                  <div ref={bottomRef} />
+                </Fragment>
               ))}
             {viewType === "artists" &&
-              searchedArtists?.content.map((artist) => (
-                <ContentPreview
-                  key={artist.contentId}
-                  type={"star"}
-                  data={artist}
-                />
+              searchedArtists?.pages.map((artist, index) => (
+                <Fragment key={index}>
+                  {artist?.content.map((artist) => (
+                    <ContentPreview
+                      key={artist.contentId}
+                      type={"star"}
+                      data={artist}
+                    />
+                  ))}
+                  <div ref={bottomRef} />
+                </Fragment>
               ))}
           </Fragment>
         )}
