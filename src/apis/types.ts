@@ -161,6 +161,8 @@ export type SearchedArtistsByMember = {
   contentId?: number;
   member?: Member;
   profileImage?: string;
+  viewCount?: number;
+  mediaType?: string;
 };
 
 export type Member = {
