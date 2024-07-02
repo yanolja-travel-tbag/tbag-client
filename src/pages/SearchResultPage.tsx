@@ -2,7 +2,8 @@ import { useLocation } from "react-router-dom";
 import {
   infiniteQueryOptions,
   queryOptions,
-  useInfiniteQuery
+  useInfiniteQuery,
+  useQuery
 } from "@tanstack/react-query";
 import getSearchedPlaces from "@/apis/getSearchedPlaces.ts";
 import getSearchedWorks from "@/apis/getSearchedWorks.ts";
@@ -11,7 +12,8 @@ import getSearchedArtistsByMember from "@/apis/getSearchedArtistsByMember.ts";
 import ContentPreview from "@/components/Preview/ContentPreview.tsx";
 import { SEARCH_TYPE_LABEL } from "@/constants";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver.ts";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { clsx } from "clsx";
 
 const SearchQueryMap = {
   place: (keyword: string) => {
@@ -24,10 +26,6 @@ const SearchQueryMap = {
     });
   },
   work: (keyword: string) => {
-    // return queryOptions({
-    //   queryKey: ["work", keyword],
-    //   queryFn: () => getSearchedWorks({ keyword: keyword, page: 0, size: 10 })
-    // });
     return {
       ...infiniteQueryOptions({
         queryKey: ["work", keyword],
@@ -38,22 +36,21 @@ const SearchQueryMap = {
       })
     };
   },
-  star: (keyword: string) => {
-    return queryOptions({
-      queryKey: ["star", keyword],
-      queryFn: () => {
-        return {
-          works: getSearchedWorksByActor(keyword),
-          artists: getSearchedArtistsByMember(keyword)
-        };
-      }
-    });
-  }
+  star: (keyword: string) => ({
+    works: queryOptions({
+      queryKey: ["star", keyword, "works"],
+      queryFn: () => getSearchedWorksByActor(keyword)
+    }),
+    artists: queryOptions({
+      queryKey: ["star", keyword, "artists"],
+      queryFn: () => getSearchedArtistsByMember(keyword)
+    })
+  })
 };
 
 const SearchResultPage = () => {
   const location = useLocation();
-
+  const [viewType, setViewType] = useState<"works" | "artists">("works");
   const getSearchType = () => {
     const type = location.pathname.split("/")[2];
     if (type in SEARCH_TYPE_LABEL) {
@@ -75,21 +72,21 @@ const SearchResultPage = () => {
       enabled: getSearchType() === "work"
     });
 
-  // const { data: searchedPlaces } = useQuery({
-  //   ...SearchQueryMap.place(getSearchKeyword()),
-  //   enabled: getSearchType() === "place"
-  // });
-
   const { data: searchedPlaces, fetchNextPage: fetchNextPlaces } =
     useInfiniteQuery({
       ...SearchQueryMap.place(getSearchKeyword()),
       enabled: getSearchType() === "place"
     });
 
-  // const { data: searchedStars } = useQuery({
-  //   ...SearchQueryMap.star(getSearchKeyword()),
-  //   enabled: getSearchType() === "star"
-  // });
+  const { data: searchedWorksByActor } = useQuery({
+    ...SearchQueryMap.star(getSearchKeyword()).works,
+    enabled: getSearchType() === "star"
+  });
+
+  const { data: searchedArtists } = useQuery({
+    ...SearchQueryMap.star(getSearchKeyword()).artists,
+    enabled: getSearchType() === "star"
+  });
 
   useEffect(() => {
     isIntersecting && fetchNextPlaces();
@@ -106,12 +103,37 @@ const SearchResultPage = () => {
         &nbsp;
         <span>{"검색 결과"}</span>
       </h1>
-      <div className={"flex flex-col px-[20px] gap-[12px]"}>
-        <h2 className={"text-[16px] text-font-info px-[10px]"}>
-          <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
-          &nbsp;
-          <span>{`(${searchedWorks?.pages[0]?.totalElements || searchedPlaces?.pages[0]?.totalElements || "..."})`}</span>
-        </h2>
+      <div className={"flex px-[20px]"}>
+        {getSearchType() !== "star" ? (
+          // 장소, 작품: 검색 결과 범주가 하나
+          <h2 className={"text-[16px] text-font-info px-[10px]"}>
+            <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
+            &nbsp;
+            <span>{`(${searchedWorks?.pages[0]?.totalElements || searchedPlaces?.pages[0]?.totalElements || "..."})`}</span>
+          </h2>
+        ) : (
+          // 연예인: 검색 결과 범주가 두 개
+          <div className={"flex gap-[15px] items-center"}>
+            <h2
+              className={clsx(
+                "text-[16px] px-[10px] font-semibold cursor-pointer",
+                viewType === "works" ? "text-font-head" : "text-font-info"
+              )}>
+              <span onClick={() => setViewType("works")}>{"필모그래피"}</span>
+              &nbsp;
+              <span>{`(${searchedWorksByActor?.totalElements})`}</span>
+            </h2>
+            <h2
+              className={clsx(
+                "text-[16px] px-[10px] font-semibold cursor-pointer",
+                viewType === "artists" ? "text-font-head" : "text-font-info"
+              )}>
+              <span onClick={() => setViewType("artists")}>{"아이돌"}</span>
+              &nbsp;
+              <span>{`(${searchedArtists?.totalElements})`}</span>
+            </h2>
+          </div>
+        )}
       </div>
       <div
         className={
@@ -143,6 +165,26 @@ const SearchResultPage = () => {
               <div ref={bottomRef} />
             </Fragment>
           ))}
+        {getSearchType() === "star" && (
+          <Fragment>
+            {viewType === "works" &&
+              searchedWorksByActor?.content.map((work) => (
+                <ContentPreview
+                  key={work.contentId}
+                  type={"work"}
+                  data={work}
+                />
+              ))}
+            {viewType === "artists" &&
+              searchedArtists?.content.map((artist) => (
+                <ContentPreview
+                  key={artist.contentId}
+                  type={"star"}
+                  data={artist}
+                />
+              ))}
+          </Fragment>
+        )}
       </div>
     </div>
   );
