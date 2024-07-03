@@ -14,8 +14,10 @@ import {
   CarouselContent,
   CarouselItem
 } from "@/components/ui/carousel.tsx";
+import { useNavigate } from "react-router-dom";
 
 const MainBottomSheet = () => {
+  const navigate = useNavigate();
   const [snapPoint, setSnapPoint] = useState<number | string | null>("126px");
   const { isRegistered } = authStore();
   const { data } = useQuery({
@@ -42,8 +44,9 @@ const MainBottomSheet = () => {
             <div className={"flex gap-[22px] mt-[22px]"}>
               <div
                 className={
-                  "h-16 flex flex-col  items-center pt-[2px] pb-[6px] "
-                }>
+                  "h-16 flex flex-col  items-center pt-[2px] pb-[6px] cursor-pointer"
+                }
+                onClick={() => navigate("/contents")}>
                 <Contents
                   width={38}
                   height={38}

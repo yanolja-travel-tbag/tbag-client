@@ -64,8 +64,9 @@ const MenusPage = () => {
         <div className={"flex gap-[22px]"}>
           <div
             className={
-              "flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px]"
-            }>
+              "flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+            }
+            onClick={() => navigate("/contents")}>
             <Contents
               width={38}
               height={38}
