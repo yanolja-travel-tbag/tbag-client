@@ -1,7 +1,5 @@
 import authStore from "@/store/authStore.ts";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import getUserSelfData from "@/apis/getUserSelfData.ts";
 import {
   Select,
   SelectContent,
@@ -15,10 +13,13 @@ import {
   CarouselContent,
   CarouselItem
 } from "@/components/ui/carousel.tsx";
+import getUserSelfData from "@/apis/getUserSelfData.ts";
+import getRecommended from "@/apis/getRecommended.ts";
+import getTopFiveRecommend from "@/apis/getTopFiveRecommend.ts";
 
 const ContentsPage = () => {
   const { isRegistered } = authStore();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { data: selfData } = useQuery({
     queryKey: ["selfData"],
     queryFn: getUserSelfData,
@@ -29,23 +30,59 @@ const ContentsPage = () => {
     queryFn: getPublicRecommended,
     enabled: Boolean(!isRegistered)
   });
+  const { data: userRecommend } = useQuery({
+    queryKey: ["userRecommendation"],
+    queryFn: getRecommended,
+    enabled: Boolean(isRegistered)
+  });
+  const { data: topFiveMovies } = useQuery({
+    queryKey: ["topFiveMovies"],
+    queryFn: () => getTopFiveRecommend("movie")
+  });
+  const { data: topFiveDramas } = useQuery({
+    queryKey: ["topFiveDramas"],
+    queryFn: () => getTopFiveRecommend("drama")
+  });
+  const { data: topFiveArtists } = useQuery({
+    queryKey: ["topFiveArtists"],
+    queryFn: () => getTopFiveRecommend("artist")
+  });
+
   return (
     <div className={"w-full h-fit flex flex-col"}>
       <section className={"flex flex-col px-[20px] mt-[40px] mb-[14px]"}>
-        {/* 비회원인 경우 노출 */}
         <p className={"text-[20px] font-semibold mb-[20px]"}>
-          <span className={"text-main-primary"}>{"TBAG"}</span>이 추천하는
-          오늘의 콘텐츠
+          {isRegistered ? (
+            <span>
+              <span className={"text-main-primary"}>
+                {selfData?.nickname ?? "..."}
+              </span>
+              님 추천 K 콘텐츠
+            </span>
+          ) : (
+            <span>
+              <span className={"text-main-primary"}>{"TBAG"}</span>이 추천하는
+              오늘의 콘텐츠
+            </span>
+          )}
         </p>
-        {/*<p className={"text-[20px] font-semibold mb-[20px]"}>*/}
-        {/*  <span className={"text-main-primary"}>*/}
-        {/*    {selfData?.nickname ?? "nickname"}*/}
-        {/*  </span>*/}
-        {/*  님 추천 K 콘텐츠*/}
-        {/*</p>*/}
         <Carousel>
           <CarouselContent>
             {publicRecommend?.map((item, index) => (
+              <CarouselItem
+                key={index}
+                className={"flex flex-col basis-1/4"}>
+                <img
+                  src={item.contentImage}
+                  alt={item.contentTitle}
+                  className={"w-[80px] h-[100px] rounded-[5px]"}
+                />
+                <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                  {item.contentTitle}
+                </span>
+              </CarouselItem>
+            ))}
+            {userRecommend?.map((item, index) => (
               <CarouselItem
                 key={index}
                 className={"flex flex-col basis-1/4"}>
@@ -69,7 +106,7 @@ const ContentsPage = () => {
           <span className={"text-main-primary"}>{"필터"}</span>로 콘텐츠를
           찾아보세요
         </p>
-        <div className={"flex gap-[14px] mb-[50px]"}>
+        <div className={"flex gap-[14px] mb-[40px]"}>
           <Select>
             <SelectTrigger className={"w-[100px] h-[30px] rounded-[8px]"}>
               <SelectValue placeholder={"테마 선택"} />
@@ -98,22 +135,67 @@ const ContentsPage = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className={"flex flex-col gap-[12px]"}>
-          <span className={"text-[20px] font-semibold"}>{"드라마 TOP 5"}</span>
+        <div className={"flex flex-col gap-[12px] mb-[20px]"}>
+          <span className={"text-[12px] font-semibold"}>{"드라마 TOP 5"}</span>
           <Carousel>
-            <CarouselContent></CarouselContent>
+            <CarouselContent>
+              {topFiveDramas?.map((item, index) => (
+                <CarouselItem
+                  key={index}
+                  className={"flex flex-col basis-1/4"}>
+                  <img
+                    src={item.contentImage}
+                    alt={item.contentTitle}
+                    className={"w-[80px] h-[100px] rounded-[5px]"}
+                  />
+                  <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                    {item.contentTitle}
+                  </span>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
           </Carousel>
         </div>
-        <div className={"flex flex-col gap-[12px]"}>
-          <span className={"text-[20px] font-semibold"}>{"아이돌 TOP 5"}</span>
+        <div className={"flex flex-col gap-[12px] mb-[20px]"}>
+          <span className={"text-[12px] font-semibold"}>{"아이돌 TOP 5"}</span>
           <Carousel>
-            <CarouselContent></CarouselContent>
+            <CarouselContent>
+              {topFiveArtists?.map((item, index) => (
+                <CarouselItem
+                  key={index}
+                  className={"flex flex-col basis-1/4"}>
+                  <img
+                    src={item.contentImage}
+                    alt={item.contentTitle}
+                    className={"w-[80px] h-[100px] rounded-[5px]"}
+                  />
+                  <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                    {item.contentTitle}
+                  </span>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
           </Carousel>
         </div>
-        <div className={"flex flex-col gap-[12px]"}>
-          <span className={"text-[20px] font-semibold"}>{"영화 TOP 5"}</span>
+        <div className={"flex flex-col gap-[12px] mb-[20px]"}>
+          <span className={"text-[12px] font-semibold"}>{"영화 TOP 5"}</span>
           <Carousel>
-            <CarouselContent></CarouselContent>
+            <CarouselContent>
+              {topFiveMovies?.map((item, index) => (
+                <CarouselItem
+                  key={index}
+                  className={"flex flex-col basis-1/4"}>
+                  <img
+                    src={item.contentImage}
+                    alt={item.contentTitle}
+                    className={"w-[80px] h-[100px] rounded-[5px]"}
+                  />
+                  <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                    {item.contentTitle}
+                  </span>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
           </Carousel>
         </div>
       </section>

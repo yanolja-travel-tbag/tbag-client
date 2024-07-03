@@ -205,7 +205,7 @@ export type Sort = {
   unsorted: boolean;
 };
 
-export type PublicRecommendedContentsResponse = {
+export type RecommendedContentsResponse = {
   contentId: number;
   contentImage: string;
   contentTitle: string;
