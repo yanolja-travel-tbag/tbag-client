@@ -14,4 +14,5 @@ export { default as TbagHeaderLogo } from "./TbagHeaderLogo";
 export { default as TbagLogo } from "./TbagLogo";
 export { default as TbagTitle } from "./TbagTitle";
 export { default as TrashCan } from "./TrashCan";
+export { default as TriangleDown } from "./TriangleDown";
 export { default as User } from "./User";

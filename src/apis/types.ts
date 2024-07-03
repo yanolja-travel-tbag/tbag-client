@@ -204,3 +204,10 @@ export type Sort = {
   sorted: boolean;
   unsorted: boolean;
 };
+
+export type PublicRecommendedContentsResponse = {
+  contentId: number;
+  contentImage: string;
+  contentTitle: string;
+  contentViewCount: number;
+}[];
