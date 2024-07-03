@@ -102,6 +102,8 @@ const SearchResultPage = () => {
   useEffect(() => {
     isIntersecting && fetchNextPlaces();
     isIntersecting && fetchNextWorks();
+    isIntersecting && fetchNextWorksByActor();
+    isIntersecting && fetchNextArtists();
   }, [isIntersecting]);
 
   return (
