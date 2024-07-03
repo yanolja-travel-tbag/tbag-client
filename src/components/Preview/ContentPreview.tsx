@@ -5,10 +5,8 @@ import {
   SearchedWork,
   SearchedWorksByActor
 } from "@/apis/types.ts";
-import { SEARCH_TYPE_LABEL } from "@/constants";
 
 interface ContentPreviewProps {
-  type: "work" | "place" | "star";
   data:
     | SearchedWork
     | SearchedPlace
@@ -16,7 +14,7 @@ interface ContentPreviewProps {
     | SearchedArtistsByMember;
 }
 
-const ContentPreview = ({ type, data }: ContentPreviewProps) => {
+const ContentPreview = ({ data }: ContentPreviewProps) => {
   const isSearchedPlace = (
     data:
       | SearchedWork
@@ -65,7 +63,7 @@ const ContentPreview = ({ type, data }: ContentPreviewProps) => {
           />
           <div className={"flex flex-col"}>
             <span className={"text-[16px] text-font-head font-semibold"}>
-              {`${data.title} [${SEARCH_TYPE_LABEL[type]}명]`}
+              {`${data.title}`}
             </span>
             <p
               className={
@@ -108,7 +106,7 @@ const ContentPreview = ({ type, data }: ContentPreviewProps) => {
           />
           <div className={"flex flex-col"}>
             <span className={"text-[16px] text-font-head font-semibold"}>
-              {`${data.placeName} [${SEARCH_TYPE_LABEL[type]}명]`}
+              {`${data.placeName}`}
             </span>
             <p
               className={

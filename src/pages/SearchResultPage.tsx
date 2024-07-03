@@ -158,7 +158,6 @@ const SearchResultPage = () => {
               {workResult?.content.map((work) => (
                 <ContentPreview
                   key={work.contentId}
-                  type={"work"}
                   data={work}
                 />
               ))}
@@ -171,7 +170,6 @@ const SearchResultPage = () => {
               {placeResult?.content.map((place) => (
                 <ContentPreview
                   key={place.locationId}
-                  type={"place"}
                   data={place}
                 />
               ))}
@@ -186,7 +184,6 @@ const SearchResultPage = () => {
                   {work?.content.map((work) => (
                     <ContentPreview
                       key={work.contentId}
-                      type={"work"}
                       data={work}
                     />
                   ))}
@@ -199,7 +196,6 @@ const SearchResultPage = () => {
                   {artist?.content.map((artist) => (
                     <ContentPreview
                       key={artist.contentId}
-                      type={"star"}
                       data={artist}
                     />
                   ))}
