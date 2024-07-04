@@ -25,8 +25,8 @@ const SelectTrigger = React.forwardRef<
     {children}
     <SelectPrimitive.Icon asChild>
       <TriangleDown
-        width={16}
-        height={16}
+        width={12}
+        height={12}
       />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
