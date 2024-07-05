@@ -85,9 +85,6 @@ const ContentsPage = () => {
       new Event("submit", { bubbles: true, cancelable: true })
     );
   };
-  const handleApplyFilter = (filter: ContentsFilter) => {
-    console.log(filter);
-  };
 
   const mediaFilterOption = filterForm.watch("mediaType");
   const genreFilterOption = filterForm.watch("genreId");
@@ -174,7 +171,6 @@ const ContentsPage = () => {
           <Form {...filterForm}>
             <form
               className={"flex gap-[14px]"}
-              onSubmit={filterForm.handleSubmit(handleApplyFilter)}
               ref={filterFormRef}>
               <FormField
                 control={filterForm.control}
