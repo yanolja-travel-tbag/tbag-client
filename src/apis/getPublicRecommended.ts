@@ -1,9 +1,9 @@
 import { baseInstance } from "@/apis/index.ts";
-import { RecommendedContentsResponse } from "@/apis/types.ts";
+import { Content } from "@/apis/types.ts";
 
 const getPublicRecommended = async () => {
   try {
-    const response = await baseInstance.get<RecommendedContentsResponse>(
+    const response = await baseInstance.get<Content[]>(
       "/public/content/recommended"
     );
     return response.data;

@@ -1,17 +1,11 @@
 export type GenreItem = {
   id: number;
-  name: {
-    kor: string;
-    eng: string;
-  };
+  name: string;
 };
 
 export type ArtistItem = {
   id: number;
-  name: {
-    kor: string;
-    eng: string;
-  };
+  name: string;
 };
 
 export type UserSignupData = {
@@ -39,41 +33,22 @@ export type UserSelfData = {
     drama: {
       mediaType: string;
       genreId: number;
-      genreName: {
-        kor: string;
-        eng: string;
-      };
+      genreName: string;
     }[];
     movie: {
       mediaType: string;
       genreId: number;
-      genreName: {
-        kor: string;
-        eng: string;
-      };
+      genreName: string;
     }[];
   };
   preferredArtists: {
     artistId: number;
-    artistName: {
-      kor: string;
-      eng: string;
-    };
+    artistName: string;
   }[];
 };
 
-export type SearchedWorksResponse = {
+export type SearchedWorksResponse = CommonPageable & {
   content: SearchedWork[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: Pageable;
-  size: number;
-  sort: Sort;
-  totalElements: number;
-  totalPages: number;
 };
 
 export type SearchedWork = {
@@ -85,18 +60,8 @@ export type SearchedWork = {
   viewCount?: number;
 };
 
-export type SearchedPlacesResponse = {
+export type SearchedPlacesResponse = CommonPageable & {
   content: SearchedPlace[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: Pageable;
-  size: number;
-  sort: Sort;
-  totalElements: number;
-  totalPages: number;
 };
 
 export type SearchedPlace = {
@@ -118,18 +83,8 @@ export type SearchedPlace = {
   viewCount: number;
 };
 
-export type SearchedWorksByActorResponse = {
+export type SearchedWorksByActorResponse = CommonPageable & {
   content: SearchedWorksByActor[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: Pageable;
-  size: number;
-  sort: Sort;
-  totalElements: number;
-  totalPages: number;
 };
 
 export type SearchedWorksByActor = {
@@ -142,18 +97,8 @@ export type SearchedWorksByActor = {
   viewCount: number;
 };
 
-export type SearchedArtistsByMemberResponse = {
+export type SearchedArtistsByMemberResponse = CommonPageable & {
   content: SearchedArtistsByMember[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: Pageable;
-  size: number;
-  sort: Sort;
-  totalElements: number;
-  totalPages: number;
 };
 
 export type SearchedArtistsByMember = {
@@ -205,9 +150,26 @@ export type Sort = {
   unsorted: boolean;
 };
 
-export type RecommendedContentsResponse = {
+export type CommonPageable = {
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: Pageable;
+  size: number;
+  sort: Sort;
+  totalElements: number;
+  totalPages: number;
+};
+
+export type Content = {
   contentId: number;
   contentImage: string;
   contentTitle: string;
   contentViewCount: number;
-}[];
+};
+
+export type FilteredContentsResponse = CommonPageable & {
+  content: Content[];
+};

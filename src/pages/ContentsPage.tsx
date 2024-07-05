@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue
@@ -16,6 +17,26 @@ import {
 import getUserSelfData from "@/apis/getUserSelfData.ts";
 import getRecommended from "@/apis/getRecommended.ts";
 import getTopFiveRecommend from "@/apis/getTopFiveRecommend.ts";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage
+} from "@/components/ui/form.tsx";
+import getGenres from "@/apis/getGenres.ts";
+import { useEffect, useRef } from "react";
+import getFilteredContents from "@/apis/getFilteredContents.ts";
+
+const ContentsFilterSchema = z.object({
+  mediaType: z.string(),
+  genreId: z.optional(z.string())
+});
+
+type ContentsFilter = z.infer<typeof ContentsFilterSchema>;
 
 const ContentsPage = () => {
   const { isRegistered } = authStore();
@@ -48,6 +69,50 @@ const ContentsPage = () => {
     queryFn: () => getTopFiveRecommend("artist")
   });
 
+  const { data: genres } = useQuery({
+    queryKey: ["genres"],
+    queryFn: getGenres
+  });
+
+  const filterForm = useForm<ContentsFilter>({
+    resolver: zodResolver(ContentsFilterSchema)
+  });
+
+  const filterFormRef = useRef<HTMLFormElement>(null);
+
+  const handleSelectFilter = () => {
+    filterFormRef.current?.dispatchEvent(
+      new Event("submit", { bubbles: true, cancelable: true })
+    );
+  };
+  const handleApplyFilter = (filter: ContentsFilter) => {
+    console.log(filter);
+  };
+
+  const mediaFilterOption = filterForm.watch("mediaType");
+  const genreFilterOption = filterForm.watch("genreId");
+
+  const { data: filteredContents, refetch: refetchFilteredContents } = useQuery(
+    {
+      queryKey: ["filteredContents", mediaFilterOption],
+      queryFn: () =>
+        getFilteredContents({
+          mediaType: mediaFilterOption,
+          genreId: genreFilterOption
+        }),
+      enabled: Boolean(
+        (mediaFilterOption !== "artist" && genreFilterOption) ||
+          mediaFilterOption === "artist"
+      )
+    }
+  );
+
+  useEffect(() => {
+    if (mediaFilterOption && mediaFilterOption !== "artist") {
+      refetchFilteredContents();
+    }
+  }, [genreFilterOption]);
+
   return (
     <div className={"w-full h-fit flex flex-col"}>
       <section className={"flex flex-col px-[20px] mt-[40px] mb-[14px]"}>
@@ -77,7 +142,7 @@ const ContentsPage = () => {
                   alt={item.contentTitle}
                   className={"w-[80px] h-[100px] rounded-[5px]"}
                 />
-                <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                <span className={"text-[12px] mt-[8px] px-[5px] break-words"}>
                   {item.contentTitle}
                 </span>
               </CarouselItem>
@@ -98,7 +163,6 @@ const ContentsPage = () => {
             ))}
           </CarouselContent>
         </Carousel>
-        {/* TODO: 회원인 경우 노출 */}
       </section>
       <div className={"w-full h-0.5 border border-y-background-deep"} />
       <section className={"flex flex-col px-[20px] mt-[30px]"}>
@@ -107,97 +171,168 @@ const ContentsPage = () => {
           찾아보세요
         </p>
         <div className={"flex gap-[14px] mb-[40px]"}>
-          <Select>
-            <SelectTrigger className={"w-[100px] h-[30px] rounded-[8px]"}>
-              <SelectValue placeholder={"테마 선택"} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={"drama"}>{"드라마"}</SelectItem>
-              <SelectItem value={"movie"}>{"영화"}</SelectItem>
-              <SelectItem value={"artist"}>{"아이돌"}</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className={"w-[100px] h-[30px] rounded-[8px]"}>
-              <SelectValue placeholder={"장르 선택"} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={"adventure"}>{"어드벤처"}</SelectItem>
-              <SelectItem value={"fantasy"}>{"판타지"}</SelectItem>
-              <SelectItem value={"anime"}>{"애니"}</SelectItem>
-              <SelectItem value={"horror"}>{"공포"}</SelectItem>
-              <SelectItem value={"comedy"}>{"코미디"}</SelectItem>
-              <SelectItem value={"history"}>{"역사"}</SelectItem>
-              <SelectItem value={"thriller"}>{"스릴러"}</SelectItem>
-              <SelectItem value={"sf"}>{"SF"}</SelectItem>
-              <SelectItem value={"mystery"}>{"미스터리"}</SelectItem>
-              <SelectItem value={"criminal"}>{"범죄"}</SelectItem>
-            </SelectContent>
-          </Select>
+          <Form {...filterForm}>
+            <form
+              className={"flex gap-[14px]"}
+              onSubmit={filterForm.handleSubmit(handleApplyFilter)}
+              ref={filterFormRef}>
+              <FormField
+                control={filterForm.control}
+                name={"mediaType"}
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        if (value === "artist") {
+                          handleSelectFilter();
+                        }
+                      }}
+                      defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger
+                          className={"w-[100px] h-[30px] rounded-[8px]"}>
+                          <SelectValue placeholder={"테마 선택"} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value={"drama"}>{"드라마"}</SelectItem>
+                          <SelectItem value={"movie"}>{"영화"}</SelectItem>
+                          <SelectItem value={"artist"}>{"아이돌"}</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={filterForm.control}
+                name={"genreId"}
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        handleSelectFilter();
+                      }}
+                      defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger
+                          className={"w-[100px] h-[30px] rounded-[8px]"}>
+                          <SelectValue placeholder={"장르 선택"} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {genres?.map((genre) => (
+                          <SelectItem
+                            key={genre.id}
+                            value={genre.id.toString()}>
+                            {genre.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
         </div>
-        <div className={"flex flex-col gap-[12px] mb-[20px]"}>
-          <span className={"text-[12px] font-semibold"}>{"드라마 TOP 5"}</span>
-          <Carousel>
-            <CarouselContent>
-              {topFiveDramas?.map((item, index) => (
-                <CarouselItem
-                  key={index}
-                  className={"flex flex-col basis-1/4"}>
-                  <img
-                    src={item.contentImage}
-                    alt={item.contentTitle}
-                    className={"w-[80px] h-[100px] rounded-[5px]"}
-                  />
-                  <span className={"text-[12px] mt-[8px] px-[5px]"}>
-                    {item.contentTitle}
-                  </span>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
-        <div className={"flex flex-col gap-[12px] mb-[20px]"}>
-          <span className={"text-[12px] font-semibold"}>{"아이돌 TOP 5"}</span>
-          <Carousel>
-            <CarouselContent>
-              {topFiveArtists?.map((item, index) => (
-                <CarouselItem
-                  key={index}
-                  className={"flex flex-col basis-1/4"}>
-                  <img
-                    src={item.contentImage}
-                    alt={item.contentTitle}
-                    className={"w-[80px] h-[100px] rounded-[5px]"}
-                  />
-                  <span className={"text-[12px] mt-[8px] px-[5px]"}>
-                    {item.contentTitle}
-                  </span>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
-        <div className={"flex flex-col gap-[12px] mb-[20px]"}>
-          <span className={"text-[12px] font-semibold"}>{"영화 TOP 5"}</span>
-          <Carousel>
-            <CarouselContent>
-              {topFiveMovies?.map((item, index) => (
-                <CarouselItem
-                  key={index}
-                  className={"flex flex-col basis-1/4"}>
-                  <img
-                    src={item.contentImage}
-                    alt={item.contentTitle}
-                    className={"w-[80px] h-[100px] rounded-[5px]"}
-                  />
-                  <span className={"text-[12px] mt-[8px] px-[5px]"}>
-                    {item.contentTitle}
-                  </span>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+        {mediaFilterOption ? (
+          <div
+            className={
+              "flex flex-wrap gap-x-[20px] gap-y-[50px] justify-center text-center mb-[40px]"
+            }>
+            {filteredContents?.content.map((content, index) => (
+              <div
+                key={index}
+                className={"flex flex-col basis-[28%]"}>
+                <img
+                  src={content.contentImage}
+                  alt={content.contentTitle}
+                  className={"w-[100px] h-[140px] rounded-[5px]"}
+                />
+                <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                  {content.contentTitle}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className={"flex flex-col gap-[12px] mb-[20px]"}>
+              <span className={"text-[12px] font-semibold"}>
+                {"드라마 TOP 5"}
+              </span>
+              <Carousel>
+                <CarouselContent>
+                  {topFiveDramas?.map((item, index) => (
+                    <CarouselItem
+                      key={index}
+                      className={"flex flex-col basis-1/4"}>
+                      <img
+                        src={item.contentImage}
+                        alt={item.contentTitle}
+                        className={"w-[80px] h-[100px] rounded-[5px]"}
+                      />
+                      <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                        {item.contentTitle}
+                      </span>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+            <div className={"flex flex-col gap-[12px] mb-[20px]"}>
+              <span className={"text-[12px] font-semibold"}>
+                {"아이돌 TOP 5"}
+              </span>
+              <Carousel>
+                <CarouselContent>
+                  {topFiveArtists?.map((item, index) => (
+                    <CarouselItem
+                      key={index}
+                      className={"flex flex-col basis-1/4"}>
+                      <img
+                        src={item.contentImage}
+                        alt={item.contentTitle}
+                        className={"w-[80px] h-[100px] rounded-[5px]"}
+                      />
+                      <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                        {item.contentTitle}
+                      </span>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+            <div className={"flex flex-col gap-[12px] mb-[20px]"}>
+              <span className={"text-[12px] font-semibold"}>
+                {"영화 TOP 5"}
+              </span>
+              <Carousel>
+                <CarouselContent>
+                  {topFiveMovies?.map((item, index) => (
+                    <CarouselItem
+                      key={index}
+                      className={"flex flex-col basis-1/4"}>
+                      <img
+                        src={item.contentImage}
+                        alt={item.contentTitle}
+                        className={"w-[80px] h-[100px] rounded-[5px]"}
+                      />
+                      <span className={"text-[12px] mt-[8px] px-[5px]"}>
+                        {item.contentTitle}
+                      </span>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+          </>
+        )}
       </section>
     </div>
   );
