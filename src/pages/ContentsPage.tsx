@@ -239,7 +239,7 @@ const ContentsPage = () => {
         {mediaFilterOption ? (
           <div
             className={
-              "flex flex-wrap gap-x-[20px] gap-y-[50px] justify-center text-center mb-[40px]"
+              "flex flex-wrap gap-x-[20px] gap-y-[50px] justify-start text-center mb-[40px]"
             }>
             {filteredContents?.content.map((content, index) => (
               <div

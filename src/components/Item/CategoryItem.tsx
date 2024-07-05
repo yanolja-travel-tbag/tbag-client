@@ -14,7 +14,7 @@ const CategoryItem = ({ item, className, ...props }: CategoryItemProps) => {
         className
       )}
       {...props}>
-      {item.name.kor}
+      {item.name}
     </li>
   );
 };
