@@ -19,7 +19,7 @@ const PlacePreview = ({ index, place }: PlacePreviewProps) => {
           alt={place.placeName}
           src={place.image.thumbnailUrl}
           onError={(event) => {
-            event.currentTarget.src = "public/assets/svgs/tbag-logo.svg";
+            event.currentTarget.src = "/assets/tbag-logo.png";
           }}
         />
         <div className={"w-[140px] h-[70px] flex flex-col justify-between"}>
