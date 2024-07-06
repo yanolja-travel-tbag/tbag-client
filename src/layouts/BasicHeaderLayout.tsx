@@ -8,7 +8,7 @@ interface BasicHeaderLayoutProps {
 
 const BasicHeaderLayout = ({ withFooter = false }: BasicHeaderLayoutProps) => {
   return (
-    <main className={"w-[390px] h-dvh mx-auto bg-white"}>
+    <main className={"w-[390px] h-full mx-auto bg-white"}>
       <BasicHeader />
       <Outlet />
       {withFooter && <BasicFooter />}
