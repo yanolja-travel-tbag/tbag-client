@@ -15,11 +15,11 @@ import {
   CarouselItem
 } from "@/components/ui/carousel.tsx";
 import { useNavigate } from "react-router-dom";
-import { clsx } from "clsx";
 import getTopFivePlaces from "@/apis/getTopFivePlaces.ts";
 import PlacePreview from "@/components/Preview/PlacePreview.tsx";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 import getNewFivePlaces from "@/apis/getNewFivePlaces.ts";
+import FilterItem from "@/components/Filter/FilterItem.tsx";
 
 const MARKER_FILTER_LABEL = {
   drama: "드라마",
@@ -30,12 +30,8 @@ const MARKER_FILTER_LABEL = {
 const MainBottomSheet = () => {
   const navigate = useNavigate();
   const [snapPoint, setSnapPoint] = useState<number | string | null>("126px");
-  const [topFivePlacesFilter, setTopFivePlacesFilter] = useState<
-    "drama" | "movie" | "artist"
-  >("drama");
-  const [newPlacesFilter, setNewPlacesFilter] = useState<
-    "drama" | "movie" | "artist"
-  >("drama");
+  const [topFivePlacesFilter, setTopFivePlacesFilter] = useState("drama");
+  const [newPlacesFilter, setNewPlacesFilter] = useState("drama");
   const { isRegistered } = authStore();
   const { data: userSelfData } = useQuery({
     queryKey: ["selfData"],
@@ -158,51 +154,24 @@ const MainBottomSheet = () => {
               <span>{"푸른 바다의 전설, 제주도로 떠나요"}</span>
             </div>
             <section className={"flex flex-col mt-[50px] px-[20px]"}>
-              {/* 필터 영역 */}
               <div className={"flex justify-between"}>
                 <h2 className={"text-[20px] font-semibold"}>
                   {"TOP 5 여행지"}
                 </h2>
                 <div className={"flex gap-2"}>
-                  <div
-                    className={clsx(
-                      "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
-                      "flex items-center justify-center text-[12px] border border-font-info",
-                      topFivePlacesFilter === "drama"
-                        ? "bg-font-body text-white"
-                        : "bg-white text-font-info"
-                    )}
-                    onClick={() => setTopFivePlacesFilter("drama")}>
-                    <span className={"my-2 mx-4"}>
-                      {MARKER_FILTER_LABEL.drama}
-                    </span>
-                  </div>
-                  <div
-                    className={clsx(
-                      "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
-                      "flex items-center justify-center text-[12px] border border-font-info",
-                      topFivePlacesFilter === "movie"
-                        ? "bg-font-body text-white"
-                        : "bg-white text-font-info"
-                    )}
-                    onClick={() => setTopFivePlacesFilter("movie")}>
-                    <span className={"my-2 mx-4"}>
-                      {MARKER_FILTER_LABEL.movie}
-                    </span>
-                  </div>
-                  <div
-                    className={clsx(
-                      "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
-                      "flex items-center justify-center text-[12px] border border-font-info",
-                      topFivePlacesFilter === "artist"
-                        ? "bg-font-body text-white"
-                        : "bg-white text-font-info"
-                    )}
-                    onClick={() => setTopFivePlacesFilter("artist")}>
-                    <span className={"my-2 mx-4"}>
-                      {MARKER_FILTER_LABEL.artist}
-                    </span>
-                  </div>
+                  {Object.keys(MARKER_FILTER_LABEL).map((key) => (
+                    <FilterItem
+                      key={key}
+                      filterValue={key}
+                      filterLabel={
+                        MARKER_FILTER_LABEL[
+                          key as keyof typeof MARKER_FILTER_LABEL
+                        ]
+                      }
+                      currentFilter={topFivePlacesFilter}
+                      setFilter={setTopFivePlacesFilter}
+                    />
+                  ))}
                 </div>
               </div>
               {/* 데이터 영역 */}
@@ -223,45 +192,19 @@ const MainBottomSheet = () => {
               <div className={"flex justify-between"}>
                 <h2 className={"text-[20px] font-semibold"}>{"이달의 신규"}</h2>
                 <div className={"flex gap-2"}>
-                  <div
-                    className={clsx(
-                      "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
-                      "flex items-center justify-center text-[12px] border border-font-info",
-                      newPlacesFilter === "drama"
-                        ? "bg-font-body text-white"
-                        : "bg-white text-font-info"
-                    )}
-                    onClick={() => setNewPlacesFilter("drama")}>
-                    <span className={"my-2 mx-4"}>
-                      {MARKER_FILTER_LABEL.drama}
-                    </span>
-                  </div>
-                  <div
-                    className={clsx(
-                      "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
-                      "flex items-center justify-center text-[12px] border border-font-info",
-                      newPlacesFilter === "movie"
-                        ? "bg-font-body text-white"
-                        : "bg-white text-font-info"
-                    )}
-                    onClick={() => setNewPlacesFilter("movie")}>
-                    <span className={"my-2 mx-4"}>
-                      {MARKER_FILTER_LABEL.movie}
-                    </span>
-                  </div>
-                  <div
-                    className={clsx(
-                      "w-fit h-8 z-10 rounded-[50px] cursor-pointer",
-                      "flex items-center justify-center text-[12px] border border-font-info",
-                      newPlacesFilter === "artist"
-                        ? "bg-font-body text-white"
-                        : "bg-white text-font-info"
-                    )}
-                    onClick={() => setNewPlacesFilter("artist")}>
-                    <span className={"my-2 mx-4"}>
-                      {MARKER_FILTER_LABEL.artist}
-                    </span>
-                  </div>
+                  {Object.keys(MARKER_FILTER_LABEL).map((key) => (
+                    <FilterItem
+                      key={key}
+                      filterValue={key}
+                      filterLabel={
+                        MARKER_FILTER_LABEL[
+                          key as keyof typeof MARKER_FILTER_LABEL
+                        ]
+                      }
+                      currentFilter={newPlacesFilter}
+                      setFilter={setNewPlacesFilter}
+                    />
+                  ))}
                 </div>
               </div>
               {/* 데이터 영역 */}
