@@ -124,7 +124,11 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                   width={12}
                   height={12}
                 />
-                <span>{`${data.contentGenres[0]} | ${data.contentTitle}`}</span>
+                <span>
+                  {data.contentGenres[0]
+                    ? `${data.contentGenres[0]} | ${data.contentTitle}`
+                    : data.contentTitle}
+                </span>
               </span>
             </p>
             <span
