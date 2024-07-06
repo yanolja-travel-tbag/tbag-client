@@ -12,6 +12,8 @@ import { useParams } from "react-router-dom";
 import getContentDetail from "@/apis/getContentDetail.ts";
 import Divider from "@/components/Divider/Divider.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
+import { getRelatedPlaces } from "@/apis/getRelatedPlaces.ts";
+import ContentPreview from "@/components/Preview/ContentPreview.tsx";
 
 const ContentsDetailPage = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -24,11 +26,11 @@ const ContentsDetailPage = () => {
     enabled: Boolean(id)
   });
 
-  // const { data: relatedPlaces } = useQuery({
-  //   queryKey: ["relatedPlaces", id],
-  //   queryFn: () => getRelatedPlaces(id!),
-  //   enabled: Boolean(id)
-  // });
+  const { data: relatedPlaces } = useQuery({
+    queryKey: ["relatedPlaces", id],
+    queryFn: () => getRelatedPlaces(id!),
+    enabled: Boolean(id)
+  });
 
   useEffect(() => {
     if (!carouselApi) {
@@ -135,13 +137,21 @@ const ContentsDetailPage = () => {
         </Carousel>
       </section>
       <Divider className={"my-[25px] border-2"} />
-      <section className={"flex flex-col px-[20px]"}>
+      <section className={"h-fit flex flex-col px-[20px]"}>
         <h3 className={"text-[20px] font-semibold ml-[10px]"}>
           <span className={"text-point-high"}>
             {contentDetail?.title}&nbsp;
           </span>
           <span className={"text-font-body"}>{"관련 장소"}</span>
         </h3>
+        <div className={"flex flex-col mb-[40px]"}>
+          {relatedPlaces?.content.map((place, index) => (
+            <ContentPreview
+              data={place}
+              key={index}
+            />
+          ))}
+        </div>
       </section>
     </div>
   );
