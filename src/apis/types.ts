@@ -173,3 +173,41 @@ export type Content = {
 export type FilteredContentsResponse = CommonPageable & {
   content: Content[];
 };
+
+export type ContentDetail = {
+  contentId: number;
+  contentImages: string[];
+  genres: string[];
+  members: Character[];
+  title: string;
+  viewCount: number;
+};
+
+export type Character = {
+  name: string;
+  profilePath: string;
+  stageName: string;
+};
+
+export type Place = {
+  businessHours: string;
+  contentGenres: string[];
+  contentImages: string[];
+  contentTitle: string;
+  createdAt: string;
+  holiday: string;
+  image: Image;
+  latitude: number;
+  locationId: number;
+  locationString: string;
+  longitude: number;
+  phoneNumber: string;
+  placeDescription: string;
+  placeName: string;
+  placeType: string;
+  viewCount: number;
+};
+
+export type RelatedPlaces = CommonPageable & {
+  content: Place[];
+};

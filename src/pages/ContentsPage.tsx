@@ -30,6 +30,8 @@ import {
 import getGenres from "@/apis/getGenres.ts";
 import { useEffect, useRef } from "react";
 import getFilteredContents from "@/apis/getFilteredContents.ts";
+import Divider from "@/components/Divider/Divider.tsx";
+import { useNavigate } from "react-router-dom";
 
 const ContentsFilterSchema = z.object({
   mediaType: z.string(),
@@ -40,7 +42,7 @@ type ContentsFilter = z.infer<typeof ContentsFilterSchema>;
 
 const ContentsPage = () => {
   const { isRegistered } = authStore();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { data: selfData } = useQuery({
     queryKey: ["selfData"],
     queryFn: getUserSelfData,
@@ -110,6 +112,10 @@ const ContentsPage = () => {
     }
   }, [genreFilterOption]);
 
+  const handleMoveToDetail = (id: number | string) => {
+    navigate(`/contents/${id}`);
+  };
+
   return (
     <div className={"w-full h-fit flex flex-col"}>
       <section className={"flex flex-col px-[20px] mt-[40px] mb-[14px]"}>
@@ -133,7 +139,8 @@ const ContentsPage = () => {
             {publicRecommend?.map((item, index) => (
               <CarouselItem
                 key={index}
-                className={"flex flex-col basis-1/4"}>
+                className={"flex flex-col basis-1/4 cursor-pointer"}
+                onClick={() => handleMoveToDetail(item.contentId)}>
                 <img
                   src={item.contentImage}
                   alt={item.contentTitle}
@@ -147,7 +154,8 @@ const ContentsPage = () => {
             {userRecommend?.map((item, index) => (
               <CarouselItem
                 key={index}
-                className={"flex flex-col basis-1/4"}>
+                className={"flex flex-col basis-1/4 cursor-pointer"}
+                onClick={() => handleMoveToDetail(item.contentId)}>
                 <img
                   src={item.contentImage}
                   alt={item.contentTitle}
@@ -161,7 +169,7 @@ const ContentsPage = () => {
           </CarouselContent>
         </Carousel>
       </section>
-      <div className={"w-full h-0.5 border border-y-background-deep"} />
+      <Divider />
       <section className={"flex flex-col px-[20px] mt-[30px]"}>
         <p className={"text-[20px] font-semibold mb-[22px]"}>
           <span className={"text-main-primary"}>{"필터"}</span>로 콘텐츠를
@@ -244,7 +252,8 @@ const ContentsPage = () => {
             {filteredContents?.content.map((content, index) => (
               <div
                 key={index}
-                className={"flex flex-col basis-[28%]"}>
+                className={"flex flex-col basis-[28%] cursor-pointer"}
+                onClick={() => handleMoveToDetail(content.contentId)}>
                 <img
                   src={content.contentImage}
                   alt={content.contentTitle}
@@ -267,7 +276,8 @@ const ContentsPage = () => {
                   {topFiveDramas?.map((item, index) => (
                     <CarouselItem
                       key={index}
-                      className={"flex flex-col basis-1/4"}>
+                      className={"flex flex-col basis-1/4 cursor-pointer"}
+                      onClick={() => handleMoveToDetail(item.contentId)}>
                       <img
                         src={item.contentImage}
                         alt={item.contentTitle}
@@ -290,7 +300,8 @@ const ContentsPage = () => {
                   {topFiveArtists?.map((item, index) => (
                     <CarouselItem
                       key={index}
-                      className={"flex flex-col basis-1/4"}>
+                      className={"flex flex-col basis-1/4 cursor-pointer"}
+                      onClick={() => handleMoveToDetail(item.contentId)}>
                       <img
                         src={item.contentImage}
                         alt={item.contentTitle}
@@ -313,7 +324,8 @@ const ContentsPage = () => {
                   {topFiveMovies?.map((item, index) => (
                     <CarouselItem
                       key={index}
-                      className={"flex flex-col basis-1/4"}>
+                      className={"flex flex-col basis-1/4 cursor-pointer"}
+                      onClick={() => handleMoveToDetail(item.contentId)}>
                       <img
                         src={item.contentImage}
                         alt={item.contentTitle}

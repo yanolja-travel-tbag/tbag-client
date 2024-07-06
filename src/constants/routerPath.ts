@@ -6,5 +6,6 @@ export const ROUTER_PATH = {
   SIGNOUT: "/signout",
   MENUS: "/menus",
   SEARCH_RESULT: (type: string) => `/search/${type}`,
-  CONTENTS: "/contents"
+  CONTENTS: "/contents",
+  CONTENTS_DETAIL: (id: string) => `/contents/${id}`
 } as const;

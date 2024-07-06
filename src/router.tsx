@@ -12,6 +12,7 @@ import MenusPage from "@/pages/MenusPage.tsx";
 import SignoutPage from "@/pages/SignoutPage.tsx";
 import SearchResultPage from "@/pages/SearchResultPage.tsx";
 import ContentsPage from "@/pages/ContentsPage.tsx";
+import ContentsDetailPage from "@/pages/ContentsDetailPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,16 @@ const router = createBrowserRouter([
     path: "/",
     element: <BasicBackHeaderLayout headerTitle={"콘텐츠"} />,
     children: [{ path: ROUTER_PATH.CONTENTS, element: <ContentsPage /> }]
+  },
+  {
+    path: "/",
+    element: <BasicBackHeaderLayout headerTitle={"콘텐츠 상세"} />,
+    children: [
+      {
+        path: ROUTER_PATH.CONTENTS_DETAIL(":id"),
+        element: <ContentsDetailPage />
+      }
+    ]
   }
 ]);
 
