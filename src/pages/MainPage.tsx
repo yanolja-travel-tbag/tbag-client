@@ -19,7 +19,7 @@ const MainPage = () => {
     <>
       <MapContainer
         className={"relative"}
-        style={{ width: "100%", height: "100%" }}>
+        style={{ width: "100%", height: `calc(100vh - 82px)` }}>
         <div className={"absolute top-[22px] left-[20px] flex gap-2"}>
           <div
             className={clsx(
