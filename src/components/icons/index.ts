@@ -4,6 +4,8 @@ export { default as Contents } from "./Contents";
 export { default as GoogleStart } from "./GoogleStart";
 export { default as History } from "./History";
 export { default as KakaoStart } from "./KakaoStart";
+export { default as Location } from "./Location";
+export { default as MapPlus } from "./MapPlus";
 export { default as Menus } from "./Menus";
 export { default as NonMemberStart } from "./NonMemberStart";
 export { default as Plane } from "./Plane";

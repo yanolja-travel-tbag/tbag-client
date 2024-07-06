@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/carousel.tsx";
 import getUserSelfData from "@/apis/getUserSelfData.ts";
 import getRecommended from "@/apis/getRecommended.ts";
-import getTopFiveRecommend from "@/apis/getTopFiveRecommend.ts";
+import getTopFiveContents from "@/apis/getTopFiveContents.ts";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,15 +60,15 @@ const ContentsPage = () => {
   });
   const { data: topFiveMovies } = useQuery({
     queryKey: ["topFiveMovies"],
-    queryFn: () => getTopFiveRecommend("movie")
+    queryFn: () => getTopFiveContents("movie")
   });
   const { data: topFiveDramas } = useQuery({
     queryKey: ["topFiveDramas"],
-    queryFn: () => getTopFiveRecommend("drama")
+    queryFn: () => getTopFiveContents("drama")
   });
   const { data: topFiveArtists } = useQuery({
     queryKey: ["topFiveArtists"],
-    queryFn: () => getTopFiveRecommend("artist")
+    queryFn: () => getTopFiveContents("artist")
   });
 
   const { data: genres } = useQuery({

@@ -61,26 +61,7 @@ export type SearchedWork = {
 };
 
 export type SearchedPlacesResponse = CommonPageable & {
-  content: SearchedPlace[];
-};
-
-export type SearchedPlace = {
-  businessHours: string;
-  contentGenres: string[];
-  contentImages: string[];
-  contentTitle: string;
-  createdAt: string;
-  holiday: string;
-  image: Image;
-  latitude: number;
-  locationId: number;
-  locationString: string;
-  longitude: number;
-  phoneNumber: string;
-  placeDescription: string;
-  placeName: string;
-  placeType: string;
-  viewCount: number;
+  content: PlaceDetail[];
 };
 
 export type SearchedWorksByActorResponse = CommonPageable & {
@@ -191,6 +172,17 @@ export type Character = {
 
 export type Place = {
   businessHours: string;
+  image: Image;
+  isInSchedule: boolean;
+  locationId: number;
+  locationString: string;
+  placeName: string;
+  placeType: string;
+  viewCount: number;
+};
+
+export type PlaceDetail = {
+  businessHours: string;
   contentGenres: string[];
   contentImages: string[];
   contentTitle: string;
@@ -209,5 +201,5 @@ export type Place = {
 };
 
 export type RelatedPlaces = CommonPageable & {
-  content: Place[];
+  content: PlaceDetail[];
 };
