@@ -3,7 +3,9 @@ import { baseInstance } from "@/apis/index.ts";
 
 const getContentDetail = async (id: string) => {
   try {
-    const response = await baseInstance.get<ContentDetail>("/content/" + id);
+    const response = await baseInstance.get<ContentDetail>(
+      "/public/content/" + id
+    );
     return response.data;
   } catch (error) {
     console.error(error);

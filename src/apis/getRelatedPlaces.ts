@@ -4,7 +4,7 @@ import { RelatedPlaces } from "@/apis/types.ts";
 export const getRelatedPlaces = async (id: string) => {
   try {
     const response = await baseInstance.get<RelatedPlaces>(
-      "/content/" + id + "/related-location"
+      "/public/content/" + id + "/related-locations"
     );
     return response.data;
   } catch (error) {
