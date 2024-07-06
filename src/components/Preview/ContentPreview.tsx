@@ -1,7 +1,7 @@
 import { Camera, Shortcut, Sort } from "@/components/icons";
 import {
   SearchedArtistsByMember,
-  SearchedPlace,
+  PlaceDetail,
   SearchedWork,
   SearchedWorksByActor
 } from "@/apis/types.ts";
@@ -9,19 +9,19 @@ import {
 interface ContentPreviewProps {
   data:
     | SearchedWork
-    | SearchedPlace
+    | PlaceDetail
     | SearchedWorksByActor
     | SearchedArtistsByMember;
 }
 
 const ContentPreview = ({ data }: ContentPreviewProps) => {
-  const isSearchedPlace = (
+  const isPlaceDetail = (
     data:
       | SearchedWork
       | SearchedWorksByActor
       | SearchedArtistsByMember
-      | SearchedPlace
-  ): data is SearchedPlace => {
+      | PlaceDetail
+  ): data is PlaceDetail => {
     return "locationId" in data;
   };
   const isSearchedWork = (
@@ -29,7 +29,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       | SearchedWork
       | SearchedWorksByActor
       | SearchedArtistsByMember
-      | SearchedPlace
+      | PlaceDetail
   ): data is SearchedWork => {
     return "genres" in data;
   };
@@ -38,7 +38,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       | SearchedWork
       | SearchedWorksByActor
       | SearchedArtistsByMember
-      | SearchedPlace
+      | PlaceDetail
   ): data is SearchedWorksByActor => {
     return "posterPath" in data;
   };
@@ -47,7 +47,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       | SearchedWork
       | SearchedWorksByActor
       | SearchedArtistsByMember
-      | SearchedPlace
+      | PlaceDetail
   ): data is SearchedArtistsByMember => {
     return "member" in data;
   };
@@ -97,7 +97,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
         </div>
       )}
       {/* 장소 */}
-      {isSearchedPlace(data) && (
+      {isPlaceDetail(data) && (
         <div className={"flex gap-[14px]"}>
           <img
             src={data.contentImages[0]}
