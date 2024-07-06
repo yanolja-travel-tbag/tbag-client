@@ -50,6 +50,9 @@ importers:
       embla-carousel-react:
         specifier: ^8.1.5
         version: 8.1.5(react@18.3.1)
+      lodash.debounce:
+        specifier: ^4.0.8
+        version: 4.0.8
       lucide-react:
         specifier: ^0.381.0
         version: 0.381.0(react@18.3.1)
@@ -120,6 +123,12 @@ importers:
       '@svgr/cli':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.4.5)
+      '@types/lodash.debounce':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/navermaps':
+        specifier: ^3.7.5
+        version: 3.7.5
       '@types/node':
         specifier: ^20.13.0
         version: 20.13.0
@@ -2084,6 +2093,9 @@ packages:
   '@types/find-cache-dir@3.2.1':
     resolution: {integrity: sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==}
 
+  '@types/geojson@7946.0.14':
+    resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
+
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
 
@@ -2099,6 +2111,9 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
+  '@types/lodash.debounce@4.0.9':
+    resolution: {integrity: sha512-Ma5JcgTREwpLRwMM+XwBR7DaWe96nC38uCBDFKZWbNKD+osjVzdpnUSwBcqCptrp16sSOLBAUb50Car5I0TCsQ==}
+
   '@types/lodash@4.17.4':
     resolution: {integrity: sha512-wYCP26ZLxaT3R39kiN2+HcJ4kTd3U1waI/cY7ivWYqFP6pW3ZNpvi6Wd6PHZx7T/t8z0vlkXMg3QYLa7DZ/IJQ==}
 
@@ -2110,6 +2125,9 @@ packages:
 
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
+
+  '@types/navermaps@3.7.5':
+    resolution: {integrity: sha512-RzqYi0K5xhs45+KLkeoWjz2niDjVwKMYS1/LKns2LH9L7LEMVabdmyhP7n/6fzdJnbHc1wD1Dz+lFKOgq4yzJQ==}
 
   '@types/node@18.19.33':
     resolution: {integrity: sha512-NR9+KrpSajr2qBVp/Yt5TU/rp+b5Mayi3+OlMlcg2cVCfRmcG5PWZ7S4+MG9PZ5gWBoc9Pd0BKSRViuBCRPu0A==}
@@ -7506,6 +7524,8 @@ snapshots:
 
   '@types/find-cache-dir@3.2.1': {}
 
+  '@types/geojson@7946.0.14': {}
+
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
@@ -7521,6 +7541,10 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
+  '@types/lodash.debounce@4.0.9':
+    dependencies:
+      '@types/lodash': 4.17.4
+
   '@types/lodash@4.17.4': {}
 
   '@types/mdx@2.0.13': {}
@@ -7528,6 +7552,10 @@ snapshots:
   '@types/mime@1.3.5': {}
 
   '@types/minimatch@5.1.2': {}
+
+  '@types/navermaps@3.7.5':
+    dependencies:
+      '@types/geojson': 7946.0.14
 
   '@types/node@18.19.33':
     dependencies:

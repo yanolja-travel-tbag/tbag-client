@@ -3,6 +3,7 @@ import MainBottomSheet from "@/components/BottomSheet/MainBottomSheet.tsx";
 import NaverMaps from "@/components/Map/NaverMap.tsx";
 import { useState } from "react";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
+import { MARKER_ARTIST, MARKER_DRAMA, MARKER_MOVIE } from "@/constants/mock.ts";
 
 const MARKER_FILTER_LABEL = {
   all: "전체",
@@ -11,8 +12,15 @@ const MARKER_FILTER_LABEL = {
   artist: "아이돌"
 };
 
+const TEMP_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
+
 const MainPage = () => {
   const [markerFilter, setMarkerFilter] = useState("all");
+  // const { data: markerData } = useSuspenseQuery({
+  //   queryKey: ["markers", markerFilter],
+  //   queryFn: () => getMarker(markerFilter),
+  //   staleTime: 1000 * 60 * 5 // 5분
+  // });
 
   return (
     <>
@@ -32,7 +40,7 @@ const MainPage = () => {
             />
           ))}
         </div>
-        <NaverMaps />
+        <NaverMaps markerData={TEMP_MARKER_DATA} />
       </MapContainer>
       <MainBottomSheet />
     </>

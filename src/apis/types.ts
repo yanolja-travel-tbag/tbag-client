@@ -203,3 +203,11 @@ export type PlaceDetail = {
 export type RelatedPlaces = CommonPageable & {
   content: PlaceDetail[];
 };
+
+export type MarkerData = {
+  contentMediaType: string;
+  contentTitle: string;
+  latitude: number;
+  locationId: number;
+  longitude: number;
+};

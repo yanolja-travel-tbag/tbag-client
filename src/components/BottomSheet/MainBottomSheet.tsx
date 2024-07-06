@@ -17,7 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import getTopFivePlaces from "@/apis/getTopFivePlaces.ts";
 import PlacePreview from "@/components/Preview/PlacePreview.tsx";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
+import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 import getNewFivePlaces from "@/apis/getNewFivePlaces.ts";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
 
@@ -63,8 +63,7 @@ const MainBottomSheet = () => {
           }
           onInteractOutside={() => setSnapPoint("126px")}
           onOpenAutoFocus={(event) => event.preventDefault()}>
-          <ScrollArea className={"h-[75%] scrollbar-hide"}>
-            <ScrollBar className={"scrollbar-hide"} />
+          <ScrollArea className={"h-[75%]"}>
             <div className={"bg-white flex flex-col items-center"}>
               <div className={"flex gap-[22px] mt-[22px]"}>
                 <div

@@ -6,4 +6,10 @@
   body {
     @apply bg-gray-100;
   }
+  .marker_layout {
+    @apply flex flex-col items-center
+  }
+  .marker_label {
+    @apply text-sm font-semibold -mt-1
+  }
 }
