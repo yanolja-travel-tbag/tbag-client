@@ -8,11 +8,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog.tsx";
+import dialogStore from "@/store/dialogStore.ts";
 
 const NeedLoginDialog = () => {
+  const { isNeedLoginDialogOpen, setIsNeedLoginDialogOpen } = dialogStore();
   return (
-    <AlertDialog open={true}>
-      <AlertDialogContent className={"w-[272px] h-[190px]"}>
+    <AlertDialog open={isNeedLoginDialogOpen}>
+      <AlertDialogContent
+        className={"w-[280px] h-[190px] px-[30px] py-[24px] rounded-[8px]"}>
         <AlertDialogHeader className={"flex justify-center items-center"}>
           <AlertDialogTitle className={"text-[16px] text-main-tertiary"}>
             로그인 연결
@@ -21,14 +24,16 @@ const NeedLoginDialog = () => {
             로그인하고 <br /> 모든 기능을 이용하세요!
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className={"flex justify-between"}>
+        <AlertDialogFooter
+          className={"flex flex-row justify-between items-center"}>
           <AlertDialogAction className={"w-[100px] h-[40px] bg-main-tertiary"}>
             확인
           </AlertDialogAction>
           <AlertDialogCancel
             className={
-              "w-[100px] h-[40px] bg-background-deep text-font-info outline-0 border-0"
-            }>
+              "w-[100px] h-[40px] bg-background-deep text-font-info outline-0 border-0 mt-0"
+            }
+            onClick={() => setIsNeedLoginDialogOpen(false)}>
             취소
           </AlertDialogCancel>
         </AlertDialogFooter>

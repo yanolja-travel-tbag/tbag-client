@@ -21,6 +21,7 @@ import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 import getNewFivePlaces from "@/apis/getNewFivePlaces.ts";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
 import bottomSheetStore from "@/store/bottomSheetStore.ts";
+import usePrivateNavigate from "@/hooks/usePrivateNavigate.ts";
 
 const MARKER_FILTER_LABEL = {
   drama: "드라마",
@@ -30,6 +31,7 @@ const MARKER_FILTER_LABEL = {
 
 const MainBottomSheet = () => {
   const navigate = useNavigate();
+  const { privateNavigate } = usePrivateNavigate();
   const [snapPoint, setSnapPoint] = useState<number | string | null>("126px");
   const [topFivePlacesFilter, setTopFivePlacesFilter] = useState("drama");
   const [newPlacesFilter, setNewPlacesFilter] = useState("drama");
@@ -83,8 +85,9 @@ const MainBottomSheet = () => {
                 </div>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center pt-[2px] pb-[6px] "
-                  }>
+                    "h-16 flex flex-col  items-center pt-[2px] pb-[6px] cursor-pointer"
+                  }
+                  onClick={() => privateNavigate("/schedule")}>
                   <Plane
                     width={38}
                     height={38}
