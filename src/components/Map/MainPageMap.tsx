@@ -15,7 +15,7 @@ const MARKER_ICON_PATH = {
   artist: "/assets/marker-artist.png"
 };
 
-const NaverMaps = ({ markerData }: NaverMapsProps) => {
+const MainPageMap = ({ markerData }: NaverMapsProps) => {
   const [markers, setMarkers] = useState<MarkerData[]>(markerData ?? []);
   const maps = useNavermaps();
   const [map, setMap] = useState<naver.maps.Map | null>();
@@ -108,4 +108,4 @@ const NaverMaps = ({ markerData }: NaverMapsProps) => {
   );
 };
 
-export default NaverMaps;
+export default MainPageMap;

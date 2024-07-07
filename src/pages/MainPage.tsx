@@ -1,10 +1,11 @@
 import { Container as MapContainer } from "react-naver-maps";
 import MainBottomSheet from "@/components/BottomSheet/MainBottomSheet.tsx";
-import NaverMaps from "@/components/Map/NaverMap.tsx";
 import { useState } from "react";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
 import { MARKER_ARTIST, MARKER_DRAMA, MARKER_MOVIE } from "@/constants/mock.ts";
 import PlaceDetailBottomSheet from "@/components/BottomSheet/PlaceDetailBottomSheet.tsx";
+import MainPageMap from "@/components/Map/MainPageMap.tsx";
+import NeedLoginDialog from "@/components/Dialog/NeedLoginDialog.tsx";
 
 const MARKER_FILTER_LABEL = {
   all: "전체",
@@ -41,10 +42,11 @@ const MainPage = () => {
             />
           ))}
         </div>
-        <NaverMaps markerData={TEMP_MARKER_DATA} />
+        <MainPageMap markerData={TEMP_MARKER_DATA} />
       </MapContainer>
       <MainBottomSheet />
       <PlaceDetailBottomSheet />
+      <NeedLoginDialog />
     </>
   );
 };
