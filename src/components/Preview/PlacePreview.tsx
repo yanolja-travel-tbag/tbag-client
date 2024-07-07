@@ -17,7 +17,9 @@ const PlacePreview = ({ index, place }: PlacePreviewProps) => {
         <img
           className={"w-[70px] h-[70px] rounded-[5px]"}
           alt={place.placeName}
-          src={place.image.thumbnailUrl}
+          src={
+            place.image ? place.image.imageUrl : "/assets/tbag-fallback-sm.png"
+          }
           onError={(event) => {
             event.currentTarget.src = "/assets/tbag-fallback-sm.png";
           }}

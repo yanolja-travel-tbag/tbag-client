@@ -198,6 +198,7 @@ export type PlaceDetail = {
   placeName: string;
   placeType: string;
   viewCount: number;
+  website?: string;
 };
 
 export type RelatedPlaces = CommonPageable & {
@@ -227,10 +228,16 @@ export type MarkerDataDetail = {
 };
 
 export type Schedule = {
-  userId?: number;
   id: number;
   name: string;
   startDate: string;
   endDate: string;
-  createdAt?: string;
+  createdAt: string;
+};
+
+export type PostScheduleRequest = {
+  userId: number;
+  name: string;
+  startDate: string;
+  endDate: string;
 };

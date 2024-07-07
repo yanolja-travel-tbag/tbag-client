@@ -100,7 +100,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       {isPlaceDetail(data) && (
         <div className={"flex gap-[14px]"}>
           <img
-            src={data.image.imageUrl}
+            src={
+              data.image ? data.image.imageUrl : "/assets/tbag-fallback-md.png"
+            }
             alt={data.placeName}
             className={"w-[80px] h-[100px] rounded-md"}
             onError={(event) => {
