@@ -69,9 +69,8 @@ const SignupPage = () => {
               <div
                 key={info.step}
                 className={
-                  "flex items-center justify-center w-[30px] h-[30px] rounded-full bg-main-primary cursor-pointer"
-                }
-                onClick={() => setStep(info.step)}>
+                  "flex items-center justify-center w-[30px] h-[30px] rounded-full bg-main-primary"
+                }>
                 {info.step}
               </div>
             );
