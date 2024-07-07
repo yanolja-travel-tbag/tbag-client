@@ -9,6 +9,8 @@ type BottomSheetStore = {
   setPlaceDetailBottomSheetSnapPoint: (
     snapPoint: number | string | null
   ) => void;
+  placeDetailId: number | null;
+  setPlaceDetailId: (id: number | null) => void;
 };
 
 const bottomSheetStore = create<BottomSheetStore>((set) => ({
@@ -20,7 +22,9 @@ const bottomSheetStore = create<BottomSheetStore>((set) => ({
     set({ isPlaceDetailBottomSheetOpen: isOpen }),
   placeDetailBottomSheetSnapPoint: 0.8,
   setPlaceDetailBottomSheetSnapPoint: (snapPoint: number | string | null) =>
-    set({ placeDetailBottomSheetSnapPoint: snapPoint })
+    set({ placeDetailBottomSheetSnapPoint: snapPoint }),
+  placeDetailId: null,
+  setPlaceDetailId: (id: number | null) => set({ placeDetailId: id })
 }));
 
 export default bottomSheetStore;

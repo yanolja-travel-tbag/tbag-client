@@ -204,6 +204,10 @@ export type RelatedPlaces = CommonPageable & {
   content: PlaceDetail[];
 };
 
+export type RecommendedPlaces = CommonPageable & {
+  content: PlaceDetail[];
+};
+
 export type MarkerData = {
   contentMediaType: string;
   contentTitle: string;

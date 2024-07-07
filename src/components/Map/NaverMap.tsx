@@ -34,7 +34,8 @@ const NaverMaps = ({ markerData }: NaverMapsProps) => {
 
   const {
     setIsPlaceDetailBottomSheetOpen,
-    setPlaceDetailBottomSheetSnapPoint
+    setPlaceDetailBottomSheetSnapPoint,
+    setPlaceDetailId
   } = bottomSheetStore();
 
   const basicInfoWindow = ({
@@ -81,6 +82,7 @@ const NaverMaps = ({ markerData }: NaverMapsProps) => {
                 });
                 infoWindow.open(map!);
                 infoWindow.getContentElement().addEventListener("click", () => {
+                  setPlaceDetailId(data.locationId);
                   setPlaceDetailBottomSheetSnapPoint(0.8);
                   setIsPlaceDetailBottomSheetOpen(true);
                   infoWindow.close();
