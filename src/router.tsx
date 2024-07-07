@@ -13,6 +13,8 @@ import SignoutPage from "@/pages/SignoutPage.tsx";
 import SearchResultPage from "@/pages/SearchResultPage.tsx";
 import ContentsPage from "@/pages/ContentsPage.tsx";
 import ContentsDetailPage from "@/pages/ContentsDetailPage.tsx";
+import SchedulePage from "@/pages/SchedulePage.tsx";
+import ScheduleDetailPage from "@/pages/ScheduleDetailPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,20 @@ const router = createBrowserRouter([
       {
         path: ROUTER_PATH.CONTENTS_DETAIL(":id"),
         element: <ContentsDetailPage />
+      }
+    ]
+  },
+  {
+    path: "/",
+    element: <BasicBackHeaderLayout headerTitle={"여행 일정"} />,
+    children: [
+      {
+        path: ROUTER_PATH.SCHEDULE,
+        element: <SchedulePage />
+      },
+      {
+        path: ROUTER_PATH.SCHEDULE_DETAIL(":id"),
+        element: <ScheduleDetailPage />
       }
     ]
   }
