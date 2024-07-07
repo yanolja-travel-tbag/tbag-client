@@ -30,7 +30,7 @@ const SchedulePage = () => {
     queryKey: ["userSchedule"],
     queryFn: getSchedule
   });
-  const { data: scheduleDetail } = useQuery({
+  const { data: scheduleDetail, refetch: refetchScheduleDetail } = useQuery({
     queryKey: ["scheduleDetail", currentScheduleId],
     queryFn: () => getScheduleDetail(currentScheduleId!),
     enabled: Boolean(currentScheduleId)
@@ -115,6 +115,7 @@ const SchedulePage = () => {
             key={segment.waypointId}
             isCurrentFocus={segment.waypointId === Number(currentWayPointId)}
             onClick={() => setCurrentWayPointId(segment.waypointId.toString())}
+            handleRefetchWayPoints={refetchScheduleDetail}
           />
         ))}
       </div>

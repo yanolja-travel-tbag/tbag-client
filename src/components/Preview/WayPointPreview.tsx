@@ -2,17 +2,31 @@ import { Segment } from "@/apis/types.ts";
 import { Location } from "@/components/icons";
 import { ComponentPropsWithoutRef } from "react";
 import { ChevronRight } from "lucide-react";
+import deleteWayPoint from "@/apis/deleteWayPoint.ts";
+import { toast } from "sonner";
 
 interface WayPointPreviewProps extends ComponentPropsWithoutRef<"div"> {
   wayPoint: Segment;
   isCurrentFocus: boolean;
+  handleRefetchWayPoints: () => void;
 }
 
 const WayPointPreview = ({
   wayPoint,
   isCurrentFocus,
+  handleRefetchWayPoints,
   ...props
 }: WayPointPreviewProps) => {
+  const handleDeleteWayPoint = () => {
+    deleteWayPoint(wayPoint.waypointId)
+      .then(() => {
+        toast.success("해당 경유지가 삭제되었습니다.");
+        handleRefetchWayPoints();
+      })
+      .catch(() => {
+        toast.error("경유지 삭제에 실패했습니다.");
+      });
+  };
   if (isCurrentFocus) {
     return (
       <div className={"w-[300px] flex flex-col"}>
@@ -64,7 +78,8 @@ const WayPointPreview = ({
         <div
           className={
             "flex items-center justify-between h-[30px] bg-main-primary rounded-b-[15px] px-[18px] cursor-pointer"
-          }>
+          }
+          onClick={handleDeleteWayPoint}>
           <span className={"text-[12px] text-white font-semibold"}>
             {"삭제하기"}
           </span>
