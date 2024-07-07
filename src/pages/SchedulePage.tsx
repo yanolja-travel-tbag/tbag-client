@@ -16,6 +16,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import getScheduleDetail from "@/apis/getScheduleDetail.ts";
 import WayPointPreview from "@/components/Preview/WayPointPreview.tsx";
+import { toast } from "sonner";
+import getOptimizedSchedule from "@/apis/getOptimizedSchedule.ts";
 
 const TEMP_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
 
@@ -35,6 +37,17 @@ const SchedulePage = () => {
     queryFn: () => getScheduleDetail(currentScheduleId!),
     enabled: Boolean(currentScheduleId)
   });
+
+  const handleOptimizeSchedule = (scheduleId: number) => {
+    toast.promise(
+      getOptimizedSchedule(scheduleId).then(() => refetchScheduleDetail()),
+      {
+        loading: "여행 경로를 최적화하고 있습니다...",
+        success: "여행 경로가 최적화되었습니다!",
+        error: "여행 경로 최적화에 실패했습니다."
+      }
+    );
+  };
   return (
     <div className={"flex flex-col px-[20px] items-center"}>
       <div className={"w-full flex justify-between py-[17px]"}>
@@ -131,7 +144,12 @@ const SchedulePage = () => {
         </div>
         <Button
           className={"w-[330px] h-[56px] bg-point-high rounded-[10px]"}
-          onClick={() => {}}>
+          onClick={() => {
+            if (!currentScheduleId) {
+              return;
+            }
+            handleOptimizeSchedule(Number(currentScheduleId));
+          }}>
           <span className={"flex gap-2 text-white text-[16px]"}>
             <MapPlus
               fill={"#fff"}
