@@ -3,6 +3,7 @@ import { MarkerData, MarkerDataDetail } from "@/apis/types.ts";
 import { useDebouncedCallback } from "@/hooks/useDebouncedCallback.ts";
 import { useState } from "react";
 import getMarkerDetail from "@/apis/getMarkerDetail.ts";
+import bottomSheetStore from "@/store/bottomSheetStore.ts";
 
 interface NaverMapsProps {
   markerData: MarkerData[];
@@ -30,6 +31,11 @@ const NaverMaps = ({ markerData }: NaverMapsProps) => {
     },
     500
   );
+
+  const {
+    setIsPlaceDetailBottomSheetOpen,
+    setPlaceDetailBottomSheetSnapPoint
+  } = bottomSheetStore();
 
   const basicInfoWindow = ({
     content,
@@ -60,6 +66,7 @@ const NaverMaps = ({ markerData }: NaverMapsProps) => {
       defaultCenter={initialCenter}
       defaultZoom={14}
       onBoundsChanged={(value) => handleFilterMarkers(value)}
+      onCenterChanged={() => setIsPlaceDetailBottomSheetOpen(false)}
       ref={setMap}>
       {markers.map((data, index) => (
         <Marker
@@ -68,10 +75,16 @@ const NaverMaps = ({ markerData }: NaverMapsProps) => {
           onClick={() => {
             getMarkerDetail(data.locationId)
               .then((data) => {
-                basicInfoWindow({
+                const infoWindow = basicInfoWindow({
                   content: data,
                   position: new maps.LatLng(data.latitude, data.longitude)
-                }).open(map!, this);
+                });
+                infoWindow.open(map!);
+                infoWindow.getContentElement().addEventListener("click", () => {
+                  setPlaceDetailBottomSheetSnapPoint(0.8);
+                  setIsPlaceDetailBottomSheetOpen(true);
+                  infoWindow.close();
+                });
               })
               .catch((error) => console.error(error));
           }}

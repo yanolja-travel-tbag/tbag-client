@@ -20,6 +20,7 @@ import PlacePreview from "@/components/Preview/PlacePreview.tsx";
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 import getNewFivePlaces from "@/apis/getNewFivePlaces.ts";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
+import bottomSheetStore from "@/store/bottomSheetStore.ts";
 
 const MARKER_FILTER_LABEL = {
   drama: "드라마",
@@ -33,6 +34,7 @@ const MainBottomSheet = () => {
   const [topFivePlacesFilter, setTopFivePlacesFilter] = useState("drama");
   const [newPlacesFilter, setNewPlacesFilter] = useState("drama");
   const { isRegistered } = authStore();
+  const { isMainBottomSheetOpen } = bottomSheetStore();
   const { data: userSelfData } = useQuery({
     queryKey: ["selfData"],
     queryFn: getUserSelfData,
@@ -50,7 +52,7 @@ const MainBottomSheet = () => {
   });
   return (
     <Drawer
-      open={true}
+      open={isMainBottomSheetOpen}
       dismissible={false}
       modal={false}
       snapPoints={["126px", 0.8]}

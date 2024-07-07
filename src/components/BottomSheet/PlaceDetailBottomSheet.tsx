@@ -4,24 +4,28 @@ import {
   DrawerContent,
   DrawerPortal
 } from "@/components/ui/drawer.tsx";
-import { useState } from "react";
+import bottomSheetStore from "@/store/bottomSheetStore.ts";
 
 const PlaceDetailBottomSheet = () => {
-  const [snapPoint, setSnapPoint] = useState<number | string | null>("126px");
+  const {
+    isPlaceDetailBottomSheetOpen,
+    placeDetailBottomSheetSnapPoint,
+    setPlaceDetailBottomSheetSnapPoint
+  } = bottomSheetStore();
   return (
     <Drawer
-      open={true}
+      open={isPlaceDetailBottomSheetOpen}
       dismissible={false}
       modal={false}
       snapPoints={["126px", 0.8]}
-      activeSnapPoint={snapPoint}
-      setActiveSnapPoint={setSnapPoint}>
+      activeSnapPoint={placeDetailBottomSheetSnapPoint}
+      setActiveSnapPoint={setPlaceDetailBottomSheetSnapPoint}>
       <DrawerPortal>
         <DrawerContent
           className={
             "border-b-none z-20 mx-auto flex flex-col rounded-t-[10px] border border-gray-200 bg-white outline-0 w-[390px] h-full"
           }
-          onInteractOutside={() => setSnapPoint("126px")}
+          onInteractOutside={() => setPlaceDetailBottomSheetSnapPoint("126px")}
           onOpenAutoFocus={(event) => event.preventDefault()}>
           <ScrollArea className={"h-[75%]"}></ScrollArea>
         </DrawerContent>

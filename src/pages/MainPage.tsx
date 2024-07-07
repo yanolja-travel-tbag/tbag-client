@@ -4,6 +4,7 @@ import NaverMaps from "@/components/Map/NaverMap.tsx";
 import { useState } from "react";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
 import { MARKER_ARTIST, MARKER_DRAMA, MARKER_MOVIE } from "@/constants/mock.ts";
+import PlaceDetailBottomSheet from "@/components/BottomSheet/PlaceDetailBottomSheet.tsx";
 
 const MARKER_FILTER_LABEL = {
   all: "전체",
@@ -43,6 +44,7 @@ const MainPage = () => {
         <NaverMaps markerData={TEMP_MARKER_DATA} />
       </MapContainer>
       <MainBottomSheet />
+      <PlaceDetailBottomSheet />
     </>
   );
 };
