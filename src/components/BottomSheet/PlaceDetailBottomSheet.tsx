@@ -163,7 +163,8 @@ const PlaceDetailBottomSheet = () => {
                     <Button
                       className={
                         "w-[280px] h-[56px] bg-main-tertiary  rounded-[10px]"
-                      }>
+                      }
+                      onClick={() => {}}>
                       <span className={"flex gap-2 text-white text-[16px]"}>
                         <MapPlus
                           fill={"#fff"}
