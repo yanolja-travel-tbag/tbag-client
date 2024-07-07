@@ -8,40 +8,44 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog.tsx";
-import dialogStore from "@/store/dialogStore.ts";
-import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button.tsx";
+import AddNewScheduleDialog from "@/components/Dialog/AddNewScheduleDialog.tsx";
 
-const NeedLoginDialog = () => {
-  const { isNeedLoginDialogOpen, setIsNeedLoginDialogOpen } = dialogStore();
-  const navigate = useNavigate();
-
+const AddToScheduleDialog = () => {
   return (
-    <AlertDialog open={isNeedLoginDialogOpen}>
+    <AlertDialog open={false}>
       <AlertDialogContent
-        className={"w-[280px] h-[190px] px-[30px] py-[24px] rounded-[8px]"}>
+        className={"w-[280px] h-fit px-[30px] py-[24px] rounded-[8px]"}>
         <AlertDialogHeader className={"flex justify-center items-center"}>
           <AlertDialogTitle className={"text-[16px] text-main-tertiary"}>
-            로그인 연결
+            일정 담기
           </AlertDialogTitle>
           <AlertDialogDescription className={"text-center text-font-head"}>
-            로그인하고 <br /> 모든 기능을 이용하세요!
+            일정을 포함시키고자하는 <br /> 여행 계획을 선택해주세요!
           </AlertDialogDescription>
+          <AddNewScheduleDialog
+            trigger={
+              <Button
+                className={
+                  "h-[33px] text-[12px] rounded-[4px] bg-font-body text-white"
+                }>
+                새 여행일정 추가
+              </Button>
+            }
+          />
         </AlertDialogHeader>
         <AlertDialogFooter
           className={"flex flex-row justify-between items-center"}>
           <AlertDialogAction
             className={"w-[100px] h-[40px] bg-main-tertiary"}
-            onClick={() => {
-              setIsNeedLoginDialogOpen(false);
-              navigate("/signin");
-            }}>
+            onClick={() => console.log("확인")}>
             확인
           </AlertDialogAction>
           <AlertDialogCancel
             className={
               "w-[100px] h-[40px] bg-background-deep text-font-info outline-0 border-0 mt-0"
             }
-            onClick={() => setIsNeedLoginDialogOpen(false)}>
+            onClick={() => {}}>
             취소
           </AlertDialogCancel>
         </AlertDialogFooter>
@@ -50,4 +54,4 @@ const NeedLoginDialog = () => {
   );
 };
 
-export default NeedLoginDialog;
+export default AddToScheduleDialog;

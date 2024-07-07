@@ -225,3 +225,12 @@ export type MarkerDataDetail = {
   placeName: string;
   placeType: string;
 };
+
+export type Schedule = {
+  userId?: number;
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  createdAt?: string;
+};

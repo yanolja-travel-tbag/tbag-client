@@ -100,9 +100,12 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       {isPlaceDetail(data) && (
         <div className={"flex gap-[14px]"}>
           <img
-            src={data.contentImages[0]}
+            src={data.image.imageUrl}
             alt={data.placeName}
             className={"w-[80px] h-[100px] rounded-md"}
+            onError={(event) => {
+              event.currentTarget.src = "/assets/tbag-fallback-md.png";
+            }}
           />
           <div className={"flex flex-col"}>
             <span className={"text-[16px] text-font-head font-semibold"}>
@@ -124,11 +127,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                   width={12}
                   height={12}
                 />
-                <span>
-                  {data.contentGenres[0]
-                    ? `${data.contentGenres[0]} | ${data.contentTitle}`
-                    : data.contentTitle}
-                </span>
+                <span>{data.contentTitle}</span>
               </span>
             </p>
             <span
