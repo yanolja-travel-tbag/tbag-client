@@ -98,8 +98,9 @@ const MainBottomSheet = () => {
                 </div>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] "
-                  }>
+                    "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] cursor-pointer"
+                  }
+                  onClick={() => privateNavigate("/history")}>
                   <History
                     width={38}
                     height={38}
@@ -110,8 +111,9 @@ const MainBottomSheet = () => {
                 </div>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] "
-                  }>
+                    "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] cursor-pointer"
+                  }
+                  onClick={() => privateNavigate("/profile")}>
                   <User
                     width={38}
                     height={38}

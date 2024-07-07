@@ -15,6 +15,8 @@ import ContentsPage from "@/pages/ContentsPage.tsx";
 import ContentsDetailPage from "@/pages/ContentsDetailPage.tsx";
 import SchedulePage from "@/pages/SchedulePage.tsx";
 import ScheduleDetailPage from "@/pages/ScheduleDetailPage.tsx";
+import HistoryPage from "@/pages/HistoryPage.tsx";
+import ProfilePage from "@/pages/ProfilePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,16 @@ const router = createBrowserRouter([
         element: <ScheduleDetailPage />
       }
     ]
+  },
+  {
+    path: "/",
+    element: <BasicBackHeaderLayout headerTitle={"히스토리"} />,
+    children: [{ path: ROUTER_PATH.HISTORY, element: <HistoryPage /> }]
+  },
+  {
+    path: "/",
+    element: <BasicBackHeaderLayout headerTitle={"프로필"} />,
+    children: [{ path: ROUTER_PATH.PROFILE, element: <ProfilePage /> }]
   }
 ]);
 
