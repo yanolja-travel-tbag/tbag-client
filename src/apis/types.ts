@@ -211,3 +211,13 @@ export type MarkerData = {
   locationId: number;
   longitude: number;
 };
+
+export type MarkerDataDetail = {
+  image: Image;
+  latitude: number;
+  locationId: number;
+  locationString: string;
+  longitude: number;
+  placeName: string;
+  placeType: string;
+};

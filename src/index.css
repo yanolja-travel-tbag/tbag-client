@@ -12,4 +12,22 @@
   .marker_label {
     @apply text-sm font-semibold -mt-1
   }
+  .marker_info_window {
+    @apply w-[200px] h-[184px] flex flex-col bg-white rounded-lg shadow-md
+  }
+
+  .marker_info_window__image {
+    @apply w-full h-[120px] object-cover rounded-t-md
+  }
+
+  .marker_info_window__content {
+    @apply flex flex-col p-3
+  }
+
+  .marker_info_window__title {
+    @apply text-base font-semibold truncate
+  }
+  .marker_info_window__description {
+    @apply text-xs text-font-info truncate
+  }
 }
