@@ -14,6 +14,8 @@ import AddNewScheduleDialog from "@/components/Dialog/AddNewScheduleDialog.tsx";
 import getSchedule from "@/apis/getSchedule.ts";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import getScheduleDetail from "@/apis/getScheduleDetail.ts";
+import WayPointPreview from "@/components/Preview/WayPointPreview.tsx";
 
 const TEMP_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
 
@@ -21,9 +23,17 @@ const SchedulePage = () => {
   const [currentScheduleId, setCurrentScheduleId] = useState<string | null>(
     null
   );
+  const [currentWayPointId, setCurrentWayPointId] = useState<string | null>(
+    null
+  );
   const { data: userSchedule } = useQuery({
     queryKey: ["userSchedule"],
     queryFn: getSchedule
+  });
+  const { data: scheduleDetail } = useQuery({
+    queryKey: ["scheduleDetail", currentScheduleId],
+    queryFn: () => getScheduleDetail(currentScheduleId!),
+    enabled: Boolean(currentScheduleId)
   });
   return (
     <div className={"flex flex-col px-[20px] items-center"}>
@@ -61,19 +71,27 @@ const SchedulePage = () => {
         }>
         <span
           className={
-            "w-[160px] h-[40px] text-[12px] bg-background-section rounded-[5px] text-center flex items-center justify-center"
+            "w-[160px] h-[40px] text-[12px] bg-background-section rounded-[5px] text-center flex flex-col items-center justify-center"
           }>
-          {
-            userSchedule?.find((schedule) => {
-              return schedule.id === Number(currentScheduleId);
-            })?.startDate
-          }
-          <br />
-          {
-            userSchedule?.find((schedule) => {
-              return schedule.id === Number(currentScheduleId);
-            })?.endDate
-          }
+          {currentScheduleId && (
+            <>
+              <span>
+                {
+                  userSchedule?.find((schedule) => {
+                    return schedule.id === Number(currentScheduleId);
+                  })?.startDate
+                }
+              </span>
+              <span>
+                {`~ ${
+                  userSchedule?.find((schedule) => {
+                    return schedule.id === Number(currentScheduleId);
+                  })?.endDate
+                }
+              `}
+              </span>
+            </>
+          )}
         </span>
         <Select onValueChange={(value) => setCurrentScheduleId(value)}>
           <SelectTrigger className={"w-[135px] h-[31px]"}>
@@ -90,6 +108,16 @@ const SchedulePage = () => {
           </SelectContent>
         </Select>
       </div>
+      <div className={"flex flex-col items-center gap-[15px] w-full"}>
+        {scheduleDetail?.segments.map((segment) => (
+          <WayPointPreview
+            wayPoint={segment}
+            key={segment.waypointId}
+            isCurrentFocus={segment.waypointId === Number(currentWayPointId)}
+            onClick={() => setCurrentWayPointId(segment.waypointId.toString())}
+          />
+        ))}
+      </div>
       <div className={"flex flex-col items-center gap-[15px] my-[17px]"}>
         <div
           className={
@@ -97,7 +125,7 @@ const SchedulePage = () => {
           }>
           <span className={"text-[12px] text-main-primary"}>총 소요 시간</span>
           <span className={"text-[12px] text-font-head font-semibold"}>
-            2시간 30분
+            {scheduleDetail?.totalDurationString}
           </span>
         </div>
         <Button

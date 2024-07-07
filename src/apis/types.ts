@@ -241,3 +241,32 @@ export type PostScheduleRequest = {
   startDate: string;
   endDate: string;
 };
+
+export type Segment = {
+  dest: null | SegmentPoint;
+  distance: number | null;
+  distanceString: null | string;
+  duration: number | null;
+  durationString: null | string;
+  order: number;
+  origin: SegmentPoint;
+  waypointId: number;
+};
+
+export type SegmentPoint = {
+  addresses: string;
+  contentMediaType: string;
+  image: string;
+  latitude: number;
+  locationId: number;
+  longitude: number;
+  placeName: string;
+};
+
+export type ScheduleDetail = {
+  segments: Segment[];
+  totalDistance: number;
+  totalDistanceString: string;
+  totalDuration: number;
+  totalDurationString: string;
+};
