@@ -32,9 +32,13 @@ type NewSchedule = z.infer<typeof newSchedule>;
 
 interface AddNewScheduleDialogProps {
   trigger?: React.ReactNode;
+  refetchUserSchedule?: () => void;
 }
 
-const AddNewScheduleDialog = ({ trigger }: AddNewScheduleDialogProps) => {
+const AddNewScheduleDialog = ({
+  trigger,
+  refetchUserSchedule
+}: AddNewScheduleDialogProps) => {
   const { register, control, handleSubmit, reset } = useForm<NewSchedule>();
   const { userId } = authStore();
 
@@ -48,6 +52,8 @@ const AddNewScheduleDialog = ({ trigger }: AddNewScheduleDialogProps) => {
     postNewSchedule(scheduleData).then(() => {
       toast.success("새로운 여행일정이 추가되었습니다!");
     });
+    reset();
+    refetchUserSchedule && refetchUserSchedule();
   };
   return (
     <AlertDialog>
@@ -84,8 +90,7 @@ const AddNewScheduleDialog = ({ trigger }: AddNewScheduleDialogProps) => {
             className={"w-full flex flex-row sm:justify-evenly items-center"}>
             <AlertDialogAction
               className={"w-[100px] h-[40px] bg-main-tertiary"}
-              type={"submit"}
-              onClick={() => reset()}>
+              type={"submit"}>
               확인
             </AlertDialogAction>
             <AlertDialogCancel

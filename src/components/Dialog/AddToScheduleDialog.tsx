@@ -34,7 +34,7 @@ const AddToScheduleDialog = ({ locationId }: AddToScheduleDialogProps) => {
   );
   const { isAddToScheduleDialogOpen, setIsAddToScheduleDialogOpen } =
     dialogStore();
-  const { data: userSchedule } = useQuery({
+  const { data: userSchedule, refetch: refetchUserSchedule } = useQuery({
     queryKey: ["userSchedule"],
     queryFn: getSchedule
   });
@@ -71,6 +71,7 @@ const AddToScheduleDialog = ({ locationId }: AddToScheduleDialogProps) => {
                 새 여행일정 추가
               </Button>
             }
+            refetchUserSchedule={refetchUserSchedule}
           />
           <Select onValueChange={(value) => setCurrentScheduleId(value)}>
             <SelectTrigger>
