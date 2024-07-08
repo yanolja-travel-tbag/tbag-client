@@ -1,9 +1,19 @@
 {
-  "main.bottomsheet.nav.content": "콘텐츠",
-  "main.bottomsheet.nav.schedule": "여행 일정",
-  "main.bottomsheet.nav.history": "히스토리",
-  "main.bottomsheet.nav.profile": "마이",
+  "nav.content": "콘텐츠",
+  "nav.schedule": "여행 일정",
+  "nav.history": "히스토리",
+  "nav.profile": "마이",
   "main.bottomsheet.headings.intro": "님을 위한 여행이에요",
   "main.bottomsheet.headings.subIntro": "푸른 바다의 전설, 제주도로 떠나요",
-  "main.bottomsheet.headings.needLogin": "로그인 후 이용해주세요"
+  "main.bottomsheet.headings.needLogin": "로그인 후 이용해주세요",
+  "main.bottomsheet.content.label.top5places": "Top 5 여행지",
+  "main.bottomsheet.content.label.newPlaces": "이달의 신규",
+  "menus.needLogin": "환영합니다! 로그인 후 시작하세요.",
+  "menus.signin": "로그인하러 가기",
+  "menus.signout": "로그아웃",
+  "menus.service.shortcut": "서비스 바로가기",
+  "filters.label.all": "전체",
+  "filters.label.drama": "드라마",
+  "filters.label.movie": "영화",
+  "filters.label.artist": "아이돌"
 }

@@ -3,7 +3,7 @@ import {
   DrawerContent,
   DrawerPortal
 } from "@/components/ui/drawer.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Contents, History, Plane, User } from "@/components/icons";
 import authStore from "@/store/authStore.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -25,9 +25,9 @@ import usePrivateNavigate from "@/hooks/usePrivateNavigate.ts";
 import { useI18n } from "@/hooks/useI18n.ts";
 
 const MARKER_FILTER_LABEL = {
-  drama: "드라마",
-  movie: "영화",
-  artist: "아이돌"
+  drama: "filters.label.drama",
+  movie: "filters.label.movie",
+  artist: "filters.label.artist"
 };
 
 const MainBottomSheet = () => {
@@ -45,15 +45,24 @@ const MainBottomSheet = () => {
   });
   const t = useI18n();
 
-  const { data: topFivePlaces } = useQuery({
+  const { data: topFivePlaces, refetch: refetchTopFivePlaces } = useQuery({
     queryKey: ["topFivePlaces"],
     queryFn: () => getTopFivePlaces(topFivePlacesFilter)
   });
 
-  const { data: newFivePlaces } = useQuery({
+  const { data: newFivePlaces, refetch: refetchNewFivePlaces } = useQuery({
     queryKey: ["newPlaces"],
     queryFn: () => getNewFivePlaces(newPlacesFilter)
   });
+
+  useEffect(() => {
+    refetchTopFivePlaces();
+  }, [topFivePlacesFilter, refetchTopFivePlaces]);
+
+  useEffect(() => {
+    refetchNewFivePlaces();
+  }, [newPlacesFilter, refetchNewFivePlaces]);
+
   return (
     <Drawer
       open={isMainBottomSheetOpen}
@@ -82,7 +91,7 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-4"}>
-                    {t(`main.bottomsheet.nav.content`)}
+                    {t(`nav.content`)}
                   </span>
                 </div>
                 <div
@@ -95,7 +104,7 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-1"}>
-                    {t(`main.bottomsheet.nav.schedule`)}
+                    {t(`nav.schedule`)}
                   </span>
                 </div>
                 <div
@@ -108,7 +117,7 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-2"}>
-                    {t(`main.bottomsheet.nav.history`)}
+                    {t(`nav.history`)}
                   </span>
                 </div>
                 <div
@@ -121,7 +130,7 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-5"}>
-                    {t(`main.bottomsheet.nav.profile`)}
+                    {t(`nav.profile`)}
                   </span>
                 </div>
               </div>
@@ -164,7 +173,7 @@ const MainBottomSheet = () => {
             <section className={"flex flex-col mt-[50px] px-[20px]"}>
               <div className={"flex justify-between"}>
                 <h2 className={"text-[20px] font-semibold"}>
-                  {"TOP 5 여행지"}
+                  {t("main.bottomsheet.content.label.top5places")}
                 </h2>
                 <div className={"flex gap-2"}>
                   {Object.keys(MARKER_FILTER_LABEL).map((key) => (
@@ -198,7 +207,9 @@ const MainBottomSheet = () => {
             </section>
             <section className={"flex flex-col mt-[50px] px-[20px]"}>
               <div className={"flex justify-between"}>
-                <h2 className={"text-[20px] font-semibold"}>{"이달의 신규"}</h2>
+                <h2 className={"text-[20px] font-semibold"}>
+                  {t("main.bottomsheet.content.label.newPlaces")}
+                </h2>
                 <div className={"flex gap-2"}>
                   {Object.keys(MARKER_FILTER_LABEL).map((key) => (
                     <FilterItem

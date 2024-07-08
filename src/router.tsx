@@ -17,6 +17,7 @@ import SchedulePage from "@/pages/SchedulePage.tsx";
 import ScheduleDetailPage from "@/pages/ScheduleDetailPage.tsx";
 import HistoryPage from "@/pages/HistoryPage.tsx";
 import ProfilePage from "@/pages/ProfilePage.tsx";
+import LanguagePage from "@/pages/LanguagePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <BasicBackLayout />,
-    children: [{ path: ROUTER_PATH.SIGNUP, element: <SignupPage /> }]
+    children: [
+      { path: ROUTER_PATH.SIGNUP, element: <SignupPage /> },
+      { path: ROUTER_PATH.LANGUAGE, element: <LanguagePage /> }
+    ]
   },
   {
     path: "/",

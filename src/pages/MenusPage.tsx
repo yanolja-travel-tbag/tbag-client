@@ -1,4 +1,4 @@
-import { Contents, History, Plane, User } from "@/components/icons";
+import { Contents, History, Language, Plane, User } from "@/components/icons";
 import {
   Carousel,
   CarouselContent,
@@ -11,10 +11,12 @@ import { useQuery } from "@tanstack/react-query";
 import getUserSelfData from "@/apis/getUserSelfData.ts";
 import usePrivateNavigate from "@/hooks/usePrivateNavigate.ts";
 import NeedLoginDialog from "@/components/Dialog/NeedLoginDialog.tsx";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const MenusPage = () => {
   const { isRegistered } = authStore();
   const navigate = useNavigate();
+  const t = useI18n();
   const { privateNavigate } = usePrivateNavigate();
   const { data } = useQuery({
     queryKey: ["selfData"],
@@ -27,7 +29,7 @@ const MenusPage = () => {
         {/* 유저 정보 영역 */}
         <div
           className={
-            "flex flex-col w-full h-[144px] bg-main-primary text-white p-5"
+            "flex justify-between w-full h-[144px] bg-main-primary text-white p-5"
           }>
           {isRegistered && (
             <div className={"flex flex-col gap-10"}>
@@ -36,39 +38,44 @@ const MenusPage = () => {
                 <a
                   className={"cursor-pointer"}
                   onClick={() => navigate("/signout")}>
-                  {"로그아웃"}
+                  {t("menus.signout")}
                 </a>
               </h2>
             </div>
           )}
           {!isRegistered && (
             <div className={"flex flex-col gap-10"}>
-              <h1>{"환영합니다! 로그인 후 시작하세요."}</h1>
+              <h1>{t("menus.needLogin")}</h1>
               <h2 className={"flex gap-2 text-center"}>
                 <a
                   className={"cursor-pointer"}
                   onClick={() => navigate("/signin")}>
-                  로그인
-                </a>
-                <span>{" | "}</span>
-                <a
-                  className={"cursor-pointer"}
-                  onClick={() => navigate("/signup")}>
-                  회원가입
+                  {t("menus.signin")}
                 </a>
               </h2>
             </div>
           )}
+          <div
+            className={"flex flex-col items-center cursor-pointer"}
+            onClick={() => navigate("/languages")}>
+            <Language
+              width={20}
+              height={20}
+            />
+            <span className={"text-[12px] text-background-deep"}>
+              Languages
+            </span>
+          </div>
         </div>
         {/* 서비스 바로가기 Nav 영역. 컴포넌트 분리 필요 */}
         <div className={"flex flex-col p-[20px]"}>
           <span className={"mt-[40px] mb-[35px] font-semibold text-[20px]"}>
-            {"서비스 바로가기"}
+            {t("menus.service.shortcut")}
           </span>
           <div className={"flex gap-[22px]"}>
             <div
               className={
-                "flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                "h-16 w-[80px] flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
               }
               onClick={() => navigate("/contents")}>
               <Contents
@@ -76,12 +83,12 @@ const MenusPage = () => {
                 height={38}
               />
               <span className={"text-main-primary font-semibold mx-4"}>
-                {"콘텐츠"}
+                {t(`nav.content`)}
               </span>
             </div>
             <div
               className={
-                "flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                "h-16 w-[74px] flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
               }
               onClick={() => privateNavigate("/schedule")}>
               <Plane
@@ -89,12 +96,12 @@ const MenusPage = () => {
                 height={38}
               />
               <span className={"text-main-primary font-semibold mx-1"}>
-                {"여행 일정"}
+                {t(`nav.schedule`)}
               </span>
             </div>
             <div
               className={
-                "flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                "h-16 w-[78px] flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
               }
               onClick={() => privateNavigate("/history")}>
               <History
@@ -102,12 +109,12 @@ const MenusPage = () => {
                 height={38}
               />
               <span className={"text-main-primary font-semibold mx-2"}>
-                {"히스토리"}
+                {t(`nav.history`)}
               </span>
             </div>
             <div
               className={
-                "flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                "h-16 w-[74px] flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
               }
               onClick={() => privateNavigate("/profile")}>
               <User
@@ -115,7 +122,7 @@ const MenusPage = () => {
                 height={38}
               />
               <span className={"text-main-primary font-semibold mx-5"}>
-                {"마이"}
+                {t(`nav.profile`)}
               </span>
             </div>
           </div>

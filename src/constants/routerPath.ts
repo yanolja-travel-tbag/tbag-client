@@ -11,5 +11,6 @@ export const ROUTER_PATH = {
   SCHEDULE: "/schedule",
   SCHEDULE_DETAIL: (id: string) => `/schedule/${id}`,
   HISTORY: "/history",
-  PROFILE: "/profile"
+  PROFILE: "/profile",
+  LANGUAGE: "/languages"
 } as const;

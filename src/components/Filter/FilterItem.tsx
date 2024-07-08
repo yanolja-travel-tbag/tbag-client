@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { Dispatch, SetStateAction } from "react";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 interface FilterItemProps {
   filterValue: string;
@@ -14,6 +15,7 @@ const FilterItem = ({
   currentFilter,
   setFilter
 }: FilterItemProps) => {
+  const t = useI18n();
   return (
     <div
       className={clsx(
@@ -24,7 +26,7 @@ const FilterItem = ({
           : "bg-white text-font-info"
       )}
       onClick={() => setFilter(filterValue)}>
-      <span className={"my-2 mx-4"}>{filterLabel}</span>
+      <span className={"my-2 mx-4"}>{t(`${filterLabel}`)}</span>
     </div>
   );
 };

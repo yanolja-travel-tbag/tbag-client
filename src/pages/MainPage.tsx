@@ -8,10 +8,10 @@ import MainPageMap from "@/components/Map/MainPageMap.tsx";
 import NeedLoginDialog from "@/components/Dialog/NeedLoginDialog.tsx";
 
 const MARKER_FILTER_LABEL = {
-  all: "전체",
-  drama: "드라마",
-  movie: "영화",
-  artist: "아이돌"
+  all: "filters.label.all",
+  drama: "filters.label.drama",
+  movie: "filters.label.movie",
+  artist: "filters.label.artist"
 };
 
 const TEMP_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];

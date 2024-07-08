@@ -1,9 +1,19 @@
 {
-  "main.bottomsheet.nav.content": "Content",
-  "main.bottomsheet.nav.schedule": "Schedule",
-  "main.bottomsheet.nav.history": "History",
-  "main.bottomsheet.nav.profile": "Profile",
+  "nav.content": "Content",
+  "nav.schedule": "Schedule",
+  "nav.history": "History",
+  "nav.profile": "Profile",
   "main.bottomsheet.headings.intro": ", Trip For You",
   "main.bottomsheet.headings.subIntro": "Legend of the Blue Sea, Jeju Island",
-  "main.bottomsheet.headings.needLogin": "Login to access more features"
+  "main.bottomsheet.headings.needLogin": "Login to access more features",
+  "main.bottomsheet.content.label.top5places": "Top 5 Places",
+  "main.bottomsheet.content.label.newPlaces": "New Places",
+  "menus.needLogin": "Welcome! Please login!",
+  "menus.signin": "Go To Login",
+  "menus.signout": "Logout",
+  "menus.service.shortcut": "Service Shortcut",
+  "filters.label.all": "All",
+  "filters.label.drama": "Drama",
+  "filters.label.movie": "Movie",
+  "filters.label.artist": "Artist"
 }
