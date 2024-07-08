@@ -22,6 +22,7 @@ import getNewFivePlaces from "@/apis/getNewFivePlaces.ts";
 import FilterItem from "@/components/Filter/FilterItem.tsx";
 import bottomSheetStore from "@/store/bottomSheetStore.ts";
 import usePrivateNavigate from "@/hooks/usePrivateNavigate.ts";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const MARKER_FILTER_LABEL = {
   drama: "드라마",
@@ -42,6 +43,7 @@ const MainBottomSheet = () => {
     queryFn: getUserSelfData,
     enabled: Boolean(isRegistered)
   });
+  const t = useI18n();
 
   const { data: topFivePlaces } = useQuery({
     queryKey: ["topFivePlaces"],
@@ -69,10 +71,10 @@ const MainBottomSheet = () => {
           onOpenAutoFocus={(event) => event.preventDefault()}>
           <ScrollArea className={"h-[75%]"}>
             <div className={"bg-white flex flex-col items-center"}>
-              <div className={"flex gap-[22px] mt-[22px]"}>
+              <div className={"flex gap-[20px] mt-[22px]"}>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center pt-[2px] pb-[6px] cursor-pointer"
+                    "h-16 w-[74px] flex flex-col  items-center pt-[2px] pb-[6px] cursor-pointer"
                   }
                   onClick={() => navigate("/contents")}>
                   <Contents
@@ -80,12 +82,12 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-4"}>
-                    {"콘텐츠"}
+                    {t(`main.bottomsheet.nav.content`)}
                   </span>
                 </div>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center pt-[2px] pb-[6px] cursor-pointer"
+                    "h-16 w-[74px] flex flex-col  items-center pt-[2px] pb-[6px] cursor-pointer"
                   }
                   onClick={() => privateNavigate("/schedule")}>
                   <Plane
@@ -93,12 +95,12 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-1"}>
-                    {"여행 일정"}
+                    {t(`main.bottomsheet.nav.schedule`)}
                   </span>
                 </div>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] cursor-pointer"
+                    "h-16 w-[74px] flex flex-col  items-center  pt-[2px] pb-[6px] cursor-pointer"
                   }
                   onClick={() => privateNavigate("/history")}>
                   <History
@@ -106,12 +108,12 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-2"}>
-                    {"히스토리"}
+                    {t(`main.bottomsheet.nav.history`)}
                   </span>
                 </div>
                 <div
                   className={
-                    "h-16 flex flex-col  items-center  pt-[2px] pb-[6px] cursor-pointer"
+                    "h-16 w-[74px] flex flex-col  items-center  pt-[2px] pb-[6px] cursor-pointer"
                   }
                   onClick={() => privateNavigate("/profile")}>
                   <User
@@ -119,7 +121,7 @@ const MainBottomSheet = () => {
                     height={38}
                   />
                   <span className={"text-main-primary font-semibold mx-5"}>
-                    {"마이"}
+                    {t(`main.bottomsheet.nav.profile`)}
                   </span>
                 </div>
               </div>
@@ -134,10 +136,10 @@ const MainBottomSheet = () => {
                     <span className={"text-point-high"}>
                       {userSelfData?.nickname}
                     </span>
-                    님을 위한 여행이에요{" "}
+                    {t(`main.bottomsheet.headings.intro`)}
                   </span>
                 ) : (
-                  <span>로그인 후 이용해주세요</span>
+                  <span>{t(`main.bottomsheet.headings.needLogin`)}</span>
                 )}
               </h1>
               <Carousel
@@ -157,7 +159,7 @@ const MainBottomSheet = () => {
                   ))}
                 </CarouselContent>
               </Carousel>
-              <span>{"푸른 바다의 전설, 제주도로 떠나요"}</span>
+              <span>{t(`main.bottomsheet.headings.subIntro`)}</span>
             </div>
             <section className={"flex flex-col mt-[50px] px-[20px]"}>
               <div className={"flex justify-between"}>

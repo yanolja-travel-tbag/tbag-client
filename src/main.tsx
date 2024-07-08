@@ -7,6 +7,7 @@ import queryClient from "@/lib/query/client.ts";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NavermapsProvider } from "react-naver-maps";
 import { Toaster } from "@/components/ui/sonner.tsx";
+import "@/locales";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
