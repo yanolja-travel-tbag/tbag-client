@@ -15,5 +15,6 @@
   "filters.label.all": "전체",
   "filters.label.drama": "드라마",
   "filters.label.movie": "영화",
-  "filters.label.artist": "아이돌"
+  "filters.label.artist": "아이돌",
+  "toast.message.localeChanged": "언어 설정이 저장되었습니다! 새로고침 시 적용될거예요!"
 }

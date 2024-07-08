@@ -15,5 +15,6 @@
   "filters.label.all": "All",
   "filters.label.drama": "Drama",
   "filters.label.movie": "Movie",
-  "filters.label.artist": "Artist"
+  "filters.label.artist": "Artist",
+  "toast.message.localeChanged": "Language has been changed, please refresh!"
 }

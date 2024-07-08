@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import { Check } from "@/components/icons";
 import BasicFooter from "@/components/Footer/BasicFooter.tsx";
 import { toast } from "sonner";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const LanguagePage = () => {
   const [currentLocale, setCurrentLocale] = useState<"ko" | "en">("ko");
   const { locale, setLocale } = localeStore();
+  const t = useI18n();
 
   useEffect(() => {
     setCurrentLocale(locale);
@@ -76,9 +78,7 @@ const LanguagePage = () => {
           variant={"ghost"}
           onClick={() => {
             setLocale(currentLocale);
-            toast.success(
-              "언어 설정이 저장되었습니다! 새로고침 시 적용될거예요!"
-            );
+            toast.success(t("toast.message.localeChanged"));
           }}>
           {"저장"}
         </Button>
