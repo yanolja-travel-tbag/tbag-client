@@ -1,6 +1,7 @@
 import { Location, MapPlus } from "@/components/icons";
 import { Button } from "@/components/ui/button.tsx";
 import { Place } from "@/apis/types.ts";
+import bottomSheetStore from "@/store/bottomSheetStore.ts";
 
 interface PlacePreviewProps {
   index: number;
@@ -8,9 +9,20 @@ interface PlacePreviewProps {
 }
 
 const PlacePreview = ({ index, place }: PlacePreviewProps) => {
+  const {
+    setIsPlaceDetailBottomSheetOpen,
+    setPlaceDetailBottomSheetSnapPoint,
+    setPlaceDetailId
+  } = bottomSheetStore();
   return (
     <div className={"w-full h-[90px] flex justify-between items-center"}>
-      <div className={"flex gap-[10px] items-center"}>
+      <div
+        className={"flex gap-[10px] items-center cursor-pointer"}
+        onClick={() => {
+          setPlaceDetailId(place.locationId);
+          setPlaceDetailBottomSheetSnapPoint(0.8);
+          setIsPlaceDetailBottomSheetOpen(true);
+        }}>
         <span className={"text-[20px] font-semibold text-main-primary"}>
           {index}
         </span>

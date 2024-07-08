@@ -5,6 +5,8 @@ import {
   SearchedWork,
   SearchedWorksByActor
 } from "@/apis/types.ts";
+import bottomSheetStore from "@/store/bottomSheetStore.ts";
+import { useNavigate } from "react-router-dom";
 
 interface ContentPreviewProps {
   data:
@@ -51,6 +53,14 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
   ): data is SearchedArtistsByMember => {
     return "member" in data;
   };
+
+  const navigate = useNavigate();
+
+  const {
+    setIsPlaceDetailBottomSheetOpen,
+    setPlaceDetailBottomSheetSnapPoint,
+    setPlaceDetailId
+  } = bottomSheetStore();
   return (
     <div className={"w-full flex justify-between items-center p-[10px]"}>
       {/* 작품 */}
@@ -98,7 +108,14 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       )}
       {/* 장소 */}
       {isPlaceDetail(data) && (
-        <div className={"flex gap-[14px]"}>
+        <div
+          className={"flex gap-[14px] cursor-pointer"}
+          onClick={() => {
+            navigate("/");
+            setPlaceDetailId(data.locationId);
+            setPlaceDetailBottomSheetSnapPoint(0.8);
+            setIsPlaceDetailBottomSheetOpen(true);
+          }}>
           <img
             src={
               data.image ? data.image.imageUrl : "/assets/tbag-fallback-md.png"
