@@ -30,6 +30,14 @@ const MARKER_FILTER_LABEL = {
   artist: "filters.label.artist"
 };
 
+const TRIP_IMAGE_SRCSET = [
+  "/assets/tripImage-1.png",
+  "/assets/tripImage-2.png",
+  "/assets/tripImage-3.png",
+  "/assets/tripImage-4.png",
+  "/assets/tripImage-5.png"
+];
+
 const MainBottomSheet = () => {
   const navigate = useNavigate();
   const { privateNavigate } = usePrivateNavigate();
@@ -157,18 +165,23 @@ const MainBottomSheet = () => {
                 }}
                 plugins={[Autoplay({ delay: 2000 })]}>
                 <CarouselContent>
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <CarouselItem key={index}>
-                      {/* TODO: 제주도 풍경 이미지로 대체 */}
-                      <div
-                        className={
-                          "w-full h-[180px] bg-background-deep rounded-[8px] text-black flex items-center justify-center"
-                        }>{`여행지 사진-${index}`}</div>
+                  {TRIP_IMAGE_SRCSET.map((src, index) => (
+                    <CarouselItem
+                      key={index}
+                      className={"flex flex-col"}>
+                      <img
+                        src={src}
+                        alt={`여행지 사진-${index}`}
+                        className={"w-full h-[180px]"}
+                      />
+                      <span>
+                        {t(`main.bottomsheet.headings.subIntro.${index}`)}
+                      </span>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
               </Carousel>
-              <span>{t(`main.bottomsheet.headings.subIntro`)}</span>
+              {/*<span>{t(`main.bottomsheet.headings.subIntro`)}</span>*/}
             </div>
             <section className={"flex flex-col mt-[50px] px-[20px]"}>
               <div className={"flex justify-between"}>

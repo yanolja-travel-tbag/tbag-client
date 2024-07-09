@@ -16,5 +16,10 @@
   "filters.label.drama": "Drama",
   "filters.label.movie": "Movie",
   "filters.label.artist": "Artist",
-  "toast.message.localeChanged": "Language has been changed, please refresh!"
+  "toast.message.localeChanged": "Language has been changed, please refresh!",
+  "main.bottomsheet.headings.subIntro.0": "BTS' spring day, let's go to Hyangho Beach\uD83C\uDF38",
+  "main.bottomsheet.headings.subIntro.1": "Love in the Moonlight in the Garden\uD83C\uDF24\uFE0F",
+  "main.bottomsheet.headings.subIntro.2": "Drive course to find the Legend of blue sea\uD83C\uDF0A",
+  "main.bottomsheet.headings.subIntro.3": "Vroom\uD83D\uDE97 Catch up NCT LIFE at Luge World",
+  "main.bottomsheet.headings.subIntro.4": "On the way 'The Wailing', Recreate a scene\uD83C\uDF41"
 }

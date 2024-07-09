@@ -16,5 +16,10 @@
   "filters.label.drama": "드라마",
   "filters.label.movie": "영화",
   "filters.label.artist": "아이돌",
-  "toast.message.localeChanged": "언어 설정이 저장되었습니다! 새로고침 시 적용될거예요!"
+  "toast.message.localeChanged": "언어 설정이 저장되었습니다! 새로고침 시 적용될거예요!",
+  "main.bottomsheet.headings.subIntro.0": "BTS의 봄날따라, 주문진 향호 해변으로 떠나요\uD83C\uDF38",
+  "main.bottomsheet.headings.subIntro.1": "구르미 그린 달빛 속 왕실 정원, 아침고요수목원\uD83C\uDF24\uFE0F",
+  "main.bottomsheet.headings.subIntro.2": "푸른 바다 전설을 찾아 헌화로 드라이브코스로\uD83C\uDF0A",
+  "main.bottomsheet.headings.subIntro.3": "부릉부릉\uD83D\uDE97 루지월드에서 NCT LIFE 따라잡기",
+  "main.bottomsheet.headings.subIntro.4": "‘곡성’ 가는 길, 영화 속 한 장면을 재현해보아요\uD83C\uDF41"
 }
