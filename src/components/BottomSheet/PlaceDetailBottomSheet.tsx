@@ -66,7 +66,9 @@ const PlaceDetailBottomSheet = () => {
   useEffect(() => {
     if (isPlaceDetailSuccess) {
       setPlaceImages(
-        [placeDetail.image.imageUrl, ...placeDetail.contentImages] || []
+        [placeDetail.image?.imageUrl, ...placeDetail.contentImages].filter(
+          (image) => Boolean(image)
+        )
       );
     }
   }, [isPlaceDetailSuccess, placeDetail]);
