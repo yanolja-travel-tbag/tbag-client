@@ -168,7 +168,7 @@ const MainBottomSheet = () => {
                   {TRIP_IMAGE_SRCSET.map((src, index) => (
                     <CarouselItem
                       key={index}
-                      className={"flex flex-col"}>
+                      className={"flex flex-col gap-[10px]"}>
                       <img
                         src={src}
                         alt={`여행지 사진-${index}`}

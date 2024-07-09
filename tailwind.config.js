@@ -16,6 +16,9 @@ module.exports = {
         "2xl": "1400px"
       }
     },
+    fontFamily: {
+      sans: ["Pretendard", "sans-serif"]
+    },
     extend: {
       colors: {
         "main-primary": "#7FB185",

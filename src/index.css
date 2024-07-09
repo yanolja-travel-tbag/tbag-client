@@ -31,3 +31,31 @@
     @apply text-xs text-font-info truncate
   }
 }
+
+@font-face {
+  font-family: Pretendard;
+  font-weight: 400;
+  src: local("Pretendard Regular"),
+  url("../public/assets/fonts/Pretendard-Regular.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: Pretendard;
+  font-weight: 500;
+  src: local("Pretendard Medium"),
+  url("../public/assets/fonts/Pretendard-Medium.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: Pretendard;
+  font-weight: 600;
+  src: local("Pretendard SemiBold"),
+  url("../public/assets/fonts/Pretendard-SemiBold.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: Pretendard;
+  font-weight: 700;
+  src: local("Pretendard Bold"),
+  url("../public/assets/fonts/Pretendard-Bold.woff2") format('woff2');
+}
