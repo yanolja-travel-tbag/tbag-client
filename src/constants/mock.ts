@@ -1,3 +1,5 @@
+import { MarkerData } from "@/apis/types.ts";
+
 export const MARKER_DRAMA = [
   {
     locationId: 1,
@@ -76,7 +78,7 @@ export const MARKER_DRAMA = [
     latitude: 37.55016,
     longitude: 126.9237
   }
-] as const;
+] as MarkerData[];
 
 export const MARKER_MOVIE = [
   {
@@ -149,7 +151,7 @@ export const MARKER_MOVIE = [
     latitude: 37.5590729,
     longitude: 126.9049163
   }
-] as const;
+] as MarkerData[];
 
 export const MARKER_ARTIST = [
   {
@@ -236,4 +238,4 @@ export const MARKER_ARTIST = [
     latitude: 37.500688,
     longitude: 127.028069
   }
-] as const;
+] as MarkerData[];

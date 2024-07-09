@@ -24,6 +24,19 @@ const MainPage = () => {
   //   staleTime: 1000 * 60 * 5 // 5분
   // });
 
+  const getMarker = (filter: string) => {
+    switch (filter) {
+      case "drama":
+        return MARKER_DRAMA;
+      case "movie":
+        return MARKER_MOVIE;
+      case "artist":
+        return MARKER_ARTIST;
+      default:
+        return [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
+    }
+  };
+
   return (
     <>
       <MapContainer
@@ -42,7 +55,7 @@ const MainPage = () => {
             />
           ))}
         </div>
-        <MainPageMap markerData={TEMP_MARKER_DATA} />
+        <MainPageMap markerData={getMarker(markerFilter)} />
       </MapContainer>
       <MainBottomSheet />
       <PlaceDetailBottomSheet />
