@@ -44,7 +44,8 @@ const PlaceDetailBottomSheet = () => {
   const { setIsAddToScheduleDialogOpen } = dialogStore();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { data: placeDetail } = useQuery({
+  const [placeImages, setPlaceImages] = useState<string[]>([]);
+  const { data: placeDetail, isSuccess: isPlaceDetailSuccess } = useQuery({
     queryKey: ["placeDetail", placeDetailId],
     queryFn: () => getPlaceDetail(placeDetailId!),
     enabled: Boolean(placeDetailId)
@@ -61,6 +62,14 @@ const PlaceDetailBottomSheet = () => {
   const { privateCallback: handleOpenAddToScheduleDialog } = usePrivateCallback(
     openAddToScheduleDialog
   );
+
+  useEffect(() => {
+    if (isPlaceDetailSuccess) {
+      setPlaceImages(
+        [placeDetail.image.imageUrl, ...placeDetail.contentImages] || []
+      );
+    }
+  }, [isPlaceDetailSuccess, placeDetail]);
 
   useEffect(() => {
     if (!carouselApi) {
@@ -101,12 +110,14 @@ const PlaceDetailBottomSheet = () => {
                     setApi={setCarouselApi}
                     plugins={[Autoplay({ delay: 5000 })]}>
                     <CarouselContent>
-                      {placeDetail?.contentImages.map((image, index) => (
+                      {placeImages.map((image, index) => (
                         <CarouselItem key={index}>
                           <img
                             src={image}
                             alt={`컨텐츠 이미지-${index}`}
-                            className={"w-[350px] h-[280px] rounded-[8px]"}
+                            className={
+                              "w-[350px] h-[280px] rounded-[8px] object-contain bg-black"
+                            }
                           />
                         </CarouselItem>
                       ))}
@@ -114,7 +125,7 @@ const PlaceDetailBottomSheet = () => {
                   </Carousel>
                   <div
                     className={"flex justify-center gap-1 mt-[20px] mb-[40px]"}>
-                    {placeDetail?.contentImages.map((_, index) => (
+                    {placeImages.map((_, index) => (
                       <div
                         className={clsx(
                           "cursor-pointer",
