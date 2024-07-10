@@ -58,7 +58,9 @@ const ContentsDetailPage = () => {
                 <img
                   src={image}
                   alt={`컨텐츠 이미지-${index}`}
-                  className={"w-[350px] h-[280px] rounded-[8px]"}
+                  className={
+                    "w-[350px] h-[280px] rounded-[8px] object-contain bg-black"
+                  }
                 />
               </CarouselItem>
             ))}
