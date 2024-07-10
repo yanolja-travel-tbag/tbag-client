@@ -14,10 +14,11 @@ const MARKER_FILTER_LABEL = {
   artist: "filters.label.artist"
 };
 
-const TEMP_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
+const ALL_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
 
 const MainPage = () => {
   const [markerFilter, setMarkerFilter] = useState("all");
+  const [map, setMap] = useState<naver.maps.Map | null>(null);
   // const { data: markerData } = useSuspenseQuery({
   //   queryKey: ["markers", markerFilter],
   //   queryFn: () => getMarker(markerFilter),
@@ -33,9 +34,16 @@ const MainPage = () => {
       case "artist":
         return MARKER_ARTIST;
       default:
-        return [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
+        return ALL_MARKER_DATA;
     }
   };
+
+  // 마커 반영이 왜 바로 안되지?
+  // useEffect(() => {
+  //   if (map) {
+  //     map.refresh(true);
+  //   }
+  // }, [map, markerFilter]);
 
   return (
     <>
@@ -55,7 +63,11 @@ const MainPage = () => {
             />
           ))}
         </div>
-        <MainPageMap markerData={getMarker(markerFilter)} />
+        <MainPageMap
+          map={map}
+          setMap={setMap}
+          markerData={getMarker(markerFilter)}
+        />
       </MapContainer>
       <MainBottomSheet />
       <PlaceDetailBottomSheet />

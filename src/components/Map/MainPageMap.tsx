@@ -6,6 +6,8 @@ import getMarkerDetail from "@/apis/getMarkerDetail.ts";
 import bottomSheetStore from "@/store/bottomSheetStore.ts";
 
 interface NaverMapsProps {
+  map: naver.maps.Map | null;
+  setMap: React.Dispatch<React.SetStateAction<naver.maps.Map | null>>;
   markerData: MarkerData[];
 }
 
@@ -15,10 +17,9 @@ const MARKER_ICON_PATH = {
   artist: "/assets/marker-artist.png"
 };
 
-const MainPageMap = ({ markerData }: NaverMapsProps) => {
+const MainPageMap = ({ map, setMap, markerData }: NaverMapsProps) => {
   const [markers, setMarkers] = useState<MarkerData[]>(markerData ?? []);
   const maps = useNavermaps();
-  const [map, setMap] = useState<naver.maps.Map | null>();
   const initialCenter = new maps.LatLng(37.5632772, 126.986827);
   const handleFilterMarkers = useDebouncedCallback(
     (value: naver.maps.Bounds) => {
