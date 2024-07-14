@@ -65,7 +65,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
     <div className={"w-full flex justify-between items-center p-[10px]"}>
       {/* 작품 */}
       {isSearchedWork(data) && (
-        <div className={"flex gap-[14px]"}>
+        <div
+          className={"flex gap-[14px] cursor-pointer"}
+          onClick={() => navigate(`/contents/${data.contentId}`)}>
           <img
             src={data.contentImages?.[0]}
             alt={data.title}
@@ -152,7 +154,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
 
       {/* 필모그래피 */}
       {isSearchedWorksByActor(data) && (
-        <div className={"flex gap-[14px]"}>
+        <div
+          className={"flex gap-[14px] cursor-pointer"}
+          onClick={() => navigate(`/contents/${data.contentId}`)}>
           <img
             src={data.posterPath}
             alt={data.title}
@@ -191,7 +195,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
 
       {/* 아이돌 */}
       {isSearchedArtistsByMember(data) && (
-        <div className={"flex gap-[14px]"}>
+        <div
+          className={"flex gap-[14px] cursor-pointer"}
+          onClick={() => navigate(`/contents/${data.contentId}`)}>
           <img
             src={data.member?.profileImage}
             alt={data.member?.name}

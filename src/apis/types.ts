@@ -269,3 +269,11 @@ export type ScheduleDetail = {
   totalDuration: number;
   totalDurationString: string;
 };
+
+export type ContentHistoryResponse = CommonPageable & {
+  content: ContentDetail[];
+};
+
+export type PlaceHistoryResponse = CommonPageable & {
+  content: PlaceDetail[];
+};
