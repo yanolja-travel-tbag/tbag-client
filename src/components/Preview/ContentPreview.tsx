@@ -42,7 +42,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       | SearchedArtistsByMember
       | PlaceDetail
   ): data is SearchedWorksByActor => {
-    return "contentTitle" in data;
+    return "actorName" in data;
   };
   const isSearchedArtistsByMember = (
     data:
