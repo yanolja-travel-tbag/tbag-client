@@ -15,3 +15,25 @@ baseInstance.interceptors.request.use((config) => {
   config.headers.set("Accept-Language", locale);
   return config;
 });
+
+baseInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const rfToken = authStore.getState().refreshToken;
+    if (error.response.status === 401 && rfToken) {
+      const res = await axios.get("/auth/tokenRefresh", {
+        baseURL: import.meta.env.VITE_TBAG_API_BASE_URL,
+        headers: {
+          Authorization: `Bearer ${rfToken}`
+        }
+      });
+      authStore.setState({
+        accessToken: res.data.accessToken,
+        refreshToken: res.data.refreshToken
+      });
+    }
+    return Promise.reject(error);
+  }
+);
