@@ -54,7 +54,6 @@ export type SearchedWorksResponse = CommonPageable & {
 export type SearchedWork = {
   contentId?: number;
   contentImages?: string[];
-  genres?: string[];
   members?: Actor[];
   title?: string;
   viewCount?: number;

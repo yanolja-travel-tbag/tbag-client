@@ -33,7 +33,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       | SearchedArtistsByMember
       | PlaceDetail
   ): data is SearchedWork => {
-    return "genres" in data;
+    return "members" in data;
   };
   const isSearchedWorksByActor = (
     data:
@@ -42,7 +42,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
       | SearchedArtistsByMember
       | PlaceDetail
   ): data is SearchedWorksByActor => {
-    return "posterPath" in data;
+    return "contentTitle" in data;
   };
   const isSearchedArtistsByMember = (
     data:
@@ -77,15 +77,8 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
             </span>
             <p
               className={
-                "flex flex-col text-font-info text-[12px] gap-0.5 mt-[8px] mb-[16px]"
+                "h-full flex flex-col text-font-info text-[12px] justify-between mt-[8px]"
               }>
-              <span className={"flex gap-1 items-center"}>
-                <Sort
-                  width={12}
-                  height={12}
-                />
-                <span>{data.genres?.join(", ")}</span>
-              </span>
               <span className={"flex gap-1 items-center"}>
                 <Camera
                   width={12}
@@ -98,11 +91,11 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                     .join(", ")}
                 </span>
               </span>
+              <span
+                className={
+                  "text-[10px] text-font-info"
+                }>{`조회 ${data.viewCount}`}</span>
             </p>
-            <span
-              className={
-                "text-[10px] text-font-info"
-              }>{`조회 ${data.viewCount}`}</span>
           </div>
         </div>
       )}
