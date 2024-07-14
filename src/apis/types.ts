@@ -3,9 +3,20 @@ export type GenreItem = {
   name: string;
 };
 
+export type GenreItemResponse = {
+  mediaType: string;
+  genreId: number;
+  genreName: string;
+};
+
 export type ArtistItem = {
   id: number;
   name: string;
+};
+
+export type ArtistItemResponse = {
+  artistId: number;
+  artistName: string;
 };
 
 export type UserSignupData = {
@@ -30,21 +41,10 @@ export type UserSelfData = {
   socialType: string;
   isRegistered: boolean;
   preferredGenres: {
-    drama: {
-      mediaType: string;
-      genreId: number;
-      genreName: string;
-    }[];
-    movie: {
-      mediaType: string;
-      genreId: number;
-      genreName: string;
-    }[];
+    drama: GenreItemResponse[];
+    movie: GenreItemResponse[];
   };
-  preferredArtists: {
-    artistId: number;
-    artistName: string;
-  }[];
+  preferredArtists: ArtistItemResponse[];
 };
 
 export type SearchedWorksResponse = CommonPageable & {
