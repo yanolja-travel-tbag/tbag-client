@@ -54,25 +54,31 @@ const ProfilePage = () => {
         </div>
         <div className={"flex flex-col pl-[40px]"}>
           <div className={"flex flex-col gap-[10px]"}>
-            <span>드라마</span>
-            {userSelfData?.preferredGenres?.drama?.map((genre) => (
-              <CategoryItem
-                item={genre}
-                key={genre.genreId}
-              />
-            ))}
+            <span className={"text-[14px]"}>드라마</span>
+            <div className={"flex flex-wrap gap-[4px]"}>
+              {userSelfData?.preferredGenres?.drama?.map((genre) => (
+                <CategoryItem
+                  className={"w-fit"}
+                  item={genre}
+                  key={genre.genreId}
+                />
+              ))}
+            </div>
           </div>
           <div className={"flex flex-col gap-[10px] mt-[10px]"}>
-            <span>영화</span>
-            {userSelfData?.preferredGenres?.movie?.map((genre) => (
-              <CategoryItem
-                item={genre}
-                key={genre.genreId}
-              />
-            ))}
+            <span className={"text-[14px]"}>영화</span>
+            <div className={"flex flex-wrap gap-[4px]"}>
+              {userSelfData?.preferredGenres?.movie?.map((genre) => (
+                <CategoryItem
+                  className={"w-fit"}
+                  item={genre}
+                  key={genre.genreId}
+                />
+              ))}
+            </div>
           </div>
           <div className={"flex flex-col gap-[10px] mt-[10px]"}>
-            <span>아티스트</span>
+            <span className={"text-[14px]"}>아티스트</span>
             <div className={"flex flex-wrap gap-[4px]"}>
               {userSelfData?.preferredArtists?.map((artist) => (
                 <CategoryItem
