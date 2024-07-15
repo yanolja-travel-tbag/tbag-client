@@ -7,6 +7,7 @@ import CategoryItem from "@/components/Item/CategoryItem.tsx";
 import { useNavigate } from "react-router-dom";
 import postUserDeactivate from "@/apis/postUserDeactivate.ts";
 import { toast } from "sonner";
+import { ROUTER_PATH } from "@/constants/routerPath.ts";
 
 const ProfilePage = () => {
   const { userId, isRegistered, removeAllAuthInfo } = authStore();
@@ -40,6 +41,7 @@ const ProfilePage = () => {
           width={20}
           height={20}
           className={"cursor-pointer"}
+          onClick={() => toast.info("준비중인 페이지 입니다!")}
         />
       </section>
       <Divider className={"border-4"} />
@@ -50,6 +52,7 @@ const ProfilePage = () => {
             width={20}
             height={20}
             className={"cursor-pointer"}
+            onClick={() => toast.info("준비중인 페이지 입니다!")}
           />
         </div>
         <div className={"flex flex-col pl-[40px]"}>
@@ -94,14 +97,18 @@ const ProfilePage = () => {
       <Divider className={"border-4"} />
       <section
         className={"flex flex-col gap-[24px] pt-[23px] pb-[78px] px-[22px]"}>
-        <div className={"flex justify-between items-center"}>
+        <div
+          className={"flex justify-between items-center cursor-pointer"}
+          onClick={() => navigate(ROUTER_PATH.LANGUAGE)}>
           <span>언어 설정</span>
           <ArrowRight
             width={20}
             height={20}
           />
         </div>
-        <div className={"flex justify-between items-center"}>
+        <div
+          className={"flex justify-between items-center cursor-pointer"}
+          onClick={() => toast.info("준비중인 페이지 입니다!")}>
           <span>자주 묻는 질문 / 고객센터</span>
           <ArrowRight
             width={20}
