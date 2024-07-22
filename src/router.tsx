@@ -54,17 +54,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <BasicBackHeaderLayout headerTitle={"서비스 메뉴"} />,
+    element: <BasicBackHeaderLayout headerTitleKey={"header.title.menus"} />,
     children: [{ path: ROUTER_PATH.MENUS, element: <MenusPage /> }]
   },
   {
     path: "/",
-    element: <BasicBackHeaderLayout headerTitle={"콘텐츠"} />,
+    element: <BasicBackHeaderLayout headerTitleKey={"header.title.contents"} />,
     children: [{ path: ROUTER_PATH.CONTENTS, element: <ContentsPage /> }]
   },
   {
     path: "/",
-    element: <BasicBackHeaderLayout headerTitle={"콘텐츠 상세"} />,
+    element: (
+      <BasicBackHeaderLayout headerTitleKey={"header.title.contentDetail"} />
+    ),
     children: [
       {
         path: ROUTER_PATH.CONTENTS_DETAIL(":id"),
@@ -74,7 +76,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <BasicBackHeaderLayout headerTitle={"여행 일정"} />,
+    element: <BasicBackHeaderLayout headerTitleKey={"header.title.schedule"} />,
     children: [
       {
         path: ROUTER_PATH.SCHEDULE,
@@ -88,12 +90,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <BasicBackHeaderLayout headerTitle={"히스토리"} />,
+    element: <BasicBackHeaderLayout headerTitleKey={"header.title.history"} />,
     children: [{ path: ROUTER_PATH.HISTORY, element: <HistoryPage /> }]
   },
   {
     path: "/",
-    element: <BasicBackHeaderLayout headerTitle={"프로필"} />,
+    element: <BasicBackHeaderLayout headerTitleKey={"header.title.profile"} />,
     children: [{ path: ROUTER_PATH.PROFILE, element: <ProfilePage /> }]
   }
 ]);
