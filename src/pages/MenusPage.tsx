@@ -13,6 +13,12 @@ import usePrivateNavigate from "@/hooks/usePrivateNavigate.ts";
 import NeedLoginDialog from "@/components/Dialog/NeedLoginDialog.tsx";
 import { useI18n } from "@/hooks/useI18n.ts";
 
+const AD_IMAGE_SRCSET = [
+  "assets/ad-sunshine-studio.png",
+  "assets/ad-tbag-1.jpeg",
+  "assets/ad-tbag-2.jpeg"
+];
+
 const MenusPage = () => {
   const { isRegistered } = authStore();
   const navigate = useNavigate();
@@ -139,12 +145,13 @@ const MenusPage = () => {
             }}
             plugins={[Autoplay({ delay: 2000 })]}>
             <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
+              {AD_IMAGE_SRCSET.map((src, index) => (
                 <CarouselItem key={index}>
-                  <div
-                    className={
-                      "w-full h-[90px] bg-background-deep rounded-[8px] text-black flex items-center justify-center"
-                    }>{`광고-${index}`}</div>
+                  <img
+                    src={src}
+                    srcSet={src}
+                    className={"w-full h-[90px] object-cover rounded-[8px]"}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>
