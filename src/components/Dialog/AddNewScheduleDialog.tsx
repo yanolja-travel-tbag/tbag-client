@@ -51,9 +51,9 @@ const AddNewScheduleDialog = ({
     };
     postNewSchedule(scheduleData).then(() => {
       toast.success("새로운 여행일정이 추가되었습니다!");
+      reset();
+      refetchUserSchedule && refetchUserSchedule();
     });
-    reset();
-    refetchUserSchedule && refetchUserSchedule();
   };
   return (
     <AlertDialog>
