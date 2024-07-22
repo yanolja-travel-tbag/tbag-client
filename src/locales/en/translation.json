@@ -13,6 +13,8 @@
   "menus.signin": "Go To Login",
   "menus.signout": "Logout",
   "menus.service.shortcut": "Service Shortcut",
+  "menus.faq": "FAQ",
+  "menus.customerService": "Customer Service",
   "filters.label.all": "All",
   "filters.label.drama": "Drama",
   "filters.label.movie": "Movie",

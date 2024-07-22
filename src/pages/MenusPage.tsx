@@ -158,7 +158,8 @@ const MenusPage = () => {
         {/* 서비스 메뉴 하단 영역  */}
         <div className={"flex flex-col p-[20px] mt-[110px]"}>
           <span className={"text-font-info text-[14px]"}>
-            자주 묻는 질문 ｜ 고객센터
+            <span>{t("menus.faq")}</span> ｜{" "}
+            <span>{t("menus.customerService")}</span>
           </span>
           <div className={"h-0.5 border border-background-deep w-full my-5"} />
           <Carousel

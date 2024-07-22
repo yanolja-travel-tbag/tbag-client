@@ -13,6 +13,8 @@
   "menus.signin": "로그인하러 가기",
   "menus.signout": "로그아웃",
   "menus.service.shortcut": "서비스 바로가기",
+  "menus.faq": "자주 묻는 질문",
+  "menus.customerService": "고객센터",
   "filters.label.all": "전체",
   "filters.label.drama": "드라마",
   "filters.label.movie": "영화",
