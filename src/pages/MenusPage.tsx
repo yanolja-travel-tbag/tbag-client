@@ -1,4 +1,11 @@
-import { Contents, History, Language, Plane, User } from "@/components/icons";
+import {
+  Contents,
+  History,
+  Home,
+  Language,
+  Plane,
+  User
+} from "@/components/icons";
 import {
   Carousel,
   CarouselContent,
@@ -75,61 +82,76 @@ const MenusPage = () => {
         </div>
         {/* 서비스 바로가기 Nav 영역. 컴포넌트 분리 필요 */}
         <div className={"flex flex-col p-[20px]"}>
-          <span className={"mt-[40px] mb-[35px] font-semibold text-[20px]"}>
+          <span className={"mt-[40px] mb-[20px] font-semibold text-[20px]"}>
             {t("menus.service.shortcut")}
           </span>
-          <div className={"flex gap-[22px]"}>
+          <div className={"flex flex-col gap-[15px]"}>
             <div
               className={
                 "h-16 w-[80px] flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
               }
-              onClick={() => navigate("/contents")}>
-              <Contents
+              onClick={() => navigate("/")}>
+              <Home
                 width={38}
                 height={38}
               />
               <span className={"text-main-primary font-semibold mx-4"}>
-                {t(`nav.content`)}
+                {t(`nav.home`)}
               </span>
             </div>
-            <div
-              className={
-                "h-16 w-[74px] flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
-              }
-              onClick={() => privateNavigate("/schedule")}>
-              <Plane
-                width={38}
-                height={38}
-              />
-              <span className={"text-main-primary font-semibold mx-1"}>
-                {t(`nav.schedule`)}
-              </span>
-            </div>
-            <div
-              className={
-                "h-16 w-[78px] flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
-              }
-              onClick={() => privateNavigate("/history")}>
-              <History
-                width={38}
-                height={38}
-              />
-              <span className={"text-main-primary font-semibold mx-2"}>
-                {t(`nav.history`)}
-              </span>
-            </div>
-            <div
-              className={
-                "h-16 w-[74px] flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
-              }
-              onClick={() => privateNavigate("/profile")}>
-              <User
-                width={38}
-                height={38}
-              />
-              <span className={"text-main-primary font-semibold mx-5"}>
-                {t(`nav.profile`)}
-              </span>
+            <div className={"flex gap-[22px]"}>
+              <div
+                className={
+                  "h-16 w-[80px] flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                }
+                onClick={() => navigate("/contents")}>
+                <Contents
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-4"}>
+                  {t(`nav.content`)}
+                </span>
+              </div>
+              <div
+                className={
+                  "h-16 w-[74px] flex flex-col bg-background-main items-center pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                }
+                onClick={() => privateNavigate("/schedule")}>
+                <Plane
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-1"}>
+                  {t(`nav.schedule`)}
+                </span>
+              </div>
+              <div
+                className={
+                  "h-16 w-[78px] flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                }
+                onClick={() => privateNavigate("/history")}>
+                <History
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-2"}>
+                  {t(`nav.history`)}
+                </span>
+              </div>
+              <div
+                className={
+                  "h-16 w-[74px] flex flex-col bg-background-main items-center  pt-[2px] pb-[6px] rounded-[5px] cursor-pointer"
+                }
+                onClick={() => privateNavigate("/profile")}>
+                <User
+                  width={38}
+                  height={38}
+                />
+                <span className={"text-main-primary font-semibold mx-5"}>
+                  {t(`nav.profile`)}
+                </span>
+              </div>
             </div>
           </div>
         </div>

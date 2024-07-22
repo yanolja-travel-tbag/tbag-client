@@ -7,6 +7,7 @@ export { default as Contents } from "./Contents";
 export { default as Edit } from "./Edit";
 export { default as GoogleStart } from "./GoogleStart";
 export { default as History } from "./History";
+export { default as Home } from "./Home";
 export { default as Inbox } from "./Inbox";
 export { default as Instagram } from "./Instagram";
 export { default as KakaoStart } from "./KakaoStart";
