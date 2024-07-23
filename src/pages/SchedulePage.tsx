@@ -61,11 +61,13 @@ const SchedulePage = () => {
               새 여행일정 추가
             </Button>
           }
+          refetchUserSchedule={refetchScheduleDetail}
         />
         <button
           className={
             "w-[32px] h-[32px] bg-main-primary rounded-full flex justify-center items-center shadow-md"
-          }>
+          }
+          onClick={() => toast.info("준비중인 페이지입니다!")}>
           <Inbox
             width={22}
             height={22}
@@ -86,7 +88,7 @@ const SchedulePage = () => {
           className={
             "w-[160px] h-[40px] text-[12px] bg-background-section rounded-[5px] text-center flex flex-col items-center justify-center"
           }>
-          {currentScheduleId && (
+          {currentScheduleId ? (
             <>
               <span>
                 {
@@ -104,6 +106,8 @@ const SchedulePage = () => {
               `}
               </span>
             </>
+          ) : (
+            <span>여행 일정을 선택해주세요!</span>
           )}
         </span>
         <Select onValueChange={(value) => setCurrentScheduleId(value)}>
@@ -139,7 +143,7 @@ const SchedulePage = () => {
           }>
           <span className={"text-[12px] text-main-primary"}>총 소요 시간</span>
           <span className={"text-[12px] text-font-head font-semibold"}>
-            {scheduleDetail?.totalDurationString}
+            {scheduleDetail?.totalDurationString || "-"}
           </span>
         </div>
         <Button
@@ -149,7 +153,8 @@ const SchedulePage = () => {
               return;
             }
             handleOptimizeSchedule(Number(currentScheduleId));
-          }}>
+          }}
+          disabled={!currentScheduleId}>
           <span className={"flex gap-2 text-white text-[16px]"}>
             <MapPlus
               fill={"#fff"}
