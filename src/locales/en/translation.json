@@ -12,6 +12,7 @@
   "menus.needLogin": "Welcome! Please login!",
   "menus.signin": "Go To Login",
   "menus.signout": "Logout",
+  "menus.welcomeLabel": "Welcome! {{username}}",
   "menus.service.shortcut": "Service Shortcut",
   "menus.faq": "FAQ",
   "menus.customerService": "Customer Service",
@@ -33,5 +34,19 @@
   "header.title.profile": "Profile",
   "footer.customerService": "Customer Service",
   "footer.terms": "Terms",
-  "footer.privacy": "Privacy Policy"
+  "footer.privacy": "Privacy Policy",
+  "preview.place.viewCount": "{{count}} Views",
+  "preview.place.button.addSchedule": "Schedule",
+  "preview.content.viewCount": "{{count}} Views",
+  "contents.headings.label.recommended.user": ", K-Contents for you",
+  "contents.headings.label.recommended.public": "Today's Recommended from <span class=\"text-main-primary\">TBAG</span>",
+  "contents.headings.label.findContentsByFilter": "Use <span class=\"text-main-primary\">Filter</span> to find contents",
+  "contents.headings.label.top5dramas": "Top 5 Dramas",
+  "contents.headings.label.top5movies": "Top 5 Movies",
+  "contents.headings.label.top5Idols": "Top 5 Idols",
+  "contents.filter.label.theme": "Theme",
+  "contents.filter.label.genre": "Genre",
+  "contentDetail.headings.label.character": "Character",
+  "contentDetail.headings.label.members": "Members",
+  "contentDetail.headings.label.related": "Related with<br /> <span class=\"text-point-high\">{{title}}</span>"
 }

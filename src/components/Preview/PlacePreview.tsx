@@ -2,6 +2,7 @@ import { Location, MapPlus } from "@/components/icons";
 import { Button } from "@/components/ui/button.tsx";
 import { Place } from "@/apis/types.ts";
 import bottomSheetStore from "@/store/bottomSheetStore.ts";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 interface PlacePreviewProps {
   index: number;
@@ -14,6 +15,7 @@ const PlacePreview = ({ index, place }: PlacePreviewProps) => {
     setPlaceDetailBottomSheetSnapPoint,
     setPlaceDetailId
   } = bottomSheetStore();
+  const t = useI18n();
   return (
     <div className={"w-full h-[90px] flex justify-between items-center"}>
       <div
@@ -52,7 +54,7 @@ const PlacePreview = ({ index, place }: PlacePreviewProps) => {
             </div>
           </div>
           <span className={"text-[10px] text-font-info"}>
-            {`조회수 ${place.viewCount}`}
+            {t("preview.place.viewCount", { count: place.viewCount })}
           </span>
         </div>
       </div>
@@ -69,7 +71,7 @@ const PlacePreview = ({ index, place }: PlacePreviewProps) => {
             height={20}
           />
           <span className={"text-[12px] font-semibold text-main-primary"}>
-            일정 담기
+            {t("preview.place.button.addSchedule")}
           </span>
         </div>
       </Button>

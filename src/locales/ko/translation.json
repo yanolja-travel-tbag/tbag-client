@@ -12,6 +12,7 @@
   "menus.needLogin": "환영합니다! 로그인 후 시작하세요.",
   "menus.signin": "로그인하러 가기",
   "menus.signout": "로그아웃",
+  "menus.welcomeLabel": "환영합니다! {{ username }} 님",
   "menus.service.shortcut": "서비스 바로가기",
   "menus.faq": "자주 묻는 질문",
   "menus.customerService": "고객센터",
@@ -33,5 +34,18 @@
   "header.title.profile": "프로필",
   "footer.customerService": "고객센터",
   "footer.terms": "이용약관",
-  "footer.privacy": "개인정보처리방침"
+  "footer.privacy": "개인정보처리방침",
+  "preview.place.viewCount": "조회수 {{count}}",
+  "preview.place.button.addSchedule": "일정 담기",
+  "contents.headings.label.recommended.user": "님 추천 K 콘텐츠",
+  "contents.headings.label.recommended.public": "<span class=\"text-main-primary\">TBAG</span>이 추천하는 오늘의 콘텐츠",
+  "contents.headings.label.findContentsByFilter": "<span class=\"text-main-primary\">필터</span>로 콘텐츠를 찾아보세요",
+  "contents.headings.label.top5dramas": "드라마 Top 5",
+  "contents.headings.label.top5movies": "영화 Top 5",
+  "contents.headings.label.top5Idols": "아이돌 Top 5",
+  "contents.filter.label.theme": "테마 선택",
+  "contents.filter.label.genre": "장르 선택",
+  "contentDetail.headings.label.character": "등장인물",
+  "contentDetail.headings.label.members": "멤버",
+  "contentDetail.headings.label.related": "<span class=\"text-point-high\">{{title}}</span> 관련 장소"
 }

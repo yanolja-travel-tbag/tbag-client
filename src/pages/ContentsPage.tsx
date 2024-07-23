@@ -32,6 +32,7 @@ import { useEffect, useRef } from "react";
 import getFilteredContents from "@/apis/getFilteredContents.ts";
 import Divider from "@/components/Divider/Divider.tsx";
 import { useNavigate } from "react-router-dom";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const ContentsFilterSchema = z.object({
   mediaType: z.string(),
@@ -43,6 +44,7 @@ type ContentsFilter = z.infer<typeof ContentsFilterSchema>;
 const ContentsPage = () => {
   const { isRegistered } = authStore();
   const navigate = useNavigate();
+  const t = useI18n();
   const { data: selfData } = useQuery({
     queryKey: ["selfData"],
     queryFn: getUserSelfData,
@@ -125,13 +127,13 @@ const ContentsPage = () => {
               <span className={"text-main-primary"}>
                 {selfData?.nickname ?? "..."}
               </span>
-              님 추천 K 콘텐츠
+              {t("contents.headings.label.recommended.user")}
             </span>
           ) : (
-            <span>
-              <span className={"text-main-primary"}>{"TBAG"}</span>이 추천하는
-              오늘의 콘텐츠
-            </span>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: t("contents.headings.label.recommended.public")
+              }}></span>
           )}
         </p>
         <Carousel>
@@ -171,10 +173,12 @@ const ContentsPage = () => {
       </section>
       <Divider />
       <section className={"flex flex-col px-[20px] mt-[30px]"}>
-        <p className={"text-[20px] font-semibold mb-[22px]"}>
-          <span className={"text-main-primary"}>{"필터"}</span>로 콘텐츠를
-          찾아보세요
-        </p>
+        <p
+          className={"text-[20px] font-semibold mb-[22px]"}
+          dangerouslySetInnerHTML={{
+            __html: t("contents.headings.label.findContentsByFilter")
+          }}
+        />
         <div className={"flex gap-[14px] mb-[40px]"}>
           <Form {...filterForm}>
             <form
@@ -196,7 +200,9 @@ const ContentsPage = () => {
                       <FormControl>
                         <SelectTrigger
                           className={"w-[100px] h-[30px] rounded-[8px]"}>
-                          <SelectValue placeholder={"테마 선택"} />
+                          <SelectValue
+                            placeholder={t("contents.filter.label.theme")}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -225,7 +231,9 @@ const ContentsPage = () => {
                       <FormControl>
                         <SelectTrigger
                           className={"w-[100px] h-[30px] rounded-[8px]"}>
-                          <SelectValue placeholder={"장르 선택"} />
+                          <SelectValue
+                            placeholder={t("contents.filter.label.genre")}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -269,7 +277,7 @@ const ContentsPage = () => {
           <>
             <div className={"flex flex-col gap-[12px] mb-[20px]"}>
               <span className={"text-[12px] font-semibold"}>
-                {"드라마 TOP 5"}
+                {t("contents.headings.label.top5dramas")}
               </span>
               <Carousel>
                 <CarouselContent>
@@ -293,7 +301,7 @@ const ContentsPage = () => {
             </div>
             <div className={"flex flex-col gap-[12px] mb-[20px]"}>
               <span className={"text-[12px] font-semibold"}>
-                {"아이돌 TOP 5"}
+                {t("contents.headings.label.top5Idols")}
               </span>
               <Carousel>
                 <CarouselContent>
@@ -317,7 +325,7 @@ const ContentsPage = () => {
             </div>
             <div className={"flex flex-col gap-[12px] mb-[20px]"}>
               <span className={"text-[12px] font-semibold"}>
-                {"영화 TOP 5"}
+                {t("contents.headings.label.top5movies")}
               </span>
               <Carousel>
                 <CarouselContent>

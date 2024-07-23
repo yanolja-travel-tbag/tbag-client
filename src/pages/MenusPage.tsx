@@ -46,7 +46,7 @@ const MenusPage = () => {
           }>
           {isRegistered && (
             <div className={"flex flex-col gap-10"}>
-              <h1>{`환영합니다! ${data?.nickname} 님`}</h1>
+              <h1>{t("menus.welcomeLabel", { username: data?.nickname })}</h1>
               <h2 className={"flex"}>
                 <a
                   className={"cursor-pointer"}

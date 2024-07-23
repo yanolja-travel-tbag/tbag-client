@@ -14,11 +14,13 @@ import Divider from "@/components/Divider/Divider.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { getRelatedPlaces } from "@/apis/getRelatedPlaces.ts";
 import ContentPreview from "@/components/Preview/ContentPreview.tsx";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const ContentsDetailPage = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const { id } = useParams();
+  const t = useI18n();
 
   const { data: contentDetail } = useQuery({
     queryKey: ["contentDetail", id],
@@ -101,7 +103,7 @@ const ContentsDetailPage = () => {
               className={
                 "text-[16px] text-font-info ml-[10px] mt-[25px] mb-[16px]"
               }>
-              {"등장 인물"}
+              {t("contentDetail.headings.label.character")}
             </h2>
           </div>
         ) : (
@@ -109,7 +111,7 @@ const ContentsDetailPage = () => {
             className={
               "text-[16px] text-font-info ml-[10px] mt-[25px] mb-[16px]"
             }>
-            {"그룹 멤버"}
+            {t("contentDetail.headings.label.members")}
           </h2>
         )}
 
@@ -140,12 +142,15 @@ const ContentsDetailPage = () => {
       </section>
       <Divider className={"my-[25px] border-2"} />
       <section className={"h-fit flex flex-col px-[20px]"}>
-        <h3 className={"text-[20px] font-semibold ml-[10px]"}>
-          <span className={"text-point-high"}>
-            {contentDetail?.title}&nbsp;
-          </span>
-          <span className={"text-font-body"}>{"관련 장소"}</span>
-        </h3>
+        <h3
+          className={"text-[20px] text-font-body font-semibold ml-[10px]"}
+          dangerouslySetInnerHTML={{
+            __html: t("contentDetail.headings.label.related", {
+              title: contentDetail?.title
+            })
+          }}
+        />
+
         <div className={"flex flex-col mb-[40px]"}>
           {relatedPlaces?.content.map((place, index) => (
             <ContentPreview
