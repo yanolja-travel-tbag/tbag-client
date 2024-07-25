@@ -56,5 +56,10 @@
   "profile.shortcut.label.language": "Language",
   "profile.shortcut.label.faqWithCS": "FAQ / Customer Service",
   "profile.shortcut.label.logout": "Logout",
-  "profile.shortcut.label.leave": "Leave Service"
+  "profile.shortcut.label.leave": "Leave Service",
+  "schedule.button.label.addNewSchedule": "Add New Schedule",
+  "schedule.button.label.optimize": "Optimize Path",
+  "schedule.callout.label.pleaseSelectSchedule": "Select schedule!",
+  "schedule.dropdown.label.selectSchedule": "Select Schedule",
+  "schedule.label.totalTime": "Total Time"
 }

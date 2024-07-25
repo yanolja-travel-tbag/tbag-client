@@ -18,6 +18,7 @@ import getScheduleDetail from "@/apis/getScheduleDetail.ts";
 import WayPointPreview from "@/components/Preview/WayPointPreview.tsx";
 import { toast } from "sonner";
 import getOptimizedSchedule from "@/apis/getOptimizedSchedule.ts";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const TEMP_MARKER_DATA = [...MARKER_ARTIST, ...MARKER_DRAMA, ...MARKER_MOVIE];
 
@@ -28,6 +29,7 @@ const SchedulePage = () => {
   const [currentWayPointId, setCurrentWayPointId] = useState<string | null>(
     null
   );
+  const t = useI18n();
   const { data: userSchedule } = useQuery({
     queryKey: ["userSchedule"],
     queryFn: getSchedule
@@ -56,9 +58,9 @@ const SchedulePage = () => {
             <Button
               variant={"ghost"}
               className={
-                "w-[120px] h-[34px] border border-main-secondary rounded-[40px] shadow-md"
+                "w-fit h-[34px] border border-main-secondary rounded-[40px] shadow-md"
               }>
-              새 여행일정 추가
+              {t("schedule.button.label.addNewSchedule")}
             </Button>
           }
           refetchUserSchedule={refetchScheduleDetail}
@@ -107,12 +109,14 @@ const SchedulePage = () => {
               </span>
             </>
           ) : (
-            <span>여행 일정을 선택해주세요!</span>
+            <span>{t("schedule.callout.label.pleaseSelectSchedule")}</span>
           )}
         </span>
         <Select onValueChange={(value) => setCurrentScheduleId(value)}>
           <SelectTrigger className={"w-[135px] h-[31px]"}>
-            <SelectValue placeholder={"일정 선택"} />
+            <SelectValue
+              placeholder={t("schedule.dropdown.label.selectSchedule")}
+            />
           </SelectTrigger>
           <SelectContent>
             {userSchedule?.map((schedule) => (
@@ -141,7 +145,9 @@ const SchedulePage = () => {
           className={
             "flex justify-center items-center gap-2 h-[33px] border border-main-primary rounded-[40px] px-[24px] py-[8px]"
           }>
-          <span className={"text-[12px] text-main-primary"}>총 소요 시간</span>
+          <span className={"text-[12px] text-main-primary"}>
+            {t("schedule.label.totalTime")}
+          </span>
           <span className={"text-[12px] text-font-head font-semibold"}>
             {scheduleDetail?.totalDurationString || "-"}
           </span>
@@ -161,7 +167,7 @@ const SchedulePage = () => {
               width={20}
               height={20}
             />
-            여행 경로 최적화
+            {t("schedule.button.label.optimize")}
           </span>
         </Button>
       </div>

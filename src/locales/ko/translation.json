@@ -55,5 +55,10 @@
   "profile.shortcut.label.language": "언어 설정",
   "profile.shortcut.label.faqWithCS": "자주 묻는 질문 / 고객센터",
   "profile.shortcut.label.logout": "로그아웃",
-  "profile.shortcut.label.leave": "회원탈퇴"
+  "profile.shortcut.label.leave": "회원탈퇴",
+  "schedule.button.label.addNewSchedule": "새 여행일정 추가",
+  "schedule.button.label.optimize": "여행 경로 최적화",
+  "schedule.callout.label.pleaseSelectSchedule": "여행 일정을 선택해주세요!",
+  "schedule.dropdown.label.selectSchedule": "일정 선택",
+  "schedule.label.totalTime": "총 소요 시간"
 }

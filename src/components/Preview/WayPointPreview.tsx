@@ -96,7 +96,7 @@ const WayPointPreview = ({
     return (
       <div
         className={
-          "w-[300px] h-[70px] rounded-[15px] p-[16px] cursor-pointer bg-background-deep"
+          "w-[300px] h-fit rounded-[15px] p-[16px] cursor-pointer bg-background-deep"
         }
         {...props}>
         <span className={"text-[14px] font-semibold text-font-head"}>
