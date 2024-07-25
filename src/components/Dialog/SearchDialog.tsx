@@ -20,7 +20,7 @@ const SEARCH_FILTER_LABEL = {
 const PLACEHOLDER_LABEL = {
   place: "지역 또는 장소명을 검색하세요.",
   work: "드라마 또는 영화 작품명을 검색하세요.",
-  star: "연예인 또는 아이돌 그룹명을 검색하세요."
+  star: "연예인 또는 아이돌 멤버명을 검색하세요."
 };
 
 interface SearchDialogProps {
