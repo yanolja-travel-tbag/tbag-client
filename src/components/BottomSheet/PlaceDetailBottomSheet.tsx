@@ -33,6 +33,7 @@ import ContentPreview from "@/components/Preview/ContentPreview.tsx";
 import usePrivateCallback from "@/hooks/usePrivateCallback.ts";
 import dialogStore from "@/store/dialogStore.ts";
 import AddToScheduleDialog from "@/components/Dialog/AddToScheduleDialog.tsx";
+import { toast } from "sonner";
 
 const PlaceDetailBottomSheet = () => {
   const {
@@ -204,7 +205,8 @@ const PlaceDetailBottomSheet = () => {
                         variant={"secondary"}
                         className={
                           "w-[56px] h-[56px] rounded-[10px] bg-background-deep"
-                        }>
+                        }
+                        onClick={() => toast.info("준비중인 기능입니다!")}>
                         <Share
                           width={20}
                           height={20}
@@ -220,7 +222,10 @@ const PlaceDetailBottomSheet = () => {
                     className={
                       "py-[30px] px-[23px] bg-background-main rounded-[8px]"
                     }>
-                    <span className={"text-[14px] text-font-info"}>
+                    <span
+                      className={
+                        "text-[14px] text-font-info whitespace-pre-wrap"
+                      }>
                       {placeDetail.placeDescription}
                     </span>
                   </p>
