@@ -122,7 +122,7 @@ const SearchResultPage = () => {
           <h2 className={"text-[16px] text-font-info px-[10px]"}>
             <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
             &nbsp;
-            <span>{`(${searchedWorks?.pages[0]?.totalElements || searchedPlaces?.pages[0]?.totalElements || "..."})`}</span>
+            <span>{`(${String(searchedWorks?.pages[0]?.totalElements) || String(searchedPlaces?.pages[0]?.totalElements) || "..."})`}</span>
           </h2>
         ) : (
           // 연예인: 검색 결과 범주가 두 개
@@ -134,7 +134,7 @@ const SearchResultPage = () => {
               )}>
               <span onClick={() => setViewType("works")}>{"필모그래피"}</span>
               &nbsp;
-              <span>{`(${searchedWorksByActor?.pages[0]?.totalElements || "..."})`}</span>
+              <span>{`(${String(searchedWorksByActor?.pages[0]?.totalElements) || "..."})`}</span>
             </h2>
             <h2
               className={clsx(
@@ -143,7 +143,7 @@ const SearchResultPage = () => {
               )}>
               <span onClick={() => setViewType("artists")}>{"아이돌"}</span>
               &nbsp;
-              <span>{`(${searchedArtists?.pages[0]?.totalElements || "..."})`}</span>
+              <span>{`(${String(searchedArtists?.pages[0]?.totalElements) || "..."})`}</span>
             </h2>
           </div>
         )}
