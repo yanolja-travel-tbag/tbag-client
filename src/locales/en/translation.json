@@ -48,5 +48,13 @@
   "contents.filter.label.genre": "Genre",
   "contentDetail.headings.label.character": "Character",
   "contentDetail.headings.label.members": "Members",
-  "contentDetail.headings.label.related": "Related with<br /> <span class=\"text-point-high\">{{title}}</span>"
+  "contentDetail.headings.label.related": "Related with<br /> <span class=\"text-point-high\">{{title}}</span>",
+  "profile.headings.label.preference": "Preference",
+  "profile.headings.label.preference.movie": "Movie",
+  "profile.headings.label.preference.drama": "Drama",
+  "profile.headings.label.preference.artist": "Artist",
+  "profile.shortcut.label.language": "Language",
+  "profile.shortcut.label.faqWithCS": "FAQ / Customer Service",
+  "profile.shortcut.label.logout": "Logout",
+  "profile.shortcut.label.leave": "Leave Service"
 }

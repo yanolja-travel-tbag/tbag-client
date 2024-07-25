@@ -47,5 +47,13 @@
   "contents.filter.label.genre": "장르 선택",
   "contentDetail.headings.label.character": "등장인물",
   "contentDetail.headings.label.members": "멤버",
-  "contentDetail.headings.label.related": "<span class=\"text-point-high\">{{title}}</span> 관련 장소"
+  "contentDetail.headings.label.related": "<span class=\"text-point-high\">{{title}}</span> 관련 장소",
+  "profile.headings.label.preference": "관심있는 카테고리",
+  "profile.headings.label.preference.movie": "영화",
+  "profile.headings.label.preference.drama": "드라마",
+  "profile.headings.label.preference.artist": "아티스트",
+  "profile.shortcut.label.language": "언어 설정",
+  "profile.shortcut.label.faqWithCS": "자주 묻는 질문 / 고객센터",
+  "profile.shortcut.label.logout": "로그아웃",
+  "profile.shortcut.label.leave": "회원탈퇴"
 }

@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 import postUserDeactivate from "@/apis/postUserDeactivate.ts";
 import { toast } from "sonner";
 import { ROUTER_PATH } from "@/constants/routerPath.ts";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const ProfilePage = () => {
   const { userId, isRegistered, removeAllAuthInfo } = authStore();
   const navigate = useNavigate();
+  const t = useI18n();
   const { data: userSelfData } = useQuery({
     queryKey: ["selfData"],
     queryFn: getUserSelfData,
@@ -47,7 +49,9 @@ const ProfilePage = () => {
       <Divider className={"border-4"} />
       <section className={"flex flex-col py-[25px]"}>
         <div className={"flex justify-between items-center px-[22px]"}>
-          <span className={"text-[16px]"}>관심있는 카테고리</span>
+          <span className={"text-[16px]"}>
+            {t("profile.headings.label.preference")}
+          </span>
           <Edit
             width={20}
             height={20}
@@ -57,7 +61,9 @@ const ProfilePage = () => {
         </div>
         <div className={"flex flex-col pl-[40px]"}>
           <div className={"flex flex-col gap-[10px]"}>
-            <span className={"text-[14px]"}>드라마</span>
+            <span className={"text-[14px]"}>
+              {t("profile.headings.label.preference.drama")}
+            </span>
             <div className={"flex flex-wrap gap-[4px]"}>
               {userSelfData?.preferredGenres?.drama?.map((genre) => (
                 <CategoryItem
@@ -69,7 +75,9 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className={"flex flex-col gap-[10px] mt-[10px]"}>
-            <span className={"text-[14px]"}>영화</span>
+            <span className={"text-[14px]"}>
+              {t("profile.headings.label.preference.movie")}
+            </span>
             <div className={"flex flex-wrap gap-[4px]"}>
               {userSelfData?.preferredGenres?.movie?.map((genre) => (
                 <CategoryItem
@@ -81,7 +89,9 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className={"flex flex-col gap-[10px] mt-[10px]"}>
-            <span className={"text-[14px]"}>아티스트</span>
+            <span className={"text-[14px]"}>
+              {t("profile.headings.label.preference.artist")}
+            </span>
             <div className={"flex flex-wrap gap-[4px]"}>
               {userSelfData?.preferredArtists?.map((artist) => (
                 <CategoryItem
@@ -100,7 +110,7 @@ const ProfilePage = () => {
         <div
           className={"flex justify-between items-center cursor-pointer"}
           onClick={() => navigate(ROUTER_PATH.LANGUAGE)}>
-          <span>언어 설정</span>
+          <span>{t("profile.shortcut.label.language")}</span>
           <ArrowRight
             width={20}
             height={20}
@@ -109,7 +119,7 @@ const ProfilePage = () => {
         <div
           className={"flex justify-between items-center cursor-pointer"}
           onClick={() => toast.info("준비중인 페이지 입니다!")}>
-          <span>자주 묻는 질문 / 고객센터</span>
+          <span>{t("profile.shortcut.label.faqWithCS")}</span>
           <ArrowRight
             width={20}
             height={20}
@@ -119,7 +129,7 @@ const ProfilePage = () => {
           <span
             className={"text-[14px] text-font-info underline cursor-pointer"}
             onClick={() => navigate("/signout")}>
-            로그아웃
+            {t("profile.shortcut.label.logout")}
           </span>
           <span
             className={"text-[14px] text-font-info/40 underline cursor-pointer"}
@@ -137,7 +147,7 @@ const ProfilePage = () => {
                   toast.error("회원탈퇴에 실패했습니다.");
                 });
             }}>
-            회원탈퇴
+            {t("profile.shortcut.label.leave")}
           </span>
         </div>
       </section>
