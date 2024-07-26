@@ -1,7 +1,7 @@
 import { Marker, NaverMap, useNavermaps } from "react-naver-maps";
 import { MarkerData, MarkerDataDetail } from "@/apis/types.ts";
 import { useDebouncedCallback } from "@/hooks/useDebouncedCallback.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getMarkerDetail from "@/apis/getMarkerDetail.ts";
 import bottomSheetStore from "@/store/bottomSheetStore.ts";
 
@@ -62,6 +62,10 @@ const MainPageMap = ({ map, setMap, markerData }: NaverMapsProps) => {
       pixelOffset: new maps.Point(0, -42),
       maxWidth: 200
     });
+
+  useEffect(() => {
+    setMarkers(markerData ?? []);
+  }, [markerData]);
 
   return (
     <NaverMap
