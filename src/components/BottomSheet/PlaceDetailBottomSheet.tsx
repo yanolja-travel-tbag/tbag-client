@@ -34,6 +34,7 @@ import usePrivateCallback from "@/hooks/usePrivateCallback.ts";
 import dialogStore from "@/store/dialogStore.ts";
 import AddToScheduleDialog from "@/components/Dialog/AddToScheduleDialog.tsx";
 import { toast } from "sonner";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const PlaceDetailBottomSheet = () => {
   const {
@@ -46,6 +47,7 @@ const PlaceDetailBottomSheet = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [placeImages, setPlaceImages] = useState<string[]>([]);
+  const t = useI18n();
   const { data: placeDetail, isSuccess: isPlaceDetailSuccess } = useQuery({
     queryKey: ["placeDetail", placeDetailId],
     queryFn: () => getPlaceDetail(placeDetailId!),
@@ -97,15 +99,16 @@ const PlaceDetailBottomSheet = () => {
         <DrawerPortal>
           <DrawerContent
             className={
-              "border-b-none z-20 mx-auto flex flex-col rounded-t-[10px] border border-gray-200 bg-white outline-0 w-[390px] h-full"
+              "border-b-none z-20 mx-auto flex items-center flex-col rounded-t-[10px] border border-gray-200 bg-white outline-0 w-[390px] h-full"
             }
             onInteractOutside={() =>
               setPlaceDetailBottomSheetSnapPoint("126px")
             }
             onOpenAutoFocus={(event) => event.preventDefault()}>
             {placeDetail && (
-              <ScrollArea className={"h-[75%]"}>
-                <section className={"flex flex-col px-[20px] pt-[40px]"}>
+              <ScrollArea className={"h-[75%] w-[390px]"}>
+                <section
+                  className={"flex flex-col px-[20px] pt-[40px] w-[390px]"}>
                   <Carousel
                     opts={{
                       loop: true
@@ -141,10 +144,7 @@ const PlaceDetailBottomSheet = () => {
                       />
                     ))}
                   </div>
-                  <h1
-                    className={
-                      "text-[24px] font-semibold text-font-head truncate"
-                    }>
+                  <h1 className={"text-[24px] font-semibold text-font-head"}>
                     {placeDetail.placeName}
                   </h1>
                   <span className={"text-[16px] font-semibold underline"}>
@@ -198,7 +198,7 @@ const PlaceDetailBottomSheet = () => {
                             width={20}
                             height={20}
                           />
-                          일정담기
+                          {t("placeDetail.bottomsheet.button.addSchedule")}
                         </span>
                       </Button>
                       <Button
@@ -220,12 +220,9 @@ const PlaceDetailBottomSheet = () => {
                   <h2 className={"text-[20px] font-semibold"}>{"장소 소개"}</h2>
                   <p
                     className={
-                      "py-[30px] px-[23px] bg-background-main rounded-[8px]"
+                      "py-[30px] px-[23px] bg-background-main rounded-[8px] h-fit"
                     }>
-                    <span
-                      className={
-                        "text-[14px] text-font-info whitespace-pre-wrap"
-                      }>
+                    <span className={"text-[14px] text-font-info"}>
                       {placeDetail.placeDescription}
                     </span>
                   </p>
@@ -275,12 +272,16 @@ const PlaceDetailBottomSheet = () => {
                 <Divider className={"my-[40px] border-2"} />
                 <section className={"h-fit flex flex-col px-[20px]"}>
                   <h3
-                    className={"text-[20px] font-semibold ml-[10px] mb-[20px]"}>
-                    <span className={"text-main-tertiary"}>
-                      {placeDetail?.contentTitle}&nbsp;
-                    </span>
-                    <span className={"text-font-body"}>{"추천 장소"}</span>
-                  </h3>
+                    className={"text-[20px] font-semibold ml-[10px] mb-[20px]"}
+                    dangerouslySetInnerHTML={{
+                      __html: t(
+                        "placeDetail.bottomsheet.headings.label.recommended",
+                        {
+                          title: placeDetail.placeName
+                        }
+                      )
+                    }}
+                  />
                   <div className={"flex flex-col mb-[40px]"}>
                     {recommendedPlaces?.content.map((place, index) => (
                       <ContentPreview
