@@ -65,5 +65,12 @@
   "schedule.dropdown.label.selectSchedule": "Select Schedule",
   "schedule.label.totalTime": "Total Time",
   "history.tab.label.viewedPlaces": "Viewed Places",
-  "history.tab.label.viewedContents": "Viewed Contents"
+  "history.tab.label.viewedContents": "Viewed Contents",
+  "dialog.search.filter.label.place": "Place",
+  "dialog.search.filter.label.work": "Work",
+  "dialog.search.filter.label.artist": "Artist",
+  "dialog.search.placeholder.place": "Search Place or Area",
+  "dialog.search.placeholder.work": "Search Moive or Drama Title",
+  "dialog.search.placeholder.artist": "Search Actor or Idol Member's name",
+  "dialog.search.label.recentSearch": "Recent Search"
 }

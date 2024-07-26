@@ -65,5 +65,12 @@
   "schedule.dropdown.label.selectSchedule": "일정 선택",
   "schedule.label.totalTime": "총 소요 시간",
   "history.tab.label.viewedPlaces": "조회한 여행지",
-  "history.tab.label.viewedContents": "조회한 콘텐츠"
+  "history.tab.label.viewedContents": "조회한 콘텐츠",
+  "dialog.search.filter.label.place": "장소",
+  "dialog.search.filter.label.work": "작품",
+  "dialog.search.filter.label.artist": "연예인",
+  "dialog.search.placeholder.place": "지역 또는 장소명을 검색하세요.",
+  "dialog.search.placeholder.work": "드라마 또는 영화 작품명을 검색하세요.",
+  "dialog.search.placeholder.artist": "연예인 또는 아이돌 멤버명을 검색하세요.",
+  "dialog.search.label.recentSearch": "최근 검색어"
 }

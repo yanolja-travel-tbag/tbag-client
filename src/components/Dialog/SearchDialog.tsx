@@ -10,18 +10,7 @@ import { ReactNode, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { Search, TrashCan } from "@/components/icons";
 import { useNavigate } from "react-router-dom";
-
-const SEARCH_FILTER_LABEL = {
-  place: "장소",
-  work: "작품",
-  star: "연예인"
-};
-
-const PLACEHOLDER_LABEL = {
-  place: "지역 또는 장소명을 검색하세요.",
-  work: "드라마 또는 영화 작품명을 검색하세요.",
-  star: "연예인 또는 아이돌 멤버명을 검색하세요."
-};
+import { useI18n } from "@/hooks/useI18n.ts";
 
 interface SearchDialogProps {
   trigger: ReactNode;
@@ -32,12 +21,25 @@ const SearchDialog = ({ trigger }: SearchDialogProps) => {
     useState<keyof typeof SEARCH_FILTER_LABEL>("place");
   const searchBarRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const t = useI18n();
 
   const handleSearch = () => {
     navigate({
       pathname: "/search/" + searchFilter,
       search: `?keyword=${searchBarRef.current?.value}`
     });
+  };
+
+  const SEARCH_FILTER_LABEL = {
+    place: t("dialog.search.filter.label.place"),
+    work: t("dialog.search.filter.label.work"),
+    star: t("dialog.search.filter.label.artist")
+  };
+
+  const PLACEHOLDER_LABEL = {
+    place: t("dialog.search.placeholder.place"),
+    work: t("dialog.search.placeholder.work"),
+    star: t("dialog.search.placeholder.artist")
   };
   return (
     <Dialog>
@@ -89,7 +91,7 @@ const SearchDialog = ({ trigger }: SearchDialogProps) => {
           <div
             className={"flex justify-between px-[10px] items-center py-[10px]"}>
             <span className={"text-[12px] text-font-body font-semibold"}>
-              {"최근 검색어"}
+              {t("dialog.search.label.recentSearch")}
             </span>
             <TrashCan
               width={16}
