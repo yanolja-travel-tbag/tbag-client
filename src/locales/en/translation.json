@@ -26,6 +26,8 @@
   "main.bottomsheet.headings.subIntro.2": "Drive course to find the Legend of blue sea\uD83C\uDF0A",
   "main.bottomsheet.headings.subIntro.3": "Vroom\uD83D\uDE97 Catch up NCT LIFE at Luge World",
   "main.bottomsheet.headings.subIntro.4": "On the way 'The Wailing', Recreate a scene\uD83C\uDF41",
+  "placeDetail.bottomsheet.button.addSchedule": "Add to Schedule",
+  "placeDetail.bottomsheet.headings.label.recommended": "Recommended with<br /> <span class=\"text-main-tertiary\">{{title}}</span>",
   "header.title.menus": "Service Menu",
   "header.title.contents": "Contents",
   "header.title.contentDetail": "Content Detail",
@@ -35,9 +37,9 @@
   "footer.customerService": "Customer Service",
   "footer.terms": "Terms",
   "footer.privacy": "Privacy Policy",
+  "preview.content.viewCount": "{{count}} Views",
   "preview.place.viewCount": "{{count}} Views",
   "preview.place.button.addSchedule": "Schedule",
-  "preview.content.viewCount": "{{count}} Views",
   "contents.headings.label.recommended.user": ", K-Contents for you",
   "contents.headings.label.recommended.public": "Today's Recommended from <span class=\"text-main-primary\">TBAG</span>",
   "contents.headings.label.findContentsByFilter": "Use <span class=\"text-main-primary\">Filter</span> to find contents",
@@ -61,5 +63,7 @@
   "schedule.button.label.optimize": "Optimize Path",
   "schedule.callout.label.pleaseSelectSchedule": "Select schedule!",
   "schedule.dropdown.label.selectSchedule": "Select Schedule",
-  "schedule.label.totalTime": "Total Time"
+  "schedule.label.totalTime": "Total Time",
+  "history.tab.label.viewedPlaces": "Viewed Places",
+  "history.tab.label.viewedContents": "Viewed Contents"
 }

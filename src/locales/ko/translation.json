@@ -26,6 +26,8 @@
   "main.bottomsheet.headings.subIntro.2": "푸른 바다 전설을 찾아 헌화로 드라이브코스로\uD83C\uDF0A",
   "main.bottomsheet.headings.subIntro.3": "부릉부릉\uD83D\uDE97 루지월드에서 NCT LIFE 따라잡기",
   "main.bottomsheet.headings.subIntro.4": "‘곡성’ 가는 길, 영화 속 한 장면을 재현해보아요\uD83C\uDF41",
+  "placeDetail.bottomsheet.button.addSchedule": "일정 담기",
+  "placeDetail.bottomsheet.headings.label.recommended": "<span class=\"text-main-tertiary\">{{title}}</span> 추천 장소",
   "header.title.menus": "서비스 메뉴",
   "header.title.contents": "콘텐츠",
   "header.title.contentDetail": "콘텐츠 상세",
@@ -35,6 +37,7 @@
   "footer.customerService": "고객센터",
   "footer.terms": "이용약관",
   "footer.privacy": "개인정보처리방침",
+  "preview.content.viewCount": "조회 {{count}}",
   "preview.place.viewCount": "조회수 {{count}}",
   "preview.place.button.addSchedule": "일정 담기",
   "contents.headings.label.recommended.user": "님 추천 K 콘텐츠",
@@ -60,5 +63,7 @@
   "schedule.button.label.optimize": "여행 경로 최적화",
   "schedule.callout.label.pleaseSelectSchedule": "여행 일정을 선택해주세요!",
   "schedule.dropdown.label.selectSchedule": "일정 선택",
-  "schedule.label.totalTime": "총 소요 시간"
+  "schedule.label.totalTime": "총 소요 시간",
+  "history.tab.label.viewedPlaces": "조회한 여행지",
+  "history.tab.label.viewedContents": "조회한 콘텐츠"
 }

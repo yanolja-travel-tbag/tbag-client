@@ -7,6 +7,7 @@ import {
 } from "@/apis/types.ts";
 import bottomSheetStore from "@/store/bottomSheetStore.ts";
 import { useNavigate } from "react-router-dom";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 interface ContentPreviewProps {
   data:
@@ -55,6 +56,7 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
   };
 
   const navigate = useNavigate();
+  const t = useI18n();
 
   const {
     setIsPlaceDetailBottomSheetOpen,
@@ -93,10 +95,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                     .join(", ")}
                 </span>
               </span>
-              <span
-                className={
-                  "text-[10px] text-font-info"
-                }>{`조회 ${data.viewCount}`}</span>
+              <span className={"text-[10px] text-font-info"}>
+                {t("preview.content.viewCount", { count: data.viewCount })}
+              </span>
             </p>
           </div>
         </div>
@@ -144,10 +145,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                 <span>{data.contentTitle}</span>
               </span>
             </p>
-            <span
-              className={
-                "text-[10px] text-font-info"
-              }>{`조회 ${data.viewCount}`}</span>
+            <span className={"text-[10px] text-font-info"}>
+              {t("preview.content.viewCount", { count: data.viewCount })}
+            </span>
           </div>
         </div>
       )}
@@ -185,10 +185,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                 <span>{data.character}</span>
               </span>
             </p>
-            <span
-              className={
-                "text-[10px] text-font-info"
-              }>{`조회 ${data.viewCount}`}</span>
+            <span className={"text-[10px] text-font-info"}>
+              {t("preview.content.viewCount", { count: data.viewCount })}
+            </span>
           </div>
         </div>
       )}
@@ -226,10 +225,9 @@ const ContentPreview = ({ data }: ContentPreviewProps) => {
                 <span>{data.artistName}</span>
               </span>
             </p>
-            <span
-              className={
-                "text-[10px] text-font-info"
-              }>{`조회 ${data.viewCount}`}</span>
+            <span className={"text-[10px] text-font-info"}>
+              {t("preview.content.viewCount", { count: data.viewCount })}
+            </span>
           </div>
         </div>
       )}

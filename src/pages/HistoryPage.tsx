@@ -6,12 +6,14 @@ import getUserContentHistory from "@/apis/getUserContentHistory.ts";
 import authStore from "@/store/authStore.ts";
 import getUserPlaceHistory from "@/apis/getUserPlaceHistory.ts";
 import ContentPreview from "@/components/Preview/ContentPreview.tsx";
+import { useI18n } from "@/hooks/useI18n.ts";
 
 const HistoryPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<"content" | "place">(
     "content"
   );
   const { userId } = authStore();
+  const t = useI18n();
   const { data: contentHistory } = useQuery({
     queryKey: ["history", "content"],
     queryFn: () => getUserContentHistory(userId!),
@@ -34,7 +36,7 @@ const HistoryPage = () => {
             selectedCategory === "content" && "bg-main-primary/20"
           )}
           onClick={() => setSelectedCategory("content")}>
-          조회한 콘텐츠
+          {t("history.tab.label.viewedContents")}
         </Button>
         <Button
           variant={"ghost"}
@@ -43,7 +45,7 @@ const HistoryPage = () => {
             selectedCategory === "place" && "bg-main-primary/20"
           )}
           onClick={() => setSelectedCategory("place")}>
-          조회한 여행지
+          {t("history.tab.label.viewedPlaces")}
         </Button>
       </div>
       {selectedCategory === "content" && (
