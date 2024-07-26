@@ -9,6 +9,7 @@ import { SEARCH_TYPE_LABEL } from "@/constants";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver.ts";
 import { Fragment, useEffect, useState } from "react";
 import { clsx } from "clsx";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
 
 const SearchQueryMap = {
   place: (keyword: string) => {
@@ -75,29 +76,43 @@ const SearchResultPage = () => {
     threshold: 0.5
   });
 
-  const { data: searchedWorks, fetchNextPage: fetchNextWorks } =
-    useInfiniteQuery({
-      ...SearchQueryMap.work(getSearchKeyword()),
-      enabled: getSearchType() === "work"
-    });
+  const {
+    data: searchedWorks,
+    isFetching: isFetchingSearchedWorks,
+    fetchNextPage: fetchNextWorks
+  } = useInfiniteQuery({
+    ...SearchQueryMap.work(getSearchKeyword()),
+    enabled: getSearchType() === "work"
+  });
 
-  const { data: searchedPlaces, fetchNextPage: fetchNextPlaces } =
-    useInfiniteQuery({
-      ...SearchQueryMap.place(getSearchKeyword()),
-      enabled: getSearchType() === "place"
-    });
+  const {
+    data: searchedPlaces,
+    isFetching: isFetchingSearchedPlaces,
+    fetchNextPage: fetchNextPlaces
+  } = useInfiniteQuery({
+    ...SearchQueryMap.place(getSearchKeyword()),
+    enabled: getSearchType() === "place"
+  });
 
-  const { data: searchedWorksByActor, fetchNextPage: fetchNextWorksByActor } =
-    useInfiniteQuery({
-      ...SearchQueryMap.star(getSearchKeyword()).works,
-      enabled: getSearchType() === "star"
-    });
+  const {
+    data: searchedWorksByActor,
+    isFetching: isFetchingSearchedWorksByActor,
+    fetchNextPage: fetchNextWorksByActor
+  } = useInfiniteQuery({
+    ...SearchQueryMap.star(getSearchKeyword()).works,
+    enabled: getSearchType() === "star",
+    staleTime: 1000 * 10
+  });
 
-  const { data: searchedArtists, fetchNextPage: fetchNextArtists } =
-    useInfiniteQuery({
-      ...SearchQueryMap.star(getSearchKeyword()).artists,
-      enabled: getSearchType() === "star"
-    });
+  const {
+    data: searchedArtists,
+    isFetching: isFetchingSearchedArtists,
+    fetchNextPage: fetchNextArtists
+  } = useInfiniteQuery({
+    ...SearchQueryMap.star(getSearchKeyword()).artists,
+    enabled: getSearchType() === "star",
+    staleTime: 1000 * 10
+  });
 
   useEffect(() => {
     isIntersecting && fetchNextPlaces();
@@ -119,32 +134,52 @@ const SearchResultPage = () => {
       <div className={"flex px-[20px]"}>
         {getSearchType() !== "star" ? (
           // 장소, 작품: 검색 결과 범주가 하나
-          <h2 className={"text-[16px] text-font-info px-[10px]"}>
-            <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
-            &nbsp;
-            <span>{`(${String(searchedWorks?.pages[0]?.totalElements) || String(searchedPlaces?.pages[0]?.totalElements) || "..."})`}</span>
-          </h2>
+          <>
+            {isFetchingSearchedWorks || isFetchingSearchedPlaces ? (
+              <Skeleton className={"w-[80px] h-[25px]"} />
+            ) : (
+              <h2 className={"text-[16px] text-font-info px-[10px]"}>
+                <span>{SEARCH_TYPE_LABEL[getSearchType()]}</span>
+                &nbsp;
+                <span>{`(${searchedWorks?.pages[0]?.totalElements || searchedPlaces?.pages[0]?.totalElements})`}</span>
+              </h2>
+            )}
+          </>
         ) : (
           // 연예인: 검색 결과 범주가 두 개
           <div className={"flex gap-[15px] items-center"}>
-            <h2
-              className={clsx(
-                "text-[16px] px-[10px] font-semibold cursor-pointer",
-                viewType === "works" ? "text-font-head" : "text-font-info"
-              )}>
-              <span onClick={() => setViewType("works")}>{"필모그래피"}</span>
-              &nbsp;
-              <span>{`(${String(searchedWorksByActor?.pages[0]?.totalElements) || "..."})`}</span>
-            </h2>
-            <h2
-              className={clsx(
-                "text-[16px] px-[10px] font-semibold cursor-pointer",
-                viewType === "artists" ? "text-font-head" : "text-font-info"
-              )}>
-              <span onClick={() => setViewType("artists")}>{"아이돌"}</span>
-              &nbsp;
-              <span>{`(${String(searchedArtists?.pages[0]?.totalElements) || "..."})`}</span>
-            </h2>
+            <>
+              {isFetchingSearchedWorksByActor ? (
+                <Skeleton className={"w-[80px] h-[25px]"} />
+              ) : (
+                <h2
+                  className={clsx(
+                    "text-[16px] px-[10px] font-semibold cursor-pointer",
+                    viewType === "works" ? "text-font-head" : "text-font-info"
+                  )}>
+                  <span onClick={() => setViewType("works")}>
+                    {"필모그래피"}
+                  </span>
+                  &nbsp;
+                  <span>{`(${searchedWorksByActor?.pages[0]?.totalElements})`}</span>
+                </h2>
+              )}
+            </>
+            <>
+              {isFetchingSearchedArtists ? (
+                <Skeleton className={"w-[80px] h-[25px]"} />
+              ) : (
+                <h2
+                  className={clsx(
+                    "text-[16px] px-[10px] font-semibold cursor-pointer",
+                    viewType === "artists" ? "text-font-head" : "text-font-info"
+                  )}>
+                  <span onClick={() => setViewType("artists")}>{"아이돌"}</span>
+                  &nbsp;
+                  <span>{`(${String(searchedArtists?.pages[0]?.totalElements) || "..."})`}</span>
+                </h2>
+              )}
+            </>
           </div>
         )}
       </div>
