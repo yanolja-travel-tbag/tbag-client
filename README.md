@@ -33,6 +33,7 @@ TBAG은 한국의 영화, 드라마, 아이돌 등 K-콘텐츠로 불리는 한�
   - 서버 상태 관리: React Query v5
   - 폼 상태 관리 + 유효성 검증: React Hook Form + zod
   - 지도: Naver Maps API
+  - 국제화: react-i18next
   - UI 테스트: Storybook 8
   - 배포: vercel-cli
 - Backend
